@@ -1,52 +1,35 @@
-﻿namespace gameVaultClassLibrary
+﻿using System.Diagnostics;
+
+namespace gameVaultClassLibrary
 {
     public class User
     {
         #region Properties
-        private int _id { get; set; }
-        private string _username { get; set; }
-        private string _name { get; set; }
-        private string _pseudo { get; set; }
+        public int Id { get; set; }
+        public string Username { get; set; }
+        public string Name { get; set; }
+        public string Pseudo { get; set; }
+        public Library UserLibrary { get; set; }
         #endregion
 
-        #region constructor
-        public User()
+        #region Constructor
+        public User(int id = 0, string username = "", string name = "", string pseudo = "")
         {
-            _id = 0;
-            _username = "";
-            _name = "";
-            _pseudo = "";
-        }
+            Id = id;
+            Username = username;
+            Name = name;
+            Pseudo = pseudo;
 
-        public User(int id, string username, string name, string pseudo)
-        {
-            _id = id;
-            _username = username;
-            _name = name;
-            _pseudo = pseudo;
+            //create a library for the user with the user's pseudo
+            string LibraryName = $"Librairie de {Pseudo}";
+            UserLibrary = new Library(LibraryName);  // a user has a library
         }
         #endregion
 
-        #region Getters and Setters
-        public int Id
+        #region Methods
+        public override string ToString()
         {
-            get { return _id; }
-            set { _id = value; }
-        }
-        public string Name
-        {
-            get { return _name; }
-            set { _name = value; }
-        }
-        public string Username
-        {
-            get { return _username; }
-            set { _username = value; }
-        }
-        public string Pseudo
-        {
-            get { return _pseudo; }
-            set { _pseudo = value; }
+            return $"User: {Id} - {Username} - {Name} - {Pseudo}";
         }
         #endregion
     }
