@@ -49,5 +49,25 @@ namespace gameVaultProject
                 this.DragMove();
             }
         }
+
+        private void HomeButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainContentControl.Content = new HomeUserControl();
+        }
+
+        private void FavoritesButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainContentControl.Content = new LibraryUserControl(true);
+        }
+
+        private void LibraryButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainContentControl.Content = new LibraryUserControl(false);
+        }
+
+        private void GameButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainContentControl.Content = new GameUserControl();
+        }
     }
 }
