@@ -6,9 +6,17 @@
              xmlns:local="clr-namespace:gameVaultProject"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <StackPanel Margin="10, 10, 10, 10">
-            <TextBlock x:Name="TitlePinnedGamesTextBlock" Text="Pinned games" Foreground="White" FontSize="24"/>
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="20, 20, 20, 20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" x:Name="TitlePinnedGamesTextBlock" Text="Pinned games" Foreground="White" FontSize="24"/>
+                <Button Grid.Column="1" Width="50" HorizontalAlignment="Right" Margin="0, 0, 20, 0"/>
+            </Grid>
             <WrapPanel x:Name="PinnedGamesWrapPanel">
                 <TextBlock x:Name="InfoPinnedGamesTextBlock" Text="No pinned games" Foreground="White" FontSize="24"/>
             </WrapPanel>
@@ -17,5 +25,5 @@
                 <TextBlock x:Name="InfoAllGamesTextBlock" Text="All games" Foreground="White" FontSize="24"/>
             </WrapPanel>
         </StackPanel>
-    </Grid>
+    </ScrollViewer>
 </UserControl>

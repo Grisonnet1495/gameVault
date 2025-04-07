@@ -6,17 +6,10 @@
              xmlns:local="clr-namespace:gameVaultProject"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <ScrollViewer VerticalScrollBarVisibility="Visible">
-        <!-- Note : Remplacer par un StackPanel ? -->
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel>
             <!-- Game title and main buttons -->
-            <Grid Grid.Row="0" Margin="10, 10, 10, 10">
+            <Grid Margin="10, 10, 10, 10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
@@ -29,16 +22,16 @@
                 <Button Grid.Column="2" Content="M" Width="40" Height="40"/>
             </Grid>
 
-            <Grid Grid.Row="1">
+            <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="3*"/>
                 </Grid.ColumnDefinitions>
 
                 <!-- Game icon -->
-                <Border Grid.Column="0" Background="#163E64" CornerRadius="20" Margin="40, 20, 40, 20">
-                    <Rectangle/>
-                </Border>
+                <Image Source="Ressources/Images/minecraft_game_image.jpg" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="40, 0, 40, 0">
+                    <!-- Mettre des bords ronds ? -->
+                </Image>
 
                 <!-- Game details -->
                 <Grid Grid.Column="1">
@@ -81,6 +74,6 @@
                     </WrapPanel>
                 </Grid>
             </Grid>
-        </Grid>
+        </StackPanel>
     </ScrollViewer>
 </UserControl>

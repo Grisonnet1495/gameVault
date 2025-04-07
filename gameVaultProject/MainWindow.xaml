@@ -26,11 +26,11 @@
                 <ColumnDefinition Width="*" MaxWidth="300"/>
             </Grid.ColumnDefinitions>
 
+            <!-- Title bar -->
             <Ellipse Grid.Row="0" Grid.Column="0" Width="20" Height="20" Fill="#0F9ED5"/>
 
-            <Label Grid.Row="0" Grid.Column="1" Content=" gameVault" Foreground="White" FontSize="20" VerticalAlignment="Center"/>
+            <Label x:Name="TitleBarLabel" MouseDown="TitleBar_MouseDown" Grid.Row="0" Grid.Column="1" Content=" gameVault" Foreground="White" FontSize="20" VerticalAlignment="Center"/>
 
-            <!-- Title bar -->
             <Grid x:Name="TitleBarGrid" Grid.Column="3">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -58,8 +58,12 @@
                 </Grid.RowDefinitions>
 
                 <StackPanel Grid.Row="1">
-                    <Button x:Name="HomeButton" Content="H" Click="HomeButton_Click" Style="{StaticResource MenuButtonStyle}"/>
-                    <Button x:Name="FavoriteButton" Click="FavoritesButton_Click" Content="F" Style="{StaticResource MenuButtonStyle}"/>
+                    <Button x:Name="HomeButton" Click="HomeButton_Click" Style="{StaticResource MenuButtonStyle}">
+                        <Image Source="Ressources/Icons/home_icon.png" Width="25" Height="25"/>
+                    </Button>
+                    <Button x:Name="FavoriteButton" Click="FavoritesButton_Click" Style="{StaticResource MenuButtonStyle}">
+                        <Image Source="Ressources/Icons/favorites_icon.png" Width="25" Height="25"/>
+                    </Button>
                     <Button x:Name="LibraryButton" Click="LibraryButton_Click" Content="L" Style="{StaticResource MenuButtonStyle}"/>
                 </StackPanel>
                 <Rectangle Grid.Row="2" Height="1" Fill="#595959" Margin="10, 10, 10, 10" VerticalAlignment="Top"/>
@@ -68,7 +72,9 @@
                 </StackPanel>
                 <Rectangle Grid.Row="4" Height="1" Fill="#595959" Margin="10, 10, 10, 10" VerticalAlignment="Top"/>
                 <Button Grid.Row="5" Content="+" FontSize="20" Foreground="#A6A6A6" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource AddButtonStyle}"/>
-                <Button Grid.Row="7" Content="S" Foreground="#A6A6A6" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource AddButtonStyle}"/>
+                <Button Grid.Row="7" Foreground="#A6A6A6" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource AddButtonStyle}">
+                    <Image Source="Ressources/Icons/settings_icon.png" Width="25" Height="25"/>
+                </Button>
             </Grid>
 
             <!-- Content -->
