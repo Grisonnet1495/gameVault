@@ -5,8 +5,122 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:gameVaultProject"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow"
+        Width="800"
+        Height="450"
+        MinWidth="900"
+        MinHeight="450"
+        Background="#262626"
+        WindowStyle="None">
 
+    <Grid>
+        <Grid x:Name="MainGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="*" MaxWidth="300"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Title bar -->
+            <Ellipse Grid.Row="0" Grid.Column="0" Width="20" Height="20" Fill="#0F9ED5"/>
+
+            <Label x:Name="TitleBarLabel" MouseDown="TitleBar_MouseDown" Grid.Row="0" Grid.Column="1" Content=" gameVault" Foreground="White" FontSize="20" VerticalAlignment="Center"/>
+
+            <Grid x:Name="TitleBarGrid" Grid.Column="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="1" Content="–" Click="MinimizeButton_Click" Style="{StaticResource TitleButtonStyle}"/>
+                <Button Grid.Column="2" Content="▢" Click="MaximizeButton_Click" Style="{StaticResource TitleButtonStyle}"/>
+                <Button Grid.Column="3" Content="✕" Click="CloseButton_Click" Style="{StaticResource CloseButtonStyle}"/>
+            </Grid>
+
+            <!-- Menu -->
+            <Grid x:Name="MenuGrid" Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="1">
+                    <Button x:Name="HomeButton" Click="HomeButton_Click" Style="{StaticResource MenuButtonStyle}">
+                        <Image Source="Ressources/Icons/home_icon.png" Width="25" Height="25"/>
+                    </Button>
+                    <Button x:Name="FavoriteButton" Click="FavoritesButton_Click" Style="{StaticResource MenuButtonStyle}">
+                        <Image Source="Ressources/Icons/favorites_icon.png" Width="25" Height="25"/>
+                    </Button>
+                    <Button x:Name="LibraryButton" Click="LibraryButton_Click" Content="L" Style="{StaticResource MenuButtonStyle}"/>
+                </StackPanel>
+                <Rectangle Grid.Row="2" Height="1" Fill="#595959" Margin="10, 10, 10, 10" VerticalAlignment="Top"/>
+                <StackPanel Grid.Row="3">
+                    <Button Content="G" Style="{StaticResource MenuButtonStyle}" Click="GameButton_Click"/>
+                </StackPanel>
+                <Rectangle Grid.Row="4" Height="1" Fill="#595959" Margin="10, 10, 10, 10" VerticalAlignment="Top"/>
+                <Button Grid.Row="5" Content="+" FontSize="20" Foreground="#A6A6A6" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource AddButtonStyle}"/>
+                <Button Grid.Row="7" Foreground="#A6A6A6" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource AddButtonStyle}">
+                    <Image Source="Ressources/Icons/settings_icon.png" Width="25" Height="25"/>
+                </Button>
+            </Grid>
+
+            <!-- Content -->
+            <Border Grid.Row="1" Grid.Column="1" Background="#1D1D1D" CornerRadius="20, 0, 0, 0" BorderBrush="#404040" BorderThickness="1, 1, 0, 0">
+                <ContentControl x:Name="MainContentControl"/>
+            </Border>
+
+            <Grid Grid.Row="1" Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Viewbox Grid.Row="0">
+                    <StackPanel VerticalAlignment="Center">
+                        <Viewbox Margin="10, 0, 10, 0" MaxWidth="200">
+                            <Label Content="Total hours played" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Viewbox>
+                        <Viewbox Margin="50, 0, 50, 0" MaxWidth="100">
+                                <Label Content="0 hours" Padding="0, -10, 0, -10" Foreground="#BFBFBF" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Viewbox>
+                            <Viewbox Margin="40, 0, 40, 0" MaxWidth="90">
+                                <Label Content="0 minutes" Padding="0, -10, 0, -10" Foreground="#BFBFBF" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Viewbox>
+                        <Viewbox Margin="40, 0, 40, 0" MaxWidth="90">
+                            <Label Content="0 seconds" Padding="0, -10, 0, -10" Foreground="#BFBFBF" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Viewbox>
+                    </StackPanel>
+                </Viewbox>
+
+                <Viewbox Grid.Row="1" >
+                    <StackPanel VerticalAlignment="Center">
+                        <Viewbox Margin="40, 0, 40, 10" MaxWidth="100">
+                            <Label Content="Best game" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Viewbox>
+                        <Viewbox Grid.Row="3" Margin="40, 0, 40, 10" MaxWidth="100">
+                            <Button/>
+                        </Viewbox>
+                        <Viewbox Margin="70, 0, 70, 0" MaxWidth="100">
+                            <Label Content="0 hours" Padding="0" Foreground="#BFBFBF" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Viewbox>
+                        <Viewbox Margin="20, 0, 20, 0" MaxWidth="130">
+                            <Label Content="0 times this week" Padding="0" Foreground="#BFBFBF" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Viewbox>
+                    </StackPanel>
+                </Viewbox>
+            </Grid>
+        </Grid>
     </Grid>
 </Window>

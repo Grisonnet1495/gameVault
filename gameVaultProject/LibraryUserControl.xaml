@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="gameVaultProject.LibraryUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:gameVaultProject"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="20, 20, 20, 20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" x:Name="TitlePinnedGamesTextBlock" Text="Pinned games" Foreground="White" FontSize="24"/>
+                <Button Grid.Column="1" Width="50" HorizontalAlignment="Right" Margin="0, 0, 20, 0"/>
+            </Grid>
+            <WrapPanel x:Name="PinnedGamesWrapPanel">
+                <TextBlock x:Name="InfoPinnedGamesTextBlock" Text="No pinned games" Foreground="White" FontSize="24"/>
+            </WrapPanel>
+            <TextBlock x:Name="TitleAllGamesTextBlock" Text="All games" Foreground="White" FontSize="24"/>
+            <WrapPanel x:Name="AllGamesWrapPanel">
+                <TextBlock x:Name="InfoAllGamesTextBlock" Text="All games" Foreground="White" FontSize="24"/>
+            </WrapPanel>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
