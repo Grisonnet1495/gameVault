@@ -13,16 +13,21 @@ namespace gameVaultClassLibrary
         #endregion
 
         #region Constructor
-        public User(int id = 0, string username = "", string name = "", string pseudo = "")
+        public User()
+        {
+            Id = 0;
+            Username = "";
+            Name = "";
+            Pseudo = "";
+            UserLibrary = new Library();
+        }
+        public User(int id, string username, string name, string pseudo)
         {
             Id = id;
             Username = username;
             Name = name;
             Pseudo = pseudo;
-
-            //create a library for the user with the user's pseudo
-            string LibraryName = $"Librairie de {Pseudo}";
-            UserLibrary = new Library(LibraryName);  // a user has a library
+            UserLibrary = new Library();
         }
         #endregion
 
@@ -32,5 +37,5 @@ namespace gameVaultClassLibrary
             return $"User: {Id} - {Username} - {Name} - {Pseudo}";
         }
         #endregion
-    }
+    } 
 }
