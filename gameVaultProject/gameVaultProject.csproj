@@ -9,29 +9,60 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Ressources\Icons\delete_game_icon.png" />
+    <None Remove="Ressources\Icons\edit_game_icon.png" />
+    <None Remove="Ressources\Icons\export_game_icon.png" />
     <None Remove="Ressources\Icons\favorites_icon.png" />
     <None Remove="Ressources\Icons\home_icon.png" />
+    <None Remove="Ressources\Icons\library_icon.png" />
     <None Remove="Ressources\Icons\settings_icon.png" />
     <None Remove="Ressources\Icons\sort_icon.png" />
+    <None Remove="Ressources\Images\default_game_image.png" />
     <None Remove="Ressources\Images\minecraft_game_image.jpg" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\gameVaultClassLibrary\gameVaultClassLibrary.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Ressources\Icons\delete_game_icon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Ressources\Icons\edit_game_icon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Ressources\Icons\export_game_icon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Ressources\Icons\favorites_icon.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Ressources\Icons\home_icon.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Ressources\Icons\launch_game_icon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Ressources\Icons\library_icon.png" />
     <Resource Include="Ressources\Icons\settings_icon.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Ressources\Icons\sort_icon.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Ressources\Images\default_game_image.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Ressources\Images\minecraft_game_image.jpg">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="FavoritesUserControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>

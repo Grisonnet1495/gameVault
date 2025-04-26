@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.13.35919.96
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gameVaultProject", "gameVaultProject\gameVaultProject.csproj", "{A728D45A-60F2-48D9-9918-99F044F8E7B4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{52C52C39-62C4-4086-872E-7FDB7CF0E91F} = {52C52C39-62C4-4086-872E-7FDB7CF0E91F}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gameVaultClassLibrary", "gameVaultClassLibrary\gameVaultClassLibrary.csproj", "{52C52C39-62C4-4086-872E-7FDB7CF0E91F}"
 EndProject

@@ -12,27 +12,22 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using gameVaultClassLibrary;
 
 namespace gameVaultProject
 {
     /// <summary>
     /// Logique d'interaction pour LibraryUserControl.xaml
     /// </summary>
-    public partial class LibraryUserControl : UserControl
+    public partial class FavoritesUserControl : UserControl
     {
-        private List<Game> library;
-
-        public LibraryUserControl(Library gamesLibrary)
+        public FavoritesUserControl()
         {
             InitializeComponent();
 
-            //library = gamesLibrary.getGames();
-
-            InitializeGamePanels();
+            InitializeFavoritesPanels();
         }
 
-        public void InitializeGamePanels()
+        public void InitializeFavoritesPanels()
         {
             // Note : To do
         }

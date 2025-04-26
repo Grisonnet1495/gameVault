@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace gameVaultClassLibrary
 {
-    internal class Game
+    public class Game
     {
     }
 }

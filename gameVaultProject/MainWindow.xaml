@@ -58,22 +58,24 @@
                 </Grid.RowDefinitions>
 
                 <StackPanel Grid.Row="1">
-                    <Button x:Name="HomeButton" Click="HomeButton_Click" Style="{StaticResource MenuButtonStyle}">
-                        <Image Source="Ressources/Icons/home_icon.png" Width="25" Height="25"/>
+                    <Button x:Name="HomeButton" Click="HomeButton_Click" Style="{StaticResource MenuButtonStyle}" Cursor="Hand">
+                        <Image Source="Ressources/Icons/home_icon.png" Width="25" Height="25" Cursor="Hand"/>
                     </Button>
-                    <Button x:Name="FavoriteButton" Click="FavoritesButton_Click" Style="{StaticResource MenuButtonStyle}">
-                        <Image Source="Ressources/Icons/favorites_icon.png" Width="25" Height="25"/>
+                    <Button x:Name="FavoriteButton" Click="FavoritesButton_Click" Style="{StaticResource MenuButtonStyle}" Cursor="Hand">
+                        <Image Source="Ressources/Icons/favorites_icon.png" Width="25" Height="25" Cursor="Hand"/>
                     </Button>
-                    <Button x:Name="LibraryButton" Click="LibraryButton_Click" Content="L" Style="{StaticResource MenuButtonStyle}"/>
+                    <Button x:Name="LibraryButton" Click="LibraryButton_Click" Style="{StaticResource MenuButtonStyle}" Cursor="Hand">
+                        <Image Source="Ressources/Icons/library_icon.png" Width="25" Height="25" Cursor="Hand"/>
+                    </Button>
                 </StackPanel>
                 <Rectangle Grid.Row="2" Height="1" Fill="#595959" Margin="10, 10, 10, 10" VerticalAlignment="Top"/>
                 <StackPanel Grid.Row="3">
-                    <Button Content="G" Style="{StaticResource MenuButtonStyle}" Click="GameButton_Click"/>
+                    <Button Content="G" Style="{StaticResource MenuButtonStyle}" Click="GameButton_Click" Cursor="Hand"/>
                 </StackPanel>
                 <Rectangle Grid.Row="4" Height="1" Fill="#595959" Margin="10, 10, 10, 10" VerticalAlignment="Top"/>
-                <Button Grid.Row="5" Content="+" FontSize="20" Foreground="#A6A6A6" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource AddButtonStyle}"/>
-                <Button Grid.Row="7" Foreground="#A6A6A6" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource AddButtonStyle}">
-                    <Image Source="Ressources/Icons/settings_icon.png" Width="25" Height="25"/>
+                <Button Grid.Row="5" Content="+" FontSize="20" Foreground="#A6A6A6" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource AddButtonStyle}" Cursor="Hand"/>
+                <Button Grid.Row="7" Foreground="#A6A6A6" HorizontalAlignment="Center" VerticalAlignment="Center" Click="SettingsButton_Click" Style="{StaticResource AddButtonStyle}" Cursor="Hand">
+                    <Image Source="Ressources/Icons/settings_icon.png" Height="25" Cursor="Hand"/>
                 </Button>
             </Grid>
 

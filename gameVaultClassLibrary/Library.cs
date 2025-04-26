@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace gameVaultClassLibrary
 {
-    internal class Library
+    public class Library
     {
         #region Properties
         public string LibraryName { get; set; }
