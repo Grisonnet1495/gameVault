@@ -10,31 +10,28 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using gameVaultClassLibrary;
 
 namespace gameVaultProject
 {
     /// <summary>
-    /// Logique d'interaction pour LibraryUserControl.xaml
+    /// Logique d'interaction pour Settings.xaml
     /// </summary>
-    public partial class LibraryUserControl : UserControl
+    public partial class Settings : Window
     {
-        private List<Game> library;
-
-        public LibraryUserControl(Library gamesLibrary)
+        public Settings()
         {
             InitializeComponent();
-
-            //library = gamesLibrary.getGames();
-
-            InitializeGamePanels();
         }
 
-        public void InitializeGamePanels()
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            // Note : To do
+            this.DialogResult = true;
+        }
+
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = false;
         }
     }
 }

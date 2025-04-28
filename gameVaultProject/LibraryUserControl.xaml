@@ -7,22 +7,22 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <StackPanel Margin="20, 20, 20, 20">
+        <StackPanel Margin="40, 40, 40, 40">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Column="0" x:Name="TitlePinnedGamesTextBlock" Text="Pinned games" Foreground="White" FontSize="24"/>
-                <Button Grid.Column="1" Width="50" HorizontalAlignment="Right" Margin="0, 0, 20, 0"/>
+                <TextBlock Grid.Column="0" x:Name="AllGamesTextBlock" Text="All games" Foreground="White" FontSize="24"/>
+                <Button Grid.Column="1" x:Name="SortButton" Width="90" Height="40" Background="#3A3A3A" HorizontalAlignment="Right" Margin="0, 0, 10, 0" Style="{StaticResource SortButtonStyle}">
+                    <Image Source="Ressources/Icons/sort_icon.png" Width="90" Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Button>
+                <Label Grid.Column="2" x:Name="SortDescriptionLabel" Content="By name" Foreground="#A6A6A6" FontSize="14" HorizontalAlignment="Right" VerticalAlignment="Center"/>
             </Grid>
-            <WrapPanel x:Name="PinnedGamesWrapPanel">
-                <TextBlock x:Name="InfoPinnedGamesTextBlock" Text="No pinned games" Foreground="White" FontSize="24"/>
-            </WrapPanel>
-            <TextBlock x:Name="TitleAllGamesTextBlock" Text="All games" Foreground="White" FontSize="24"/>
-            <WrapPanel x:Name="AllGamesWrapPanel">
-                <TextBlock x:Name="InfoAllGamesTextBlock" Text="All games" Foreground="White" FontSize="24"/>
+            <WrapPanel x:Name="AllGamesWrapPanel" Margin="0, 20, 0, 20">
+                <TextBlock x:Name="InfoAllGamesTextBlock" Text="No games" Foreground="White" FontSize="16"/>
             </WrapPanel>
         </StackPanel>
     </ScrollViewer>

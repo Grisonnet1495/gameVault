@@ -23,6 +23,15 @@ namespace gameVaultProject
         public HomeUserControl()
         {
             InitializeComponent();
+
+            InitializeHomePanel();
+        }
+
+        public void InitializeHomePanel()
+        {
+            // Get the 3 most recent games
+            // Create and add a GameCardUserControl for each game
+            // Create and add a GameCardUserControl to redirect to the game library
         }
     }
 }

@@ -7,21 +7,29 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <StackPanel>
+        <StackPanel Margin="40, 20, 20, 20">
             <!-- Game title and main buttons -->
             <Grid Margin="10, 10, 10, 10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-
-                <Label Grid.Column="0" Content="Game title" FontSize="24" Foreground="White" Margin="20, 0, 0, 0" VerticalAlignment="Center"/>
-                <Button Grid.Column="1" Content="P" Width="60" Height="40" Margin="10, 0, 10, 0"/>
-                <Button Grid.Column="2" Content="M" Width="40" Height="40"/>
+                <TextBlock Grid.Column="0" Text="Game title" FontSize="28" Foreground="White" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                <Button Grid.Column="1" Width="100" Height="50" Margin="10, 0, 10, 0" Style="{StaticResource LaunchGameButtonStyle}">
+                    <Image Source="Ressources/Icons/launch_game_icon.png" Width="100" Height="48" Margin="0, 2, 0, 0" Cursor="Hand"/>
+                </Button>
+                <Button Grid.Column="2" Width="50" Height="50" Margin="10, 0, 10, 0" Style="{StaticResource ExportGameButtonStyle}" Click="ExportGameButton_Click">
+                    <Image Source="Ressources/Icons/export_game_icon.png" Height="28" Cursor="Hand"/>
+                </Button>
+                <Button Grid.Column="3" Width="50" Height="50" Margin="10, 0, 10, 0" Style="{StaticResource DeleteGameButtonStyle}" Click="DeleteGamesButton_Click">
+                    <Image Source="Ressources/Icons/delete_game_icon.png" Height="24" Cursor="Hand"/>
+                </Button>
             </Grid>
-
+            
+            <!-- Game image and general game information -->
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>
@@ -29,24 +37,18 @@
                 </Grid.ColumnDefinitions>
 
                 <!-- Game icon -->
-                <Image Source="Ressources/Images/minecraft_game_image.jpg" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="40, 0, 40, 0">
+                <Image Grid.Column="0" Source="Ressources/Images/minecraft_game_image.jpg" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 0, 20, 0">
                     <!-- Mettre des bords ronds ? -->
                 </Image>
 
                 <!-- Game details -->
-                <Grid Grid.Column="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-
-                    <StackPanel Grid.Row="0" Margin="0, 10, 0, 10">
-                        <Label Content="Type :" FontSize="18" Foreground="White"/>
-                        <Label Content="Unknown type" FontSize="14" Foreground="White"/>
+                <StackPanel Grid.Column="1">
+                    <StackPanel Margin="0, 10, 0, 10">
+                        <Label Content="Type :" FontSize="20" Foreground="White"/>
+                        <Label Content="Unknown type" FontSize="16" Foreground="White"/>
                     </StackPanel>
 
-                    <Grid Grid.Row="1" Margin="0, 10, 0, 10">
+                    <Grid Margin="0, 10, 0, 10">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
@@ -59,21 +61,29 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <Label Grid.Row="0" Grid.Column="0" Content="Solo" FontSize="14" Foreground="White"/>
-                        <CheckBox Grid.Row="0" Grid.Column="1" Width="20" Height="20"/>
-                        <Label Grid.Row="1" Grid.Column="0" Content="Multiplayer" FontSize="14" Foreground="White"/>
-                        <CheckBox Grid.Row="1" Grid.Column="1" Width="20" Height="20"/>
-                        <Label Grid.Row="2" Grid.Column="0" Content="Coop" FontSize="14" Foreground="White"/>
-                        <CheckBox Grid.Row="2" Grid.Column="1" Width="20" Height="20"/>
-                        <Label Grid.Row="3" Grid.Column="0" Content="Compatible with controllers" FontSize="14" Foreground="White"/>
-                        <CheckBox Grid.Row="3" Grid.Column="1" Width="20" Height="20"/>
+                        <Label Grid.Row="0" Grid.Column="0" Content="Solo" FontSize="16" Foreground="White"/>
+                        <CheckBox Grid.Row="0" Grid.Column="1" Width="20" Height="20" Cursor="Hand"/>
+                        <Label Grid.Row="1" Grid.Column="0" Content="Multiplayer" FontSize="16" Foreground="White"/>
+                        <CheckBox Grid.Row="1" Grid.Column="1" Width="20" Height="20" Cursor="Hand"/>
+                        <Label Grid.Row="2" Grid.Column="0" Content="Coop" FontSize="16" Foreground="White"/>
+                        <CheckBox Grid.Row="2" Grid.Column="1" Width="20" Height="20" Cursor="Hand"/>
+                        <Label Grid.Row="3" Grid.Column="0" Content="Compatible with controllers" FontSize="16" Foreground="White"/>
+                        <CheckBox Grid.Row="3" Grid.Column="1" Width="20" Height="20" Cursor="Hand"/>
                     </Grid>
 
-                    <WrapPanel Grid.Row="2" Margin="0, 10, 0, 10">
-                        <Label Content="Compatible with :   Windows, MacOS, Linux" Foreground="White"/>
-                    </WrapPanel>
-                </Grid>
+                    <TextBlock Margin="0, 10, 0, 10" Text="Compatible with :   Windows, MacOS, Linux" Foreground="White" FontSize="16" TextWrapping="Wrap"/>
+                    <TextBlock Margin="0, 10, 0, 10" Foreground="White" FontSize="16" TextWrapping="Wrap" Cursor="Hand">
+                        Store :
+                        <Hyperlink NavigateUri="https://www.google.com" RequestNavigate="Hyperlink_RequestNavigate">
+                            https://www.google.com
+                        </Hyperlink>
+                    </TextBlock>
+                </StackPanel>
             </Grid>
+            
+            <!-- Game description -->
+            <Label Content="Description" FontSize="20" Foreground="White"/>
+            <TextBlock Text="Game description" FontSize="16" Foreground="White" Margin="5, 5, 0, 0"/>
         </StackPanel>
     </ScrollViewer>
 </UserControl>

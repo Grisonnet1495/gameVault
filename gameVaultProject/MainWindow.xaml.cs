@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using gameVaultClassLibrary;
 
 namespace gameVaultProject
 {
@@ -18,56 +19,92 @@ namespace gameVaultProject
     /// </summary>
     public partial class MainWindow : Window
     {
+        #region Constructor
         public MainWindow()
         {
             InitializeComponent();
+
+            showHome();
+        }
+        #endregion
+
+        #region Show user control methods
+        public void showHome()
+        {
+            MainContentControl.Content = new HomeUserControl();
         }
 
-        // Minimiser la fenêtre
+        public void showFavorites()
+        {
+            MainContentControl.Content = new FavoritesUserControl();
+        }
+
+        public void showLibrary()
+        {
+            MainContentControl.Content = new LibraryUserControl(new Library());
+        }
+
+        public void showGame()
+        {
+            MainContentControl.Content = new GameUserControl();
+        }
+        #endregion
+
+        #region Window actions methods
+        // Minimize the window
         private void MinimizeButton_Click(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
         }
 
-        // Maximiser/restaurer la fenêtre
+        // Maximize or restore the window
         private void MaximizeButton_Click(object sender, RoutedEventArgs e)
         {
             WindowState = (WindowState == WindowState.Maximized) ? WindowState.Normal : WindowState.Maximized;
         }
 
-        // Fermer la fenêtre
+        // Close the window
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
 
-        // Permet de déplacer la fenêtre en cliquant sur la barre de titre
+        // Drag the window
         private void TitleBar_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
                 this.DragMove();
             }
-        }
+        } 
+        #endregion
 
+        #region Button clicks
         private void HomeButton_Click(object sender, RoutedEventArgs e)
         {
-            MainContentControl.Content = new HomeUserControl();
+            showHome();
         }
 
         private void FavoritesButton_Click(object sender, RoutedEventArgs e)
         {
-            MainContentControl.Content = new LibraryUserControl(true);
+            showFavorites();
         }
 
         private void LibraryButton_Click(object sender, RoutedEventArgs e)
         {
-            MainContentControl.Content = new LibraryUserControl(false);
+            showLibrary();
         }
 
         private void GameButton_Click(object sender, RoutedEventArgs e)
         {
-            MainContentControl.Content = new GameUserControl();
+            showGame();
         }
+
+        private void SettingsButton_Click(object sender, RoutedEventArgs e)
+        {
+            var settingsDialog = new Settings();
+            bool? result = settingsDialog.ShowDialog();
+        } 
+        #endregion
     }
 }
