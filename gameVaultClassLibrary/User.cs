@@ -10,6 +10,8 @@ namespace gameVaultClassLibrary
         public string Name { get; set; }
         public string Pseudo { get; set; }
         public Library UserLibrary { get; set; }
+
+
         #endregion
 
         #region Constructor
