@@ -15,11 +15,10 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Column="0" Text="{Binding Title}" FontSize="28" Foreground="White" VerticalAlignment="Center" TextWrapping="Wrap"/>
-                <Button Grid.Column="1" Width="100" Height="50" Margin="10, 0, 10, 0" Style="{StaticResource LaunchGameButtonStyle}" Click="LaunchGameButton_Click">
+                <Button Grid.Column="1" Width="100" Height="50" Margin="10, 0, 10, 0" Style="{StaticResource MainGameButtonStyle}" Click="LaunchGameButton_Click">
                     <Image Source="Ressources/Icons/launch_game_icon.png" Width="100" Height="48" Margin="0, 2, 0, 0" Cursor="Hand"/>
                 </Button>
                 <Button Grid.Column="2" Width="50" Height="50" Margin="10, 0, 10, 0" Style="{StaticResource OtherGameButtonStyle}" Click="EditGameButton_Click">
@@ -27,9 +26,6 @@
                 </Button>
                 <Button Grid.Column="3" Width="50" Height="50" Margin="10, 0, 10, 0" Style="{StaticResource OtherGameButtonStyle}" Click="ExportGameButton_Click">
                     <Image Source="Ressources/Icons/export_game_icon.png" Height="28" Cursor="Hand"/>
-                </Button>
-                <Button Grid.Column="4" Width="50" Height="50" Margin="10, 0, 10, 0" Style="{StaticResource DeleteGameButtonStyle}" Click="DeleteGamesButton_Click">
-                    <Image Source="Ressources/Icons/delete_game_icon.png" Height="24" Cursor="Hand"/>
                 </Button>
             </Grid>
             
@@ -67,13 +63,13 @@
                         </Grid.ColumnDefinitions>
 
                         <Label Grid.Row="0" Grid.Column="0" Content="Solo" FontSize="16" Foreground="White"/>
-                        <CheckBox Grid.Row="0" Grid.Column="1" Width="20" Height="20" Cursor="Hand" IsChecked="{Binding IsSolo}" IsEnabled="false"/>
+                        <CheckBox Grid.Row="0" Grid.Column="1" Width="20" Height="20" Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding IsSolo}" IsEnabled="false"/>
                         <Label Grid.Row="1" Grid.Column="0" Content="Multiplayer" FontSize="16" Foreground="White"/>
-                        <CheckBox Grid.Row="1" Grid.Column="1" Width="20" Height="20" Cursor="Hand" IsChecked="{Binding IsMultiplayer}" IsEnabled="false"/>
+                        <CheckBox Grid.Row="1" Grid.Column="1" Width="20" Height="20" Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding IsMultiplayer}" IsEnabled="false"/>
                         <Label Grid.Row="2" Grid.Column="0" Content="Coop" FontSize="16" Foreground="White"/>
-                        <CheckBox Grid.Row="2" Grid.Column="1" Width="20" Height="20" Cursor="Hand" IsChecked="{Binding IsCoop}" IsEnabled="false"/>
+                        <CheckBox Grid.Row="2" Grid.Column="1" Width="20" Height="20" Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding IsCoop}" IsEnabled="false"/>
                         <Label Grid.Row="3" Grid.Column="0" Content="Compatible with controllers" FontSize="16" Foreground="White"/>
-                        <CheckBox Grid.Row="3" Grid.Column="1" Width="20" Height="20" Cursor="Hand" IsChecked="{Binding IsControllerCompatible}" IsEnabled="false"/>
+                        <CheckBox Grid.Row="3" Grid.Column="1" Width="20" Height="20" Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding IsControllerCompatible}" IsEnabled="false"/>
                     </Grid>
                     <TextBlock Margin="5, 10, 5, 10" Foreground="White" FontSize="16" TextWrapping="Wrap" Cursor="Hand">
                         <Run Text="Compatible with :   "/>

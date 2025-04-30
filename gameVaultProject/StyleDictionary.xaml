@@ -81,8 +81,8 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    <!-- Add button -->
-    <Style x:Key="AddButtonStyle" TargetType="Button">
+    <!-- Secondary menu button -->
+    <Style x:Key="SecondaryMenuButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Margin" Value="0, 5, 0, 5"/>
         <Setter Property="Template">
@@ -109,9 +109,13 @@
         </Style.Triggers>
     </Style>
     <!-- Launch game button -->
-    <Style x:Key="LaunchGameButtonStyle" TargetType="Button">
+    <Style x:Key="MainGameButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="#163E64"/>
         <Setter Property="Margin" Value="0, 5, 0, 5"/>
+        <Setter Property="Foreground" Value="#00B0F0"/>
+        <Setter Property="FontSize" Value="22"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -268,6 +272,19 @@
         <Setter Property="BorderBrush" Value="#404040"/>
         <Setter Property="CornerRadius" Value="10"/>
         <Setter Property="BorderThickness" Value="2"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#363636"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="EditGameTextBoxStyle" TargetType="TextBox">
+        <Setter Property="Background" Value="#262626"/>
+        <Setter Property="BorderBrush" Value="#404040"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="5"/>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="#363636"/>

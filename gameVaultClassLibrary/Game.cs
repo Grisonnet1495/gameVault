@@ -10,20 +10,22 @@ namespace gameVaultClassLibrary
     public class Game
     {
         #region Properties
-        public int Id { get; set; }
+        public int Id { get; set; } // Id is correctly settled when the game is added to the library
         public string Title { get; set; }
-        public String Genre { get; set; }
+        public string Genre { get; set; }
         public bool IsSolo { get; set; }
         public bool IsMultiplayer { get; set; }
         public bool IsCoop { get; set; }
         public bool IsControllerCompatible { get; set; }
-        public String CompatiblePlatforms { get; set; }
-        public String StoreUrl { get; set; }
+        public string CompatiblePlatforms { get; set; }
+        public string StoreUrl { get; set; }
         public DateTime ReleaseDate { get; set; }
         public bool IsFavorite { get; set; }
-        public String Description { get; set; }
-        public String ImagePath { get; set; }
+        public string Description { get; set; }
+        public string ImagePath { get; set; }
         public DateTime LastPlayedDate { get; set; }
+        public string GamePath { get; set; }
+        public TimeSpan TimePlayed { get; set; }
         #endregion
 
         #region Constructor
@@ -43,11 +45,13 @@ namespace gameVaultClassLibrary
             Description = "No description";
             ImagePath = "Ressources/Images/default_game_image.png";
             LastPlayedDate = DateTime.Now;
+            GamePath = string.Empty;
+            TimePlayed = TimeSpan.Zero;
         }
 
-        public Game(int id, string title, String genre, bool isSolo, bool isMultiplayer, bool isCoop, bool isControllerCompatible, String compatiblePlatorms, string storeUrl, DateTime releaseDate, bool isFavorite, String description, String imagePath, DateTime lastPlayedDate)
+        public Game(string title, string genre, bool isSolo, bool isMultiplayer, bool isCoop, bool isControllerCompatible, string compatiblePlatorms, string storeUrl, DateTime releaseDate, bool isFavorite, string description, string imagePath, DateTime lastPlayedDate, string gamePath)
         {
-            Id = id;
+            Id = 0;
             Title = title;
             Genre = genre;
             IsSolo = isSolo;
@@ -61,6 +65,8 @@ namespace gameVaultClassLibrary
             Description = description;
             ImagePath = imagePath;
             LastPlayedDate = lastPlayedDate;
+            GamePath = gamePath;
+            TimePlayed = TimeSpan.Zero;
         }
         #endregion
 

@@ -23,8 +23,6 @@ namespace gameVaultProject
         #region Properties
         public User currentUser {  get; set; }
 
-        // Note : Temporary
-        public List<Game> Games { get; set; }
         public Game SelectedGame { get; set; } 
         #endregion
 
@@ -38,7 +36,10 @@ namespace gameVaultProject
 
             // Temporary
             currentUser = new User("MyPseudo", "François", "Caprasse", new Library());
-            currentUser.Library.AddGame(new Game(0, "Minecraft", "Sandbox", true, true, false, true, "Windows, MacOS, Linux", "www.minecraft.net", new DateTime(2009, 5, 17), false, "A sandbox game", "Ressources/Images/minecraft_game_image.jpg", DateTime.Now));
+            currentUser.Library.AddGame(new Game("Minecraft", "Sandbox", true, true, false, true, "Windows, MacOS, Linux", "https://www.minecraft.net", new DateTime(2009, 5, 17), true, "A sandbox game", "Ressources/Images/minecraft_game_image.jpg", DateTime.Now, "C:/XboxGames/Minecraft Launcher/Content/Minecraft.exe"));
+            currentUser.Library.AddGame(new Game("Portal 2", "Puzzle", true, true, true, true, "Windows, MacOS, Linux", "https://store.steampowered.com/app/620/Portal_2/", new DateTime(2011, 4, 19), false, "A brilliant physics-based puzzle game", "Ressources/Images/default_game_image.png", DateTime.Now, ""));
+            currentUser.Library.AddGame(new Game("Celeste", "Platformer", true, false, false, true, "Windows, MacOS, Linux, Switch, PS4, Xbox", "http://www.celestegame.com/", new DateTime(2018, 1, 25), true, "A challenging platformer about mental resilience", "Ressources/Images/default_game_image.png", DateTime.Now, ""));
+            currentUser.Library.AddGame(new Game());
             currentUser.Library.AddGame(new Game());
             currentUser.Library.AddGame(new Game());
 
@@ -73,11 +74,18 @@ namespace gameVaultProject
                 var gameUserControl = new GameUserControl(SelectedGame);
                 MainContentControl.Content = gameUserControl;
 
-                gameUserControl.LaunchGameButtonClicked += GameUserControl_LaunchButtonClicked;
-                gameUserControl.EditGameButtonClicked += GameUserControl_EditButtonClicked;
-                gameUserControl.ExportGameButtonClicked += GameUserControl_ExportButtonClicked;
-                gameUserControl.DeleteGameButtonClicked += GameUserControl_DeleteButtonClicked;
+                gameUserControl.EditGameButtonClicked += EditCurrentGame;
+                gameUserControl.ExportGameButtonClicked += ExportCurrentGame;
             }
+        }
+
+        public void showEditGame()
+        {
+            var editGameUserControl = new EditGameUserControl(SelectedGame);
+            MainContentControl.Content = editGameUserControl;
+
+            editGameUserControl.ExitEditButtonClicked += ExitGameEdit;
+            editGameUserControl.DeleteGameButtonClicked += DeleteCurrentGame;
         }
         #endregion
 
@@ -131,6 +139,14 @@ namespace gameVaultProject
             showGame();
         }
 
+        private void NewGameButton_Click(object sender, RoutedEventArgs e)
+        {
+            Game newGame = new Game();
+            currentUser.Library.GameList.Add(newGame);
+            SelectedGame = newGame;
+            showEditGame();
+        }
+
         private void SettingsButton_Click(object sender, RoutedEventArgs e)
         {
             var settingsDialog = new Settings();
@@ -139,33 +155,32 @@ namespace gameVaultProject
         }
         #endregion
 
-        #region GameUserControl button clicks
-        private void GameUserControl_LaunchButtonClicked(object sender, EventArgs e)
+        #region GameUserControl buttons click
+        private void EditCurrentGame(object sender, EventArgs e)
         {
-            MessageBox.Show("Launch game !");
+            showEditGame();
         }
 
-        private void GameUserControl_EditButtonClicked(object sender, EventArgs e)
+        private void ExportCurrentGame(object sender, EventArgs e)
         {
-            MessageBox.Show("Modify game !");
-        }
-
-        private void GameUserControl_ExportButtonClicked(object sender, EventArgs e)
-        {
+            // Note : To do
             MessageBox.Show("Export game !");
         }
 
-        private void GameUserControl_DeleteButtonClicked(object sender, EventArgs e)
-        {
-            MessageBox.Show("Delete game !");
-        } 
+        // Note : Move the launch game method
         #endregion
 
-        #region Other methods
-        private void OnGameSelected(Game selectedGame)
+        #region EditGameUserControl buttons clicks
+        private void ExitGameEdit(object sender, EventArgs e)
         {
-            SelectedGame = selectedGame;
             showGame();
+        }
+
+        private void DeleteCurrentGame(object sender, EventArgs e)
+        {
+            currentUser.Library.RemoveGame(SelectedGame);
+            SelectedGame = currentUser.Library.GameList.First();
+            showHome();
         } 
         #endregion
     }

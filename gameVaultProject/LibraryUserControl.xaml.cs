@@ -21,18 +21,97 @@ namespace gameVaultProject
     /// </summary>
     public partial class LibraryUserControl : UserControl
     {
-        private List<Game> library;
+        public List<Game> AllGames { get; set; }
+        private SortMode currentSortMode = SortMode.ByTitle;
+
+        public enum SortMode
+        {
+            ByTitle,
+            ByLastPlayed,
+            ByFavorites
+        }
 
         public LibraryUserControl(User user)
         {
             InitializeComponent();
 
-            InitializeGamePanels();
+            ExtractRecentGames(user);
+
+            InitializeGamePanel();
+
+            SortAllGamesList();
         }
 
-        public void InitializeGamePanels()
+        public void ExtractRecentGames(User user)
         {
-            // Note : To do
+            AllGames = new List<Game>(user.Library.GameList);
+        }
+
+        public void InitializeGamePanel()
+        {
+            AllGamesWrapPanel.Children.Clear();
+
+            if (AllGames.Count == 0)
+            {
+                TextBlock noFavoritesGamesTextBlock = new TextBlock();
+                noFavoritesGamesTextBlock.Text = "No favorites games";
+                noFavoritesGamesTextBlock.Foreground = new SolidColorBrush(Colors.White);
+                noFavoritesGamesTextBlock.FontSize = 16;
+                noFavoritesGamesTextBlock.Margin = new Thickness(20, 20, 20, 20);
+
+                AllGamesWrapPanel.Children.Add(noFavoritesGamesTextBlock);
+            }
+            else
+            {
+                foreach (var game in AllGames)
+                {
+                    var card = new GameCardUserControl(game);
+                    card.DataContext = game;
+
+                    card.GameClicked += (s, g) =>
+                    {
+                        ((MainWindow)Application.Current.MainWindow).SelectedGame = game;
+                        ((MainWindow)Application.Current.MainWindow).showGame();
+                    };
+
+                    AllGamesWrapPanel.Children.Add(card);
+                }
+            }
+        }
+
+        private void SortButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Passe au mode suivant
+            currentSortMode = currentSortMode switch
+            {
+                SortMode.ByTitle => SortMode.ByLastPlayed,
+                SortMode.ByLastPlayed => SortMode.ByFavorites,
+                SortMode.ByFavorites => SortMode.ByTitle,
+                _ => SortMode.ByTitle
+            };
+
+            SortAllGamesList();
+        }
+
+        private void SortAllGamesList()
+        {
+            switch (currentSortMode)
+            {
+                case SortMode.ByTitle:
+                    SortDescriptionLabel.Content = "By title";
+                    AllGames = AllGames.OrderBy(g => g.Title).ToList();
+                    break;
+                case SortMode.ByLastPlayed:
+                    SortDescriptionLabel.Content = "By last played";
+                    AllGames = AllGames.OrderByDescending(g => g.ReleaseDate).ToList();
+                    break;
+                case SortMode.ByFavorites:
+                    SortDescriptionLabel.Content = "By favorites";
+                    AllGames = AllGames.OrderByDescending(g => g.IsFavorite).ToList();
+                    break;
+            }
+
+            InitializeGamePanel();
         }
     }
 }

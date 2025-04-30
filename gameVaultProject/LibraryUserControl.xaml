@@ -12,14 +12,14 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition/>
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="100"/>
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Column="0" x:Name="AllGamesTextBlock" Text="All games" Foreground="White" FontSize="24"/>
-                <Button Grid.Column="1" x:Name="SortButton" Width="90" Height="40" Background="#3A3A3A" HorizontalAlignment="Right" Margin="0, 0, 10, 0" Style="{StaticResource SortButtonStyle}">
+                <Button Grid.Column="1" x:Name="SortButton" Width="90" Height="40" Background="#3A3A3A" HorizontalAlignment="Right" Margin="0, 0, 10, 0" Style="{StaticResource SortButtonStyle}" Click="SortButton_Click">
                     <Image Source="Ressources/Icons/sort_icon.png" Width="90" Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Button>
-                <Label Grid.Column="2" x:Name="SortDescriptionLabel" Content="By name" Foreground="#A6A6A6" FontSize="14" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                <Label Grid.Column="2" x:Name="SortDescriptionLabel" Content="By title" Foreground="#A6A6A6" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Center"/>
             </Grid>
             <WrapPanel x:Name="AllGamesWrapPanel" Margin="0, 20, 0, 20">
                 <TextBlock x:Name="InfoAllGamesTextBlock" Text="No games" Foreground="White" FontSize="16"/>

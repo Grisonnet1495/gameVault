@@ -22,7 +22,7 @@ namespace gameVaultProject
     public partial class HomeUserControl : UserControl
     {
         public List<Game> RecentGames { get; set; }
-        private const double durationForRecentGame = 1;
+        private const double durationForRecentGame = 10;
 
         public HomeUserControl(User user)
         {
@@ -42,15 +42,18 @@ namespace gameVaultProject
 
             if (currentHour > 7 && currentHour < 12)
             {
-                WelcomeUserTitleLabel.Content = "Goog morning " + user.Pseudo + " !";
+                WelcomeUserTitleLabel.Content = "Good morning " + user.Pseudo + " !";
+                WelcomeUserTextLabel.Content = "Are you ready for a new game ?";
             }
             else if (currentHour < 22)
             {
-                WelcomeUserTitleLabel.Content = "Goog evening " + user.Pseudo + " !";
+                WelcomeUserTitleLabel.Content = "Good evening " + user.Pseudo + " !";
+                WelcomeUserTextLabel.Content = "What would you like to play today ?";
             }
             else
             {
-                WelcomeUserTitleLabel.Content = "Not sleeping " + user.Pseudo + " ?";
+                WelcomeUserTitleLabel.Content = "Aren't you sleeping " + user.Pseudo + " ?";
+                WelcomeUserTextLabel.Content = "Ready for your night gaming session !";
             }
         }
 

@@ -7,11 +7,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <StackPanel Margin="40, 40, 40, 40">
-            <TextBlock x:Name="TitleFavoritesGamesTextBlock" Text="Favorites games" Foreground="White" FontSize="24"/>
-            <WrapPanel x:Name="FavoritesGamesWrapPanel" Margin="0, 20, 0, 20">
-                <TextBlock x:Name="InfoFavoritesGamesTextBlock" Text="No favorites games" Foreground="White" FontSize="16"/>
-            </WrapPanel>
+        <StackPanel>
+            <TextBlock x:Name="TitleFavoritesGamesTextBlock" Text="Favorites games" Foreground="White" FontSize="24" Margin="40, 40, 40, 20"/>
+            <WrapPanel x:Name="FavoritesGamesWrapPanel" Margin="20, 20, 20, 20"/>
         </StackPanel>
     </ScrollViewer>
 </UserControl>

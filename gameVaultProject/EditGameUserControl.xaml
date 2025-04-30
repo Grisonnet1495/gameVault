@@ -4,9 +4,66 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:gameVaultProject"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+             mc:Ignorable="d"
+             d:DesignWidth="800">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" Cursor="">
+        <StackPanel Margin="40, 20, 20, 20">
+            <!-- Game title and main buttons -->
+            <Grid Margin="10, 10, 10, 10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="1" Content="Exit" Width="70" Height="50" Margin="10, 0, 10, 0" Style="{StaticResource MainGameButtonStyle}" Click="ExitEditButton_Click"/>
+                <Button Grid.Column="2" Width="50" Height="50" Margin="10, 0, 10, 0" Style="{StaticResource DeleteGameButtonStyle}" Click="DeleteGameButton_Click">
+                    <Image Source="Ressources/Icons/delete_game_icon.png" Height="24" Cursor="Hand"/>
+                </Button>
+            </Grid>
+
+            <!-- Game details -->
+            <TextBlock Text="Title :" Margin="5, 10, 5, 10" Foreground="White" FontSize="16" TextWrapping="Wrap"/>
+            <TextBox Text="{Binding Title}" Style="{StaticResource EditGameTextBoxStyle}"/>
+
+            <TextBlock Text="Genre :" Margin="5, 10, 5, 10" Foreground="White" FontSize="16" TextWrapping="Wrap"/>
+            <TextBox Text="{Binding Genre}" Style="{StaticResource EditGameTextBoxStyle}"/>
+
+            <Grid Margin="0, 10, 0, 10" Cursor="">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" Content="Solo" FontSize="16" Foreground="White"/>
+                <CheckBox Grid.Row="0" Grid.Column="1" Cursor="Hand" IsChecked="{Binding IsSolo}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Label Grid.Row="1" Grid.Column="0" Content="Multiplayer" FontSize="16" Foreground="White"/>
+                <CheckBox Grid.Row="1" Grid.Column="1" Cursor="Hand" IsChecked="{Binding IsMultiplayer}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Label Grid.Row="2" Grid.Column="0" Content="Coop" FontSize="16" Foreground="White"/>
+                <CheckBox Grid.Row="2" Grid.Column="1" Cursor="Hand" IsChecked="{Binding IsCoop}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Label Grid.Row="3" Grid.Column="0" Content="Compatible with controllers" FontSize="16" Foreground="White"/>
+                <CheckBox Grid.Row="3" Grid.Column="1" Cursor="Hand" IsChecked="{Binding IsControllerCompatible}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Grid>
+
+            <TextBlock Text="Compatible with :" Margin="5, 10, 5, 10" Foreground="White" FontSize="16"/>
+            <TextBox Text="{Binding CompatiblePlatforms}" Style="{StaticResource EditGameTextBoxStyle}"/>
+            <TextBlock Text="Store :" Margin="5, 10, 5, 10" Foreground="White" FontSize="16"/>
+            <TextBox Text="{Binding StoreUrl}" Style="{StaticResource EditGameTextBoxStyle}"/>
+            <TextBlock Text="Release date :" Margin="5, 10, 5, 10" Foreground="White" FontSize="16"/>
+            <WrapPanel>
+                <TextBlock Text="{Binding ReleaseDate, StringFormat='dd/MM/yyyy'}" Margin="5, 10, 20, 10" Foreground="White" FontSize="16" VerticalAlignment="Center"/>
+                <DatePicker x:Name="releaseDatePicker" VerticalAlignment="Center" SelectedDate="{Binding ReleaseDate, Mode=TwoWay}" />
+            </WrapPanel>
+            <TextBlock Text="Description :" Margin="5, 10, 5, 10" Foreground="White" FontSize="16"/>
+            <TextBox Text="{Binding Description}" Style="{StaticResource EditGameTextBoxStyle}" TextWrapping="Wrap"/>
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>
+

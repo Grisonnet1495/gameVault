@@ -21,16 +21,60 @@ namespace gameVaultProject
     /// </summary>
     public partial class FavoritesUserControl : UserControl
     {
+        public List<Game> FavoritesGames { get; set; }
+
         public FavoritesUserControl(User user)
         {
             InitializeComponent();
 
-            InitializeFavoritesPanels();
+            ExtractRecentGames(user);
+
+            InitializeFavoritesPanel();
         }
 
-        public void InitializeFavoritesPanels()
+        public void ExtractRecentGames(User user)
         {
-            // Note : To do
+            FavoritesGames = new List<Game>();
+
+            foreach (Game game in user.Library.GameList)
+            {
+                if (game.IsFavorite)
+                {
+                    FavoritesGames.Add(game);
+                }
+            }
+        }
+
+        public void InitializeFavoritesPanel()
+        {
+            FavoritesGamesWrapPanel.Children.Clear();
+
+            if (FavoritesGames.Count == 0)
+            {
+                TextBlock noFavoritesGamesTextBlock = new TextBlock();
+                noFavoritesGamesTextBlock.Text = "No favorites games";
+                noFavoritesGamesTextBlock.Foreground = new SolidColorBrush(Colors.White);
+                noFavoritesGamesTextBlock.FontSize = 16;
+                noFavoritesGamesTextBlock.Margin = new Thickness(20, 20, 20, 20);
+
+                FavoritesGamesWrapPanel.Children.Add(noFavoritesGamesTextBlock);
+            }
+            else
+            {
+                foreach (var game in FavoritesGames)
+                {
+                    var card = new GameCardUserControl(game);
+                    card.DataContext = game;
+
+                    card.GameClicked += (s, g) =>
+                    {
+                        ((MainWindow)Application.Current.MainWindow).SelectedGame = game;
+                        ((MainWindow)Application.Current.MainWindow).showGame();
+                    };
+
+                    FavoritesGamesWrapPanel.Children.Add(card);
+                }
+            }
         }
     }
 }
