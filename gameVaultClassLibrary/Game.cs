@@ -11,53 +11,82 @@ namespace gameVaultClassLibrary
     {
         #region Properties
         public int Id { get; set; }
-        public string GameName { get; set; }
-        public List<string> GameGenre { get; set; }
-        public List<string> GamePlatorm { get; set; }
-        public List<string> GameMode { get; set; }
-        public bool CompatibleWithController { get; set; }
-        public bool IsFavorite { get; set; }
+        public string Title { get; set; }
+        public String Genre { get; set; }
+        public bool IsSolo { get; set; }
+        public bool IsMultiplayer { get; set; }
+        public bool IsCoop { get; set; }
+        public bool IsControllerCompatible { get; set; }
+        public String CompatiblePlatforms { get; set; }
+        public String StoreUrl { get; set; }
         public DateTime ReleaseDate { get; set; }
+        public bool IsFavorite { get; set; }
+        public String Description { get; set; }
+        public String ImagePath { get; set; }
+        public DateTime LastPlayedDate { get; set; }
         #endregion
 
         #region Constructor
-
         public Game()
         {
             Id = 0;
-            GameName = "";
-            GameGenre = new List<string>();
-            GamePlatorm = new List<string>();
-            GameMode = new List<string>();
-            CompatibleWithController = false;
-            IsFavorite = false;
+            Title = "Unknown title";
+            Genre = "No info";
+            IsSolo = false;
+            IsMultiplayer = false;
+            IsCoop = false;
+            IsControllerCompatible = false;
+            CompatiblePlatforms = "No info";
+            StoreUrl = "No store";
             ReleaseDate = new DateTime();
+            IsFavorite = false;
+            Description = "No description";
+            ImagePath = "Ressources/Images/default_game_image.png";
+            LastPlayedDate = DateTime.Now;
         }
 
-        public Game(int id, string gameName, List<string> gameGenre, List<string> gamePlatorm, List<string> gameMode, bool compatibleWithController, bool isFavorite, DateTime releaseDate)
+        public Game(int id, string title, String genre, bool isSolo, bool isMultiplayer, bool isCoop, bool isControllerCompatible, String compatiblePlatorms, string storeUrl, DateTime releaseDate, bool isFavorite, String description, String imagePath, DateTime lastPlayedDate)
         {
             Id = id;
-            GameName = gameName;
-            GameGenre = gameGenre;
-            GamePlatorm = gamePlatorm;
-            GameMode = gameMode;
-            CompatibleWithController = compatibleWithController;
-            IsFavorite = isFavorite;
+            Title = title;
+            Genre = genre;
+            IsSolo = isSolo;
+            IsMultiplayer = isMultiplayer;
+            IsCoop = isCoop;
+            IsControllerCompatible = isControllerCompatible;
+            CompatiblePlatforms = compatiblePlatorms;
+            StoreUrl = storeUrl;
             ReleaseDate = releaseDate;
+            IsFavorite = isFavorite;
+            Description = description;
+            ImagePath = imagePath;
+            LastPlayedDate = lastPlayedDate;
         }
         #endregion
 
         #region Methods
-        public void SetFavorite()
+        public void toggleFavorite()
         {
             IsFavorite = !IsFavorite;
         }
 
         public override string ToString()
         {
-            return $"Game: {Id} - {GameName} - {ReleaseDate.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture)}";
+            return $"Game: " +
+                "{" +
+                $"{Id}; " +
+                $"{Title}; " +
+                $"{Genre}; " +
+                $"{IsSolo}; " +
+                $"{IsMultiplayer}; " +
+                $"{IsCoop}; " +
+                $"{IsControllerCompatible}; " +
+                $"{CompatiblePlatforms}; " +
+                $"{StoreUrl};" +
+                $"{ReleaseDate.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture)}; " +
+                $"{IsFavorite}" +
+                "}";
         }
         #endregion
-
     }
 }

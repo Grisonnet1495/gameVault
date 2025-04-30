@@ -5,17 +5,18 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:gameVaultProject"
              mc:Ignorable="d"
-             Width="250"
-             Height="300">
-    <Border Background="#262626" CornerRadius="10" BorderBrush="#404040" BorderThickness="2" Cursor="Hand">
+             Width="260"
+             Height="300"
+             MouseLeftButtonUp="UserControl_MouseLeftButtonUp" Cursor="">
+    <Border x:Name="CardBorder" Focusable="True" Cursor="Hand" Margin="20, 20, 20, 20" Style="{StaticResource GameCardStyle}">
         <Grid x:Name="GameCardStackPanel" Margin="20, 20, 20, 20" Cursor="Hand">
             <Grid.RowDefinitions>
                 <RowDefinition Height="5*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            
-            <Image x:Name="GameImage" Grid.Row="0" Source="/Ressources/Images/default_game_image.png" Height="200" VerticalAlignment="Center" Stretch="UniformToFill" Cursor="Hand"/>
-            <TextBlock x:Name="TitleTextBlock" Grid.Row="1" Text="Default title" MaxWidth="200" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="24" Cursor="Hand"/>
+
+            <Image x:Name="GameImage" Grid.Row="0" Source="{Binding ImagePath}" VerticalAlignment="Center" Stretch="UniformToFill" Cursor="Hand"/>
+            <TextBlock x:Name="TitleTextBlock" Grid.Row="1" Text="{Binding Title}" MaxWidth="200" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="24" Cursor="Hand"/>
             <!-- Note : Verify if the title is too long ! -->
         </Grid>
     </Border>

@@ -5,11 +5,10 @@ namespace gameVaultClassLibrary
     public class User
     {
         #region Properties
-        public int Id { get; set; }
-        public string Username { get; set; }
-        public string Name { get; set; }
         public string Pseudo { get; set; }
-        public Library UserLibrary { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public Library Library { get; set; }
 
 
         #endregion
@@ -17,26 +16,24 @@ namespace gameVaultClassLibrary
         #region Constructor
         public User()
         {
-            Id = 0;
-            Username = "";
-            Name = "";
+            FirstName = "";
+            LastName = "";
             Pseudo = "";
-            UserLibrary = new Library();
+            Library = new Library();
         }
-        public User(int id, string username, string name, string pseudo)
+        public User(string pseudo, string firstName, string lastName, Library library)
         {
-            Id = id;
-            Username = username;
-            Name = name;
             Pseudo = pseudo;
-            UserLibrary = new Library();
+            FirstName = firstName;
+            LastName = lastName;
+            Library = library;
         }
         #endregion
 
         #region Methods
         public override string ToString()
         {
-            return $"User: {Id} - {Username} - {Name} - {Pseudo}";
+            return $"User: {Pseudo} - {FirstName} - {LastName}";
         }
         #endregion
     } 

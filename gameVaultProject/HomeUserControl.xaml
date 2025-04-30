@@ -12,7 +12,8 @@
                 <Label x:Name="WelcomeUserTitleLabel" Content="Hi Unknown user !" Foreground="White" HorizontalAlignment="Center" FontSize="28"/>
                 <Label x:Name="WelcomeUserTextLabel" Content="What would you like to play today ?" Foreground="White" HorizontalAlignment="Center" FontSize="18"/>
             </StackPanel>
-            <WrapPanel x:Name="RecentGameWrapPanel" Margin="20"/>
+            <Label x:Name="SelectedGameLabel" Content="Selected games" Foreground="White" FontSize="20" Margin="40, 0, 40, 0"/>
+            <WrapPanel x:Name="SelectedGameWrapPanel" Margin="20, 0, 20, 0"/>
         </StackPanel>
     </ScrollViewer>
 </UserControl>

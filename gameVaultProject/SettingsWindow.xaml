@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Settings"
         Height="530"
-        Width="500"
+        Width="700"
         Background="#262626"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen">
@@ -61,9 +61,9 @@
 
 
             <Label Grid.Row="4" Grid.Column="0" Content="Delete all app data :" VerticalAlignment="Center" Foreground="White"/>
-            <StackPanel Grid.Row="4" Grid.Column="1" VerticalAlignment="Center">
+            <StackPanel Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Cursor="">
                 <Button Content="Delete" Width="100" Height="25" Background="#A80000" Foreground="White" Style="{StaticResource SettingsButtonStyle}"/>
-                <CheckBox Cursor="Hand">
+                <CheckBox Cursor="Hand" HorizontalAlignment="Center">
                     <TextBlock Text="I accept that I cannot recover my data after this" TextWrapping="Wrap" Foreground="White"/>
                 </CheckBox>
             </StackPanel>
