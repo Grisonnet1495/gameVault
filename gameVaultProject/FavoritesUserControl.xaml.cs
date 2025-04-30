@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using gameVaultClassLibrary;
 
 namespace gameVaultProject
 {
@@ -20,7 +21,7 @@ namespace gameVaultProject
     /// </summary>
     public partial class FavoritesUserControl : UserControl
     {
-        public FavoritesUserControl()
+        public FavoritesUserControl(User user)
         {
             InitializeComponent();
 

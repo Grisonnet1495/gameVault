@@ -136,7 +136,7 @@
         </Style.Triggers>
     </Style>
     <!-- Export game button -->
-    <Style x:Key="ExportGameButtonStyle" TargetType="Button">
+    <Style x:Key="OtherGameButtonStyle" TargetType="Button">
         <!-- Note : Not finished -->
         <Setter Property="Background" Value="#262626"/>
         <Setter Property="Margin" Value="0, 5, 0, 5"/>
@@ -260,6 +260,17 @@
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
                 <Setter Property="Background" Value="#A3A3A3"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="GameCardStyle" TargetType="Border">
+        <Setter Property="Background" Value="#262626"/>
+        <Setter Property="BorderBrush" Value="#404040"/>
+        <Setter Property="CornerRadius" Value="10"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#363636"/>
             </Trigger>
         </Style.Triggers>
     </Style>

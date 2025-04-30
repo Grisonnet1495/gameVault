@@ -10,29 +10,29 @@ namespace gameVaultClassLibrary
     {
         #region Properties
         public string LibraryName { get; set; }
-        public List<Game> Games { get; private set; }
+        public List<Game> GameList { get; private set; }
         #endregion
 
-        #region constructor
+        #region Constructor
         public Library()
         {
             LibraryName = "";
-            Games = new List<Game>();
+            GameList = new List<Game>();
         }
 
         public Library(string libraryName)
         {
             LibraryName = libraryName;
-            Games = new List<Game>();
+            GameList = new List<Game>();
         }
         #endregion
 
-        #region methods
+        #region Methods
         public bool AddGame(Game game)
         {
-            if(!Games.Any(g => g.GameName.Equals(game.GameName, StringComparison.OrdinalIgnoreCase)))//check if the game is already in the library with a case insensitive comparison
+            if(!GameList.Any(g => g.Title.Equals(game.Title, StringComparison.OrdinalIgnoreCase)))//check if the game is already in the library with a case insensitive comparison
             {
-                Games.Add(game);
+                GameList.Add(game);
                 return true;
             }
             Console.WriteLine("Game already in the library");
@@ -41,9 +41,9 @@ namespace gameVaultClassLibrary
 
         public bool RemoveGame(Game game)
         {
-            if(Games.FirstOrDefault(g => g.GameName.Equals(game.GameName, StringComparison.OrdinalIgnoreCase)) != null)//check if the game is in the library with a case insensitive comparison
+            if(GameList.FirstOrDefault(g => g.Title.Equals(game.Title, StringComparison.OrdinalIgnoreCase)) != null)//check if the game is in the library with a case insensitive comparison
             {
-                Games.Remove(game);
+                GameList.Remove(game);
                 return true;
             }
             Console.WriteLine("Game not in the library");
@@ -52,18 +52,19 @@ namespace gameVaultClassLibrary
 
         public Game SearchGame(string gameName)
         {
-            Game game = Games.FirstOrDefault(SearchGame => SearchGame.GameName.Equals(gameName, StringComparison.OrdinalIgnoreCase));//search for the game with a case insensitive comparison
+            Game game = GameList.FirstOrDefault(SearchGame => SearchGame.Title.Equals(gameName, StringComparison.OrdinalIgnoreCase));//search for the game with a case insensitive comparison
 
             if(game != null)
             {
                 return game;
             }
+
             return null;
         }
 
         public void SortGame()
         {
-            Games = Games.OrderBy(g => g.GameName).ToList();//sort the games by name
+            GameList = GameList.OrderBy(g => g.Title).ToList();//sort the games by name
         }
         #endregion
     }

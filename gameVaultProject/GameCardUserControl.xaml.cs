@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,26 +17,24 @@ using gameVaultClassLibrary;
 
 namespace gameVaultProject
 {
-    /// <summary>
-    /// Logique d'interaction pour GameCardUserControl.xaml
-    /// </summary>
     public partial class GameCardUserControl : UserControl
     {
-        public GameCardUserControl(String gameTitle, String gameImageFilename)
+        private bool _isPressed = false;
+
+        public event EventHandler<Game> GameClicked; // Handler for click
+
+        public GameCardUserControl(Game game)
         {
             InitializeComponent();
+        }
 
-            if (gameTitle == null) TitleTextBlock.Text = "Unkwown game";
-            else TitleTextBlock.Text = gameTitle;
-
-            if (gameImageFilename == null) GameImage.Source = new BitmapImage(new Uri("/Ressources/Images/default_game_image.png", UriKind.RelativeOrAbsolute));
-            else GameImage.Source = new BitmapImage(new Uri(gameImageFilename, UriKind.RelativeOrAbsolute));
-
-            this.MouseLeftButtonUp += (s, e) =>
+        // When the click is released
+        private void UserControl_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if (DataContext is Game game)
             {
-                // Note : Temporary
-                MessageBox.Show($"Tu as cliqué sur {gameTitle} !");
-            };
+                GameClicked?.Invoke(this, game); // Invoke event with handler
+            }
         }
     }
 }

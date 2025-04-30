@@ -12,27 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using gameVaultClassLibrary;
 
 namespace gameVaultProject
 {
     /// <summary>
-    /// Logique d'interaction pour LibraryUserControl.xaml
+    /// Logique d'interaction pour EditGameUserControl.xaml
     /// </summary>
-    public partial class LibraryUserControl : UserControl
+    public partial class EditGameUserControl : UserControl
     {
-        private List<Game> library;
-
-        public LibraryUserControl(User user)
+        public EditGameUserControl()
         {
             InitializeComponent();
-
-            InitializeGamePanels();
-        }
-
-        public void InitializeGamePanels()
-        {
-            // Note : To do
         }
     }
 }

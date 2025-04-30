@@ -4,64 +4,83 @@ namespace gameVaultClassLibrary
 {
     public class Backup
     {
-        private string fileNameUser = "usersFile.json";
-        private string fileNameUserLibrary;
-        private Dictionary<string, string> usersData = new();
+        private string usersLibrariesFilename = "usersLibraries.json";
+        private string userLibraryFilename;
+        private Dictionary<string, string> usersData;
 
         public Backup(User user)
         {
-            if (!File.Exists(fileNameUser))
+            // Create users file if it doesn't exist
+            if (!File.Exists(usersLibrariesFilename))
             {
-                File.WriteAllText(fileNameUser, "{}"); 
+                File.WriteAllText(usersLibrariesFilename, "{}"); 
             }
-            loadDataFromFile(user);
+
+            loadUsersLibrairiesFile(user);
         }
 
-        private void loadDataFromFile(User user)
+        private void loadUsersLibrairiesFile(User user)
         {
-            if (!File.Exists(fileNameUser))
+            if (!File.Exists(usersLibrariesFilename))
                 return;
 
-            var jsonContent = File.ReadAllText(fileNameUser);
+            // Load users file
+            var jsonContent = File.ReadAllText(usersLibrariesFilename);
+
             if (!string.IsNullOrWhiteSpace(jsonContent))
             {
+                // Retrieve all users data
                 usersData = JsonSerializer.Deserialize<Dictionary<string, string>>(jsonContent) ?? new Dictionary<string, string>();
             }
+            else
+            {
+                usersData = new Dictionary<string, string>();
+            }
 
+            // Retrieve current user data
             if (usersData.ContainsKey(user.Pseudo))
             {
-                fileNameUserLibrary = usersData[user.Pseudo];
+                userLibraryFilename = usersData[user.Pseudo];
 
-                if (File.Exists(fileNameUserLibrary))
-                {
-                    var libraryContent = File.ReadAllText(fileNameUserLibrary);
-                    if (!string.IsNullOrWhiteSpace(libraryContent))
-                    {
-                        user.UserLibrary = JsonSerializer.Deserialize<Library>(libraryContent);
-                    }
-                }
+                user.Library = importBackup(userLibraryFilename);
             }
         }
 
         public void saveDataToFile(User user)
         {
-            fileNameUserLibrary = $"{user.Pseudo}_{user.UserLibrary.LibraryName}.json";
+            userLibraryFilename = $"{user.Pseudo}_library.json";
 
-            usersData[user.Pseudo] = fileNameUserLibrary;
+            usersData[user.Pseudo] = userLibraryFilename;
 
             var jsonOptions = new JsonSerializerOptions { WriteIndented = true };
 
-            File.WriteAllText(fileNameUser, JsonSerializer.Serialize(usersData, jsonOptions));
+            File.WriteAllText(usersLibrariesFilename, JsonSerializer.Serialize(usersData, jsonOptions));
 
-            saveGameInFileLibrary(user.UserLibrary);
+            saveLibraryToFile(user.Library);
         }
 
-        private void saveGameInFileLibrary(Library library)
+        private void saveLibraryToFile(Library library)
         {
             var jsonOptionsLibrary = new JsonSerializerOptions { WriteIndented = true };
             string jsonStringLibrary = JsonSerializer.Serialize(library, jsonOptionsLibrary);
 
-            File.WriteAllText(fileNameUserLibrary, jsonStringLibrary);
+            File.WriteAllText(userLibraryFilename, jsonStringLibrary);
+        }
+
+        private Library importBackup(String filename)
+        {
+            if (File.Exists(filename))
+            {
+                var libraryContent = File.ReadAllText(filename);
+
+                if (!string.IsNullOrWhiteSpace(libraryContent))
+                {
+                    // Insert data in current user
+                    return JsonSerializer.Deserialize<Library>(libraryContent);
+                }
+            }
+
+            return null;
         }
     }
 }
