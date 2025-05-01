@@ -69,7 +69,7 @@ namespace gameVaultProject
                     card.GameClicked += (s, g) =>
                     {
                         ((MainWindow)Application.Current.MainWindow).SelectedGame = game;
-                        ((MainWindow)Application.Current.MainWindow).showGame();
+                        ((MainWindow)Application.Current.MainWindow).ShowGame();
                     };
 
                     FavoritesGamesWrapPanel.Children.Add(card);

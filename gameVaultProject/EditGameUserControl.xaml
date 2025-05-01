@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:gameVaultProject"
              mc:Ignorable="d"
              d:DesignWidth="800">
-    <ScrollViewer VerticalScrollBarVisibility="Auto" Cursor="">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
         <StackPanel Margin="40, 20, 20, 20">
             <!-- Game title and main buttons -->
             <Grid Margin="10, 10, 10, 10">
@@ -17,7 +17,7 @@
                 </Grid.ColumnDefinitions>
 
                 <Button Grid.Column="1" Content="Exit" Width="70" Height="50" Margin="10, 0, 10, 0" Style="{StaticResource MainGameButtonStyle}" Click="ExitEditButton_Click"/>
-                <Button Grid.Column="2" Width="50" Height="50" Margin="10, 0, 10, 0" Style="{StaticResource DeleteGameButtonStyle}" Click="DeleteGameButton_Click">
+                <Button Grid.Column="2" Width="50" Height="50" Margin="10, 0, 10, 0" Style="{StaticResource ImportantGameButtonStyle}" Click="DeleteGameButton_Click">
                     <Image Source="Ressources/Icons/delete_game_icon.png" Height="24" Cursor="Hand"/>
                 </Button>
             </Grid>
@@ -66,4 +66,3 @@
         </StackPanel>
     </ScrollViewer>
 </UserControl>
-

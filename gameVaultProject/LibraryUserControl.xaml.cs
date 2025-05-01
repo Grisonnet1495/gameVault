@@ -71,7 +71,7 @@ namespace gameVaultProject
                     card.GameClicked += (s, g) =>
                     {
                         ((MainWindow)Application.Current.MainWindow).SelectedGame = game;
-                        ((MainWindow)Application.Current.MainWindow).showGame();
+                        ((MainWindow)Application.Current.MainWindow).ShowGame();
                     };
 
                     AllGamesWrapPanel.Children.Add(card);
@@ -103,7 +103,7 @@ namespace gameVaultProject
                     break;
                 case SortMode.ByLastPlayed:
                     SortDescriptionLabel.Content = "By last played";
-                    AllGames = AllGames.OrderByDescending(g => g.ReleaseDate).ToList();
+                    AllGames = AllGames.OrderByDescending(g => g.LastPlayedDate).ToList();
                     break;
                 case SortMode.ByFavorites:
                     SortDescriptionLabel.Content = "By favorites";

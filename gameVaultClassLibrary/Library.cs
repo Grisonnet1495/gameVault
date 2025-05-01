@@ -10,7 +10,7 @@ namespace gameVaultClassLibrary
     {
         #region Properties
         public string LibraryName { get; set; }
-        public List<Game> GameList { get; private set; }
+        public List<Game> GameList { get; set; }
         #endregion
 
         #region Constructor
@@ -67,6 +67,18 @@ namespace gameVaultClassLibrary
         public void SortGame()
         {
             GameList = GameList.OrderBy(g => g.Title).ToList();//sort the games by name
+        }
+
+        public TimeSpan CalculateGameTime()
+        {
+            TimeSpan totalGameTime = TimeSpan.Zero;
+
+            foreach (Game game in GameList)
+            {
+                totalGameTime += game.TimePlayed;
+            }
+
+            return totalGameTime;
         }
         #endregion
     }

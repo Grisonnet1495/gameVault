@@ -23,7 +23,8 @@ namespace gameVaultProject
         #region Properties
         public User currentUser {  get; set; }
 
-        public Game SelectedGame { get; set; } 
+        public Game SelectedGame { get; set; }
+        private Backup backup;
         #endregion
 
         #region Constructor
@@ -32,42 +33,47 @@ namespace gameVaultProject
             InitializeComponent();
 
             // Authenticate
-            // Retrieve user data
-
             // Temporary
-            currentUser = new User("MyPseudo", "François", "Caprasse", new Library());
-            currentUser.Library.AddGame(new Game("Minecraft", "Sandbox", true, true, false, true, "Windows, MacOS, Linux", "https://www.minecraft.net", new DateTime(2009, 5, 17), true, "A sandbox game", "Ressources/Images/minecraft_game_image.jpg", DateTime.Now, "C:/XboxGames/Minecraft Launcher/Content/Minecraft.exe"));
-            currentUser.Library.AddGame(new Game("Portal 2", "Puzzle", true, true, true, true, "Windows, MacOS, Linux", "https://store.steampowered.com/app/620/Portal_2/", new DateTime(2011, 4, 19), false, "A brilliant physics-based puzzle game", "Ressources/Images/default_game_image.png", DateTime.Now, ""));
-            currentUser.Library.AddGame(new Game("Celeste", "Platformer", true, false, false, true, "Windows, MacOS, Linux, Switch, PS4, Xbox", "http://www.celestegame.com/", new DateTime(2018, 1, 25), true, "A challenging platformer about mental resilience", "Ressources/Images/default_game_image.png", DateTime.Now, ""));
-            currentUser.Library.AddGame(new Game());
-            currentUser.Library.AddGame(new Game());
-            currentUser.Library.AddGame(new Game());
+            currentUser = new User("MyPseudo", "myPassword", new Library());
+
+            // Retrieve user data
+            backup = new Backup(currentUser);
+
+            //currentUser.Library.AddGame(new Game("Minecraft", "Sandbox", true, true, false, true, "Windows, MacOS, Linux", "https://www.minecraft.net", new DateTime(2009, 5, 17), true, "A sandbox game", "Ressources/Images/minecraft_game_image.jpg", DateTime.Now, "C:/XboxGames/Minecraft Launcher/Content/Minecraft.exe", TimeSpan.Zero, 0));
+            //currentUser.Library.AddGame(new Game("Portal 2", "Puzzle", true, true, true, true, "Windows, MacOS, Linux", "https://store.steampowered.com/app/620/Portal_2/", new DateTime(2011, 4, 19), false, "A brilliant physics-based puzzle game", "Ressources/Images/default_game_image.png", DateTime.Now, "", new TimeSpan(2, 30, 0), 1));
+            //currentUser.Library.AddGame(new Game("Celeste", "Platformer", true, false, false, true, "Windows, MacOS, Linux, Switch, PS4, Xbox", "http://www.celestegame.com/", new DateTime(2018, 1, 25), true, "A challenging platformer about mental resilience", "Ressources/Images/default_game_image.png", DateTime.Now, "", new TimeSpan(2, 30, 0), 2));
+            //currentUser.Library.AddGame(new Game());
+            //currentUser.Library.AddGame(new Game());
+            //currentUser.Library.AddGame(new Game());
+
+            SelectedGame = null;
 
             DataContext = this;
 
-            SelectedGame = currentUser.Library.GameList.First();
+            CalculateGameTime();
+            UpdateInfoPanel();
 
-            showHome();
+            ShowHome();
         }
         #endregion
 
         #region Show user control methods
-        public void showHome()
+        public void ShowHome()
         {
             MainContentControl.Content = new HomeUserControl(currentUser);
         }
 
-        public void showFavorites()
+        public void ShowFavorites()
         {
             MainContentControl.Content = new FavoritesUserControl(currentUser);
         }
 
-        public void showLibrary()
+        public void ShowLibrary()
         {
             MainContentControl.Content = new LibraryUserControl(currentUser);
         }
 
-        public void showGame()
+        public void ShowGame()
         {
             if (SelectedGame != null)
             {
@@ -77,16 +83,36 @@ namespace gameVaultProject
                 gameUserControl.EditGameButtonClicked += EditCurrentGame;
                 gameUserControl.ExportGameButtonClicked += ExportCurrentGame;
             }
+            else
+            {
+                MessageBox.Show("Please select a game", "Error", MessageBoxButton.OK);
+            }
         }
 
-        public void showEditGame()
+        public void ShowEditGame()
         {
-            var editGameUserControl = new EditGameUserControl(SelectedGame);
-            MainContentControl.Content = editGameUserControl;
+            if (SelectedGame != null)
+            {
+                var editGameUserControl = new EditGameUserControl(SelectedGame);
+                MainContentControl.Content = editGameUserControl;
 
-            editGameUserControl.ExitEditButtonClicked += ExitGameEdit;
-            editGameUserControl.DeleteGameButtonClicked += DeleteCurrentGame;
+                editGameUserControl.ExitEditButtonClicked += ExitGameEdit;
+                editGameUserControl.DeleteGameButtonClicked += DeleteCurrentGame;
+            }
+            else
+            {
+                MessageBox.Show("Please select a game", "Error", MessageBoxButton.OK);
+            }
         }
+
+        public void ShowSettings()
+        {
+            var settingsUserControl = new SettingsUserControl(currentUser);
+            MainContentControl.Content = settingsUserControl;
+
+            settingsUserControl.ExitSettingsButtonClicked += ExitSettings;
+        }
+
         #endregion
 
         #region Window actions methods
@@ -105,6 +131,8 @@ namespace gameVaultProject
         // Close the window
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
+            backup.SaveDataToFile(currentUser);
+
             this.Close();
         }
 
@@ -121,22 +149,22 @@ namespace gameVaultProject
         #region Main window button clicks
         private void HomeButton_Click(object sender, RoutedEventArgs e)
         {
-            showHome();
+            ShowHome();
         }
 
         private void FavoritesButton_Click(object sender, RoutedEventArgs e)
         {
-            showFavorites();
+            ShowFavorites();
         }
 
         private void LibraryButton_Click(object sender, RoutedEventArgs e)
         {
-            showLibrary();
+            ShowLibrary();
         }
 
         private void GameButton_Click(object sender, RoutedEventArgs e)
         {
-            showGame();
+            ShowGame();
         }
 
         private void NewGameButton_Click(object sender, RoutedEventArgs e)
@@ -144,21 +172,19 @@ namespace gameVaultProject
             Game newGame = new Game();
             currentUser.Library.GameList.Add(newGame);
             SelectedGame = newGame;
-            showEditGame();
+            ShowEditGame();
         }
 
         private void SettingsButton_Click(object sender, RoutedEventArgs e)
         {
-            var settingsDialog = new Settings();
-            bool? result = settingsDialog.ShowDialog();
-            // Note : Note finished
+            ShowSettings();
         }
         #endregion
 
         #region GameUserControl buttons click
         private void EditCurrentGame(object sender, EventArgs e)
         {
-            showEditGame();
+            ShowEditGame();
         }
 
         private void ExportCurrentGame(object sender, EventArgs e)
@@ -173,15 +199,81 @@ namespace gameVaultProject
         #region EditGameUserControl buttons clicks
         private void ExitGameEdit(object sender, EventArgs e)
         {
-            showGame();
+            UpdateInfoPanel();
+            ShowGame();
         }
 
         private void DeleteCurrentGame(object sender, EventArgs e)
         {
             currentUser.Library.RemoveGame(SelectedGame);
             SelectedGame = currentUser.Library.GameList.First();
-            showHome();
+            UpdateInfoPanel();
+            ShowHome();
+        }
+        #endregion
+
+        #region SettingsUserControl button clicks
+        private void ExitSettings(object sender, EventArgs e)
+        {
+            UpdateInfoPanel();
+            ShowHome();
         } 
+        #endregion
+
+        #region Other methods
+        public void CalculateGameTime()
+        {
+            TimeSpan totalGameTime = currentUser.Library.CalculateGameTime();
+
+            hoursPlayedLabel.Content = $"{(int)totalGameTime.Hours} hours";
+            minutesPlayedLabel.Content = $"{totalGameTime.Minutes} minutes";
+            minutesPlayedLabel.Content = $"{totalGameTime.Seconds} seconds";
+        }
+
+        public void UpdateInfoPanel()
+        {
+            TimeSpan gameTime = TimeSpan.Zero;
+            double gameNbPlayed = 0;
+            DateTime lastTimePlayed = new DateTime();
+            Game bestGame = null;
+
+            foreach (Game game in currentUser.Library.GameList)
+            {
+                if (game.TimePlayed > gameTime)
+                {
+                    bestGame = game;
+                    gameTime = game.TimePlayed;
+                    lastTimePlayed = game.LastPlayedDate;
+                }
+                else if (game.TimePlayed == gameTime)
+                {
+                    if (game.LastPlayedDate > lastTimePlayed)
+                    {
+                        bestGame = game;
+                        gameTime = game.TimePlayed;
+                        lastTimePlayed = game.LastPlayedDate;
+                    }
+                }
+            }
+
+            if (bestGame != null)
+            {
+                string title = bestGame.Title;
+                if (title.Length > 21)
+                {
+                    title = title.Substring(0, 18) + "...";
+                }
+                BestGameTitleLabel.Content = title;
+                BestGameHoursPlayedLabel.Content = bestGame.TimePlayed.Hours + " hours";
+                BestGameNbTimePlayedLabel.Content = bestGame.NbTimePlayed + " times in total";
+            }
+            else
+            {
+                BestGameTitleLabel.Content = "No best game yet";
+                BestGameHoursPlayedLabel.Content = "";
+                BestGameNbTimePlayedLabel.Content = "";
+            }
+        }
         #endregion
     }
 }

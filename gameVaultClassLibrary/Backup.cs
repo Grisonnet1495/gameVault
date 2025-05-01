@@ -1,82 +1,128 @@
 ﻿using System.Text.Json;
+using System.Xml.Serialization;
 
 namespace gameVaultClassLibrary
 {
     public class Backup
     {
-        private string usersLibrariesFilename = "usersLibraries.json";
-        private string userLibraryFilename;
-        private Dictionary<string, string> usersData;
+        private string allLibrariesFilename; // Filename of the libraries config file
+        private string userLibraryFilename; // Library Filename of the current user
+        private Dictionary<string, string> allLibrariesData; // Contains data of the libraries config file
+        private Config config;
 
         public Backup(User user)
         {
-            // Create users file if it doesn't exist
-            if (!File.Exists(usersLibrariesFilename))
+            Config.SetUpConfig();
+
+            allLibrariesFilename = Config.LoadSetting(Config.librariesConfigKey);
+
+            // Create libraries config file if it doesn't exist
+            if (!File.Exists(allLibrariesFilename))
             {
-                File.WriteAllText(usersLibrariesFilename, "{}"); 
+                File.WriteAllText(allLibrariesFilename, "{}");
             }
 
-            loadUsersLibrairiesFile(user);
+            // Load the libraries config file
+            LoadAllLibrariesFile(user);
+
+            // Import user library if possible
+            Library library = ImportLibraryFromFile(userLibraryFilename);
+
+            if (library != null)
+            {
+                user.Library = library;
+            }
         }
 
-        private void loadUsersLibrairiesFile(User user)
+        // Load all libraries config file data and set the current user library filename
+        private void LoadAllLibrariesFile(User user)
         {
-            if (!File.Exists(usersLibrariesFilename))
+            if (!File.Exists(allLibrariesFilename))
                 return;
 
             // Load users file
-            var jsonContent = File.ReadAllText(usersLibrariesFilename);
+            var jsonContent = File.ReadAllText(allLibrariesFilename);
 
             if (!string.IsNullOrWhiteSpace(jsonContent))
             {
                 // Retrieve all users data
-                usersData = JsonSerializer.Deserialize<Dictionary<string, string>>(jsonContent) ?? new Dictionary<string, string>();
+                allLibrariesData = JsonSerializer.Deserialize<Dictionary<string, string>>(jsonContent) ?? new Dictionary<string, string>();
             }
             else
             {
-                usersData = new Dictionary<string, string>();
+                allLibrariesData = new Dictionary<string, string>();
             }
 
-            // Retrieve current user data
-            if (usersData.ContainsKey(user.Pseudo))
+            // Retrieve or create current user libray filename
+            if (allLibrariesData.ContainsKey(user.Pseudo))
             {
-                userLibraryFilename = usersData[user.Pseudo];
-
-                user.Library = importBackup(userLibraryFilename);
+                userLibraryFilename = allLibrariesData[user.Pseudo];
+            }
+            else
+            {
+                userLibraryFilename = Path.Combine(Config.LoadSetting(Config.appDataKey), $"{user.Pseudo}_library.json");
             }
         }
 
-        public void saveDataToFile(User user)
+        // Save libraries config file and current user library
+        public void SaveDataToFile(User user)
         {
-            userLibraryFilename = $"{user.Pseudo}_library.json";
-
-            usersData[user.Pseudo] = userLibraryFilename;
+            allLibrariesData[user.Pseudo] = userLibraryFilename;
 
             var jsonOptions = new JsonSerializerOptions { WriteIndented = true };
 
-            File.WriteAllText(usersLibrariesFilename, JsonSerializer.Serialize(usersData, jsonOptions));
+            File.WriteAllText(allLibrariesFilename, JsonSerializer.Serialize(allLibrariesData, jsonOptions));
 
-            saveLibraryToFile(user.Library);
+            ExportLibraryToFile(userLibraryFilename, user.Library);
         }
 
-        private void saveLibraryToFile(Library library)
+        // Save current user library in JSON
+        public static void ExportLibraryToFile(string filePath, Library library)
         {
             var jsonOptionsLibrary = new JsonSerializerOptions { WriteIndented = true };
             string jsonStringLibrary = JsonSerializer.Serialize(library, jsonOptionsLibrary);
 
-            File.WriteAllText(userLibraryFilename, jsonStringLibrary);
+            File.WriteAllText(filePath, jsonStringLibrary);
         }
 
-        private Library importBackup(String filename)
+        // Import library to current user in JSON
+        public static Library ImportLibraryFromFile(string filePath)
         {
-            if (File.Exists(filename))
+            if (File.Exists(filePath))
             {
-                var libraryContent = File.ReadAllText(filename);
+                var fileContent = File.ReadAllText(filePath);
 
-                if (!string.IsNullOrWhiteSpace(libraryContent))
+                if (!string.IsNullOrWhiteSpace(fileContent))
                 {
-                    // Insert data in current user
-                    return JsonSerializer.Deserialize<Library>(libraryContent);
+                    return JsonSerializer.Deserialize<Library>(fileContent);
+                }
+            }
+
+            return null;
+        }
+
+        // Export game in XML
+        public static void ExportGameToFile(string filePath, Game game)
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(Game));
+
+            using (FileStream stream = new FileStream(filePath, FileMode.Create))
+            {
+                serializer.Serialize(stream, game);
+            }
+        }
+
+
+        // Import a game in XML
+        public static Game ImportGameFromFile(string filePath)
+        {
+            if (File.Exists(filePath))
+            {
+                XmlSerializer serializer = new XmlSerializer(typeof(Game));
+
+                using (FileStream stream = new FileStream(filePath, FileMode.Open))
+                {
+                    return (Game)serializer.Deserialize(stream);
                 }
             }
 

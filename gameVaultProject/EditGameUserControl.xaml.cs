@@ -46,11 +46,7 @@ namespace gameVaultProject
 
         private void DeleteGameButton_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show(
-                "Are you sure you want to delete this game ?",
-                "Delete game",
-                MessageBoxButton.OKCancel
-);
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to delete this game ?", "Delete game", MessageBoxButton.OKCancel);
 
             if (result == MessageBoxResult.OK)
             {
@@ -60,7 +56,7 @@ namespace gameVaultProject
 
         private void OpenCalendarButton_Click(object sender, RoutedEventArgs e)
         {
-            // Rendre le DatePicker visible à la position du bouton
+            // Note : To delete ?
             releaseDatePicker.Visibility = Visibility.Visible;
         }
 

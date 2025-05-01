@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Ressources\Icons\app_icon.ico" />
     <None Remove="Ressources\Icons\delete_game_icon.png" />
     <None Remove="Ressources\Icons\edit_game_icon.png" />
     <None Remove="Ressources\Icons\export_game_icon.png" />
@@ -26,6 +27,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Ressources\Icons\app_icon.ico">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Ressources\Icons\delete_game_icon.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>

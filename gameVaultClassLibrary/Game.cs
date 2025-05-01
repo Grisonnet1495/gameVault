@@ -26,6 +26,7 @@ namespace gameVaultClassLibrary
         public DateTime LastPlayedDate { get; set; }
         public string GamePath { get; set; }
         public TimeSpan TimePlayed { get; set; }
+        public double NbTimePlayed { get; set; }
         #endregion
 
         #region Constructor
@@ -47,9 +48,10 @@ namespace gameVaultClassLibrary
             LastPlayedDate = DateTime.Now;
             GamePath = string.Empty;
             TimePlayed = TimeSpan.Zero;
+            NbTimePlayed = 0;
         }
 
-        public Game(string title, string genre, bool isSolo, bool isMultiplayer, bool isCoop, bool isControllerCompatible, string compatiblePlatorms, string storeUrl, DateTime releaseDate, bool isFavorite, string description, string imagePath, DateTime lastPlayedDate, string gamePath)
+        public Game(string title, string genre, bool isSolo, bool isMultiplayer, bool isCoop, bool isControllerCompatible, string compatiblePlatorms, string storeUrl, DateTime releaseDate, bool isFavorite, string description, string imagePath, DateTime lastPlayedDate, string gamePath, TimeSpan timePlayed, double nbTimePlayed)
         {
             Id = 0;
             Title = title;
@@ -66,7 +68,8 @@ namespace gameVaultClassLibrary
             ImagePath = imagePath;
             LastPlayedDate = lastPlayedDate;
             GamePath = gamePath;
-            TimePlayed = TimeSpan.Zero;
+            TimePlayed = timePlayed;
+            NbTimePlayed = nbTimePlayed;
         }
         #endregion
 
@@ -91,6 +94,12 @@ namespace gameVaultClassLibrary
                 $"{StoreUrl};" +
                 $"{ReleaseDate.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture)}; " +
                 $"{IsFavorite}" +
+                $"{Description}" +
+                $"{ImagePath}" +
+                $"{LastPlayedDate.ToString()}" +
+                $"{GamePath}" +
+                $"{TimePlayed.ToString()}" +
+                $"{NbTimePlayed}" +
                 "}";
         }
         #endregion

@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:gameVaultProject"
         mc:Ignorable="d"
         Title="MainWindow"
+        Icon="/Ressources/Icons/app_icon.ico"
         Width="800"
         Height="450"
         MinWidth="900"
@@ -27,7 +28,7 @@
             </Grid.ColumnDefinitions>
 
             <!-- Title bar -->
-            <Ellipse Grid.Row="0" Grid.Column="0" Width="20" Height="20" Fill="#0F9ED5"/>
+            <Ellipse Grid.Row="0" Grid.Column="0" Width="25" Height="25" Fill="#0F9ED5"/>
 
             <Label x:Name="TitleBarLabel" MouseDown="TitleBar_MouseDown" Grid.Row="0" Grid.Column="1" Content=" gameVault" Foreground="White" FontSize="20" VerticalAlignment="Center"/>
 
@@ -89,30 +90,28 @@
                             <Label Content="Total hours played" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Viewbox>
                         <Viewbox Margin="50, 0, 50, 0" MaxWidth="100">
-                                <Label Content="0 hours" Padding="0, -10, 0, -10" Foreground="#BFBFBF" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <Label x:Name="hoursPlayedLabel" Content="0 hours" Padding="0, -10, 0, -10" Foreground="#BFBFBF" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </Viewbox>
                             <Viewbox Margin="40, 0, 40, 0" MaxWidth="90">
-                                <Label Content="0 minutes" Padding="0, -10, 0, -10" Foreground="#BFBFBF" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <Label x:Name="minutesPlayedLabel" Content="0 minutes" Padding="0, -10, 0, -10" Foreground="#BFBFBF" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </Viewbox>
                         <Viewbox Margin="40, 0, 40, 0" MaxWidth="90">
-                            <Label Content="0 seconds" Padding="0, -10, 0, -10" Foreground="#BFBFBF" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <Label x:Name="secondsPlayedLabel" Content="0 seconds" Padding="0, -10, 0, -10" Foreground="#BFBFBF" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Viewbox>
                     </StackPanel>
                 </Viewbox>
 
                 <Viewbox Grid.Row="1" >
                     <StackPanel VerticalAlignment="Center">
-                        <Viewbox Margin="40, 0, 40, 10" MaxWidth="100">
+                        <Viewbox Margin="30, 0, 30, 10" MaxWidth="120">
                             <Label Content="Best game" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Viewbox>
-                        <Viewbox Grid.Row="3" Margin="40, 0, 40, 10" MaxWidth="100">
-                            <Button/>
-                        </Viewbox>
-                        <Viewbox Margin="70, 0, 70, 0" MaxWidth="100">
-                            <Label Content="0 hours" Padding="0" Foreground="#BFBFBF" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Label x:Name="BestGameTitleLabel" Content="No best game yet" Margin="20, 10, 20, 10" FontSize="20" Foreground="White" HorizontalAlignment="Center"/>
+                        <Viewbox Margin="70, 10, 70, 0" MaxWidth="100">
+                            <Label x:Name="BestGameHoursPlayedLabel" Content="0 hours" Padding="0" Foreground="#BFBFBF" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Viewbox>
                         <Viewbox Margin="20, 0, 20, 0" MaxWidth="130">
-                            <Label Content="0 times this week" Padding="0" Foreground="#BFBFBF" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <Label x:Name="BestGameNbTimePlayedLabel" Content="0 times in total" Padding="0" Foreground="#BFBFBF" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Viewbox>
                     </StackPanel>
                 </Viewbox>

@@ -84,8 +84,11 @@ namespace gameVaultProject
                         await Task.Run(() => gameProcess.WaitForExit());
                         DateTime endTime = DateTime.Now;
 
+                        // Update the game info
                         TimeSpan gameDuration = endTime - startTime;
                         Game.TimePlayed += gameDuration;
+                        Game.NbTimePlayed++;
+                        Game.LastPlayedDate = DateTime.Now;
 
                         if (gameDuration < TimeSpan.FromSeconds(10))
                         {

@@ -26,6 +26,15 @@ namespace gameVaultProject
         public GameCardUserControl(Game game)
         {
             InitializeComponent();
+
+            string title = game.Title;
+            // If the title is too long
+            if (title.Length > 18)
+            {
+                title = title.Substring(0, 15) + "...";
+            }
+
+            TitleTextBlock.Text = title;
         }
 
         // When the click is released
