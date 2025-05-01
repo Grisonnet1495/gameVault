@@ -13,6 +13,7 @@ namespace gameVaultClassLibrary
         public const string appDataKey = "appDataPath"; // Store the path to app data
         public const string userConfigKey = "userConfigFile"; // Store the file path of the user passwords file
         public const string librariesConfigKey = "librariesConfigFile"; // Store the file path of the libraries config file
+        public const string imagesFolderKey = "imageFolder"; // Store the file path of the images folder
 
         public static void SetUpConfig()
         {
@@ -51,6 +52,20 @@ namespace gameVaultClassLibrary
                 string librariesConfigFilePath = Path.Combine(appDataPath, "libraries.txt");
 
                 SaveSetting(librariesConfigKey, librariesConfigFilePath);
+            }
+
+            // Create the imageFolderKey if it doesn't exist
+            if (!SettingExists(imagesFolderKey))
+            {
+                string imageFolderFilePath = Path.Combine(appDataPath, "images");
+
+                SaveSetting(imagesFolderKey, imageFolderFilePath);
+            }
+
+            // Create the images directory if it doesn't exit
+            if (!Directory.Exists(Config.LoadSetting(imagesFolderKey)))
+            {
+                Directory.CreateDirectory(Config.LoadSetting(imagesFolderKey));
             }
         }
 

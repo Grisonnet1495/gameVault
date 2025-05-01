@@ -35,14 +35,14 @@ namespace gameVaultProject
         {
             InitializeComponent();
 
-            ExtractRecentGames(user);
+            ExtractAllGames(user);
 
             InitializeGamePanel();
 
             SortAllGamesList();
         }
 
-        public void ExtractRecentGames(User user)
+        public void ExtractAllGames(User user)
         {
             AllGames = new List<Game>(user.Library.GameList);
         }
