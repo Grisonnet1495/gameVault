@@ -129,7 +129,7 @@ namespace gameVaultProject
 
                 Backup.ExportGameToFile(filePath, selectedGame);
 
-                MessageBox.Show("Backup file created to : " + filePath);
+                MessageBox.Show("Game exported to : " + filePath);
             }
         }
 

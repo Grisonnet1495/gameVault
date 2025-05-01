@@ -14,25 +14,27 @@ namespace gameVaultClassLibrary
         public const string userConfigKey = "userConfigFile"; // Store the file path of the user passwords file
         public const string librariesConfigKey = "librariesConfigFile"; // Store the file path of the libraries config file
 
-        //public Config()
-        //{
-            
-        //}
-
         public static void SetUpConfig()
         {
-            // Get the user %APPDATA%\gameVault folder
-            string appDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "gameVault");
+            string appDataPath;
 
+            // Load or create the appDataKey it if it doesn't exist
+            if (!SettingExists(appDataKey))
+            {
+                // Get the user %APPDATA%\gameVault folder
+                appDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "gameVault");
+
+                SaveSetting(appDataKey, appDataPath);
+            }
+            else
+            {
+                appDataPath = LoadSetting(appDataKey);
+            }
+
+            // Create the app data directory if it doesn't exit
             if (!Directory.Exists(appDataPath))
             {
                 Directory.CreateDirectory(appDataPath);
-            }
-
-            // Create appDateKey if it doesn't exist
-            if (!SettingExists(appDataKey))
-            {
-                SaveSetting(appDataKey, appDataPath);
             }
 
             // Create userConfigKey if it doesn't exist

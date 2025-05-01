@@ -6,12 +6,13 @@
              xmlns:local="clr-namespace:gameVaultProject"
              mc:Ignorable="d"
              d:DesignWidth="800">
-    <ScrollViewer VerticalScrollBarVisibility="Auto" Cursor="">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
         <StackPanel Margin="40, 20, 20, 20">
             <!-- Game title and main buttons -->
             <Grid Margin="10, 10, 10, 10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
@@ -26,6 +27,9 @@
                 </Button>
                 <Button Grid.Column="3" Width="50" Height="50" Margin="10, 0, 10, 0" Style="{StaticResource OtherGameButtonStyle}" Click="ExportGameButton_Click">
                     <Image Source="Ressources/Icons/export_game_icon.png" Height="28" Cursor="Hand"/>
+                </Button>
+                <Button Grid.Column="4" Width="50" Height="50" Margin="10, 0, 10, 0" Style="{StaticResource OtherGameButtonStyle}" Click="ToggleFavoriteGameButton_Click">
+                    <Image x:Name="ToggleFavoriteImage" Source="Ressources/Icons/not_favorite_game_icon.png" Height="28" Cursor="Hand"/>
                 </Button>
             </Grid>
             
@@ -77,7 +81,7 @@
                     </TextBlock>
                     <TextBlock Margin="5, 10, 5, 10" Foreground="White" FontSize="16" TextWrapping="Wrap" Cursor="Hand">
                         <Run Text="Store :  "/>
-                        <Hyperlink Click="Hyperlink_Click">
+                        <Hyperlink Foreground="White" Click="Hyperlink_Click">
                             <Run Text="{Binding StoreUrl}" />
                         </Hyperlink>
                     </TextBlock>

@@ -16,8 +16,8 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Text="Settings" Foreground="White" FontSize="25" VerticalAlignment="Center"/>
-                <Button Grid.Column="1" Content="Save" Width="70" Height="50" Margin="10, 0, 10, 0" Style="{StaticResource MainGameButtonStyle}" Click="SaveButton_Click"/>
-                <Button Grid.Column="2" Content="Cancel" Width="90" Height="50" Margin="10, 0, 10, 0" Style="{StaticResource ImportantGameButtonStyle}" Click="CancelButton_Click"/>
+                <Button Grid.Column="1" Content="Save" Width="70" Height="50" Margin="10, 0, 10, 0" Style="{StaticResource MainGameButtonStyle}" Click="SaveButton_Click" Cursor="Hand"/>
+                <Button Grid.Column="2" Content="Cancel" Width="90" Height="50" Margin="10, 0, 10, 0" Style="{StaticResource ImportantGameButtonStyle}" Click="CancelButton_Click" Cursor="Hand"/>
             </Grid>
 
             <Grid>
@@ -41,21 +41,21 @@
 
                 <TextBlock Grid.Row="2" Grid.Column="0" Text="Backup :" FontSize="16" VerticalAlignment="Center" Foreground="White" TextWrapping="Wrap"/>
                 <WrapPanel Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <Button Grid.Column="0" Content="Create backup" Width="150" Height="30" Margin="0, 0, 20, 0" Style="{StaticResource SettingsButtonStyle}" Click="CreateBackupButton_Click"/>
-                    <Button Grid.Column="1" Content="Restore a backup" Width="150" Height="30" Style="{StaticResource SettingsButtonStyle}" Click="RestoreBackupButton_Click"/>
+                    <Button Grid.Column="0" Content="Create backup" Width="150" Height="30" Margin="0, 0, 20, 0" Style="{StaticResource SettingsButtonStyle}" Click="CreateBackupButton_Click" Cursor="Hand"/>
+                    <Button Grid.Column="1" Content="Restore a backup" Width="150" Height="30" Style="{StaticResource SettingsButtonStyle}" Click="RestoreBackupButton_Click" Cursor="Hand"/>
                 </WrapPanel>
 
                 <TextBlock Grid.Row="3" Grid.Column="0" Text="Export a game :" FontSize="16" VerticalAlignment="Center" Foreground="White" TextWrapping="Wrap"/>
                 <WrapPanel Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
                     <ComboBox x:Name="ExportGameComboBox" Grid.Row="0" Grid.Column="0" Width="100" Height="20" DisplayMemberPath="Title" Margin="0, 0, 20, 0"/>
-                    <Button Grid.Row="0" Grid.Column="1" Content="Export" Width="80" Height="30"  Margin="0, 0, 20, 0" Style="{StaticResource SettingsButtonStyle}" Click="ExportGameButton_Click"/>
-                    <Button Grid.Row="0" Grid.Column="1" Content="Import" Width="80" Height="30" Style="{StaticResource SettingsButtonStyle}" Click="ImportGameButton_Click"/>
+                    <Button Grid.Row="0" Grid.Column="1" Content="Export" Width="80" Height="30"  Margin="0, 0, 20, 0" Style="{StaticResource SettingsButtonStyle}" Click="ExportGameButton_Click" Cursor="Hand"/>
+                    <Button Grid.Row="0" Grid.Column="1" Content="Import" Width="80" Height="30" Style="{StaticResource SettingsButtonStyle}" Click="ImportGameButton_Click" Cursor="Hand"/>
                 </WrapPanel>
 
 
                 <TextBlock Grid.Row="4" Grid.Column="0" Text="Delete current account data :" FontSize="16" VerticalAlignment="Center" Foreground="White" TextWrapping="Wrap"/>
                 <StackPanel Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Button Content="Delete" Width="100" Height="30" Background="#A80000" Foreground="White" HorizontalAlignment="Center" Style="{StaticResource SettingsButtonStyle}" Click="DeleteAllUserDataButton_Click"/>
+                    <Button Content="Delete" Width="100" Height="30" Background="#A80000" Foreground="White" HorizontalAlignment="Center" Style="{StaticResource SettingsButtonStyle}" Click="DeleteAllUserDataButton_Click" Cursor="Hand"/>
                     <CheckBox x:Name="AcceptConsequencesCheckBox" VerticalAlignment="Center" Cursor="Hand">
                         <TextBlock Text="I accept that I cannot recover my data after this" FontSize="14" Foreground="White" Margin="0, 0, 20, 0" TextWrapping="Wrap"/>
                     </CheckBox>

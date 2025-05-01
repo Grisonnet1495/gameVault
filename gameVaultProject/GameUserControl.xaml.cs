@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using gameVaultClassLibrary;
+using Microsoft.Win32;
 
 namespace gameVaultProject
 {
@@ -38,6 +39,16 @@ namespace gameVaultProject
 
             Game = game;
             DataContext = Game;
+
+            // Display the favorite button icon
+            if (Game.IsFavorite)
+            {
+                ToggleFavoriteImage.Source = new BitmapImage(new Uri("pack://application:,,,/Ressources/Icons/favorite_game_icon.png"));
+            }
+            else
+            {
+                ToggleFavoriteImage.Source = new BitmapImage(new Uri("pack://application:,,,/Ressources/Icons/not_favorite_game_icon.png"));
+            }
         }
 
         private void Hyperlink_Click(object sender, RoutedEventArgs e)
@@ -113,7 +124,33 @@ namespace gameVaultProject
 
         private void ExportGameButton_Click(object sender, RoutedEventArgs e)
         {
-            ExportGameButtonClicked?.Invoke(this, EventArgs.Empty);
+            var saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Title = "Export game";
+            saveFileDialog.Filter = "Game file (*.xml)|*.xml";
+            saveFileDialog.FileName = Game.Title;
+
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                string filePath = saveFileDialog.FileName; // Retrieve export file path
+
+                Backup.ExportGameToFile(filePath, Game);
+
+                MessageBox.Show("Game exported to : " + filePath);
+            }
+        }
+
+        private void ToggleFavoriteGameButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (Game.IsFavorite)
+            {
+                Game.IsFavorite = false;
+                ToggleFavoriteImage.Source = new BitmapImage(new Uri("pack://application:,,,/Ressources/Icons/not_favorite_game_icon.png"));
+            }
+            else
+            {
+                Game.IsFavorite = true;
+                ToggleFavoriteImage.Source = new BitmapImage(new Uri("pack://application:,,,/Ressources/Icons/favorite_game_icon.png"));
+            }
         }
     }
 }

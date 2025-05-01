@@ -34,7 +34,6 @@
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="BorderBrush" Value="Transparent"/>
         <Setter Property="FontSize" Value="16"/>
-
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -174,7 +173,6 @@
     </Style>
     <!-- Important game button -->
     <Style x:Key="ImportantGameButtonStyle" TargetType="Button">
-        <!-- Note : Not finished -->
         <Setter Property="Background" Value="#A50021"/>
         <Setter Property="Margin" Value="0, 5, 0, 5"/>
         <Setter Property="Foreground" Value="#A6A6A6"/>
@@ -275,6 +273,7 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+    <!-- Game card -->
     <Style x:Key="GameCardStyle" TargetType="Border">
         <Setter Property="Background" Value="#262626"/>
         <Setter Property="BorderBrush" Value="#404040"/>
@@ -286,6 +285,7 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+    <!-- Edit Game TextBox -->
     <Style x:Key="EditGameTextBoxStyle" TargetType="TextBox">
         <Setter Property="Background" Value="#262626"/>
         <Setter Property="BorderBrush" Value="#404040"/>

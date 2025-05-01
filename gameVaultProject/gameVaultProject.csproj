@@ -14,8 +14,10 @@
     <None Remove="Ressources\Icons\edit_game_icon.png" />
     <None Remove="Ressources\Icons\export_game_icon.png" />
     <None Remove="Ressources\Icons\favorites_icon.png" />
+    <None Remove="Ressources\Icons\favorite_game_icon.png" />
     <None Remove="Ressources\Icons\home_icon.png" />
     <None Remove="Ressources\Icons\library_icon.png" />
+    <None Remove="Ressources\Icons\not_favorite_game_icon.png" />
     <None Remove="Ressources\Icons\settings_icon.png" />
     <None Remove="Ressources\Icons\sort_icon.png" />
     <None Remove="Ressources\Images\default_game_image.png" />
@@ -42,6 +44,9 @@
     <Resource Include="Ressources\Icons\favorites_icon.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Ressources\Icons\favorite_game_icon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Ressources\Icons\home_icon.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
@@ -49,6 +54,9 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Ressources\Icons\library_icon.png" />
+    <Resource Include="Ressources\Icons\not_favorite_game_icon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Ressources\Icons\settings_icon.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
