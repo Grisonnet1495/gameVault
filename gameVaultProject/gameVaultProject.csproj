@@ -9,6 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Ressources\font\Audiowide\Audiowide-Regular.ttf" />
+    <None Remove="Ressources\font\Press_Start_2P\PressStart2P-Regular.ttf" />
     <None Remove="Ressources\Icons\app_icon.ico" />
     <None Remove="Ressources\Icons\delete_game_icon.png" />
     <None Remove="Ressources\Icons\edit_game_icon.png" />
@@ -20,6 +22,8 @@
     <None Remove="Ressources\Icons\not_favorite_game_icon.png" />
     <None Remove="Ressources\Icons\settings_icon.png" />
     <None Remove="Ressources\Icons\sort_icon.png" />
+    <None Remove="Ressources\Images\clear_login.png" />
+    <None Remove="Ressources\Images\dark_login.png" />
     <None Remove="Ressources\Images\default_game_image.png" />
     <None Remove="Ressources\Images\minecraft_game_image.jpg" />
   </ItemGroup>
@@ -29,6 +33,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Ressources\font\Audiowide\Audiowide-Regular.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Ressources\font\Press_Start_2P\PressStart2P-Regular.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Ressources\Icons\app_icon.ico">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
@@ -61,6 +71,12 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Ressources\Icons\sort_icon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Ressources\Images\clear_login.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Ressources\Images\dark_login.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Ressources\Images\default_game_image.png">
