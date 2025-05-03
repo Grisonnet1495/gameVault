@@ -1,4 +1,5 @@
-﻿using System;
+﻿using gameVaultClassLibrary;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -8,9 +9,14 @@ using System.Windows.Media.Imaging;
 
 namespace gameVaultProject
 {
-    public partial class Window1 : Window
+    public partial class AuthenticateUser : Window
     {
-        public Window1()
+        public string? Pseudo { get; set; }
+        public string? Password { get; set; }
+
+        Authenticator authenticator = new Authenticator();
+
+        public AuthenticateUser()
         {
             InitializeComponent();
         }
@@ -66,24 +72,47 @@ namespace gameVaultProject
             BackgroundImage.BeginAnimation(UIElement.OpacityProperty, fadeOut);
         }
 
-        private void TxtUser_TextChanged(object sender, TextChangedEventArgs e)
+        private bool FieldValidation(out string pseudo, out string password)
         {
+            pseudo = txtUser.Text;
+            password = txtPass.Password;
 
-        }
-
-        private void TxtPassword_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-
+            if (string.IsNullOrWhiteSpace(pseudo) || string.IsNullOrWhiteSpace(password))
+            {
+                MessageBox.Show("Format de la chaîne de caractères invalide, recommencez.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+            return true;
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
+            if (!FieldValidation(out string pseudo, out string password)) return;
 
+            if (authenticator.AuthenticateUser(pseudo, password))
+            {
+                MessageBox.Show("Authentification réussie !", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
+                this.DialogResult = true; // Close the window and return true
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Authentification échouée, veuillez créer un compte !", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void btnCreate_Click(object sender, RoutedEventArgs e)
         {
+            if (!FieldValidation(out string pseudo, out string password)) return;
 
+            if (authenticator.AddUser(pseudo, password))
+            {
+                MessageBox.Show("Compte créé, vous pouvez maintenant vous connecter.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show("Création échouée, compte déjà existant !", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

@@ -33,27 +33,34 @@ namespace gameVaultProject
             InitializeComponent();
 
             // Authenticate
-            // Temporary
-            currentUser = new User("MyPseudo", "myPassword", new Library());
+            AuthenticateUser authenticateUser = new AuthenticateUser();
+            bool? result = authenticateUser.ShowDialog();//only open one window and wait for it to close
+            if(result == true)//if the user is authenticated and the window (of the login) is closed correctly
+            {
+                currentUser = new User("MyPseudo", "myPassword", new Library());
+                // Retrieve user data
+                backup = new Backup(currentUser);
 
-            // Retrieve user data
-            backup = new Backup(currentUser);
+                //currentUser.Library.AddGame(new Game("Minecraft", "Sandbox", true, true, false, true, "Windows, MacOS, Linux", "https://www.minecraft.net", new DateTime(2009, 5, 17), true, "A sandbox game", "Ressources/Images/minecraft_game_image.jpg", DateTime.Now, "C:/XboxGames/Minecraft Launcher/Content/Minecraft.exe", TimeSpan.Zero, 0));
+                //currentUser.Library.AddGame(new Game("Portal 2", "Puzzle", true, true, true, true, "Windows, MacOS, Linux", "https://store.steampowered.com/app/620/Portal_2/", new DateTime(2011, 4, 19), false, "A brilliant physics-based puzzle game", "Ressources/Images/default_game_image.png", DateTime.Now, "", new TimeSpan(2, 30, 0), 1));
+                //currentUser.Library.AddGame(new Game("Celeste", "Platformer", true, false, false, true, "Windows, MacOS, Linux, Switch, PS4, Xbox", "http://www.celestegame.com/", new DateTime(2018, 1, 25), true, "A challenging platformer about mental resilience", "Ressources/Images/default_game_image.png", DateTime.Now, "", new TimeSpan(2, 30, 0), 2));
+                //currentUser.Library.AddGame(new Game());
+                //currentUser.Library.AddGame(new Game());
+                //currentUser.Library.AddGame(new Game());
 
-            //currentUser.Library.AddGame(new Game("Minecraft", "Sandbox", true, true, false, true, "Windows, MacOS, Linux", "https://www.minecraft.net", new DateTime(2009, 5, 17), true, "A sandbox game", "Ressources/Images/minecraft_game_image.jpg", DateTime.Now, "C:/XboxGames/Minecraft Launcher/Content/Minecraft.exe", TimeSpan.Zero, 0));
-            //currentUser.Library.AddGame(new Game("Portal 2", "Puzzle", true, true, true, true, "Windows, MacOS, Linux", "https://store.steampowered.com/app/620/Portal_2/", new DateTime(2011, 4, 19), false, "A brilliant physics-based puzzle game", "Ressources/Images/default_game_image.png", DateTime.Now, "", new TimeSpan(2, 30, 0), 1));
-            //currentUser.Library.AddGame(new Game("Celeste", "Platformer", true, false, false, true, "Windows, MacOS, Linux, Switch, PS4, Xbox", "http://www.celestegame.com/", new DateTime(2018, 1, 25), true, "A challenging platformer about mental resilience", "Ressources/Images/default_game_image.png", DateTime.Now, "", new TimeSpan(2, 30, 0), 2));
-            //currentUser.Library.AddGame(new Game());
-            //currentUser.Library.AddGame(new Game());
-            //currentUser.Library.AddGame(new Game());
+                SelectedGame = null;
 
-            SelectedGame = null;
+                DataContext = this;
 
-            DataContext = this;
+                CalculateGameTime();
+                UpdateInfoPanel();
 
-            CalculateGameTime();
-            UpdateInfoPanel();
-
-            ShowHome();
+                ShowHome();
+            }
+            else if(result == false || result == null)//If the user is not authenticated or the window (of the login) is closed without being authenticated
+            {
+                this.Close();
+            }
         }
         #endregion
 
