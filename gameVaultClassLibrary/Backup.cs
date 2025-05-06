@@ -128,5 +128,29 @@ namespace gameVaultClassLibrary
 
             return null;
         }
+
+        public static bool changeUserPseudoFromFile(string filePath, string pseudo, string newPseudo)
+        {
+            if (File.Exists(filePath))
+            {
+                XmlSerializer serializer = new XmlSerializer(typeof(User));
+
+                User user;
+
+                using (FileStream stream = new FileStream(filePath, FileMode.Open))
+                {
+                    user = (User)serializer.Deserialize(stream);
+                }
+
+                if (user.Pseudo != pseudo) return false;
+
+                user.Pseudo = newPseudo;
+
+                using (FileStream stream = new FileStream(filePath, FileMode.Create))
+                {
+                    serializer.Serialize(stream, user);
+                }
+            }
+        }
     }
 }

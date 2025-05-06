@@ -91,7 +91,6 @@ namespace gameVaultProject
 
             if (authenticator.AuthenticateUser(pseudo, password))
             {
-                MessageBox.Show("Authentification réussie !", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.DialogResult = true; // Close the window and return true
                 this.Close();
             }
