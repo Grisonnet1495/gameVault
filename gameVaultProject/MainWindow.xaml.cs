@@ -37,7 +37,8 @@ namespace gameVaultProject
             bool? result = authenticateUser.ShowDialog();//only open one window and wait for it to close
             if(result == true)//if the user is authenticated and the window (of the login) is closed correctly
             {
-                currentUser = new User("MyPseudo", "myPassword", new Library());
+                currentUser = new User(authenticateUser.Pseudo, authenticateUser.Password, new Library());
+
                 // Retrieve user data
                 backup = new Backup(currentUser);
 

@@ -129,28 +129,61 @@ namespace gameVaultClassLibrary
             return null;
         }
 
-        public static bool changeUserPseudoFromFile(string filePath, string pseudo, string newPseudo)
+        public static bool ChangeUserPseudo(string oldPseudo, string newPseudo)
         {
-            if (File.Exists(filePath))
+
+            Config.changeSetting(oldPseudo, newPseudo);
+
+            string librairiesConfigFilePath = Config.LoadSetting(Config.librariesConfigKey);
+            if(!File.Exists(librairiesConfigFilePath))
+                return false;
+
+            var librariesData = JsonSerializer.Deserialize<Dictionary<string, string>>(File.ReadAllText(librairiesConfigFilePath));
+            if (librariesData.ContainsKey(oldPseudo))
             {
-                XmlSerializer serializer = new XmlSerializer(typeof(User));
+                string libraryFilePath = librariesData[oldPseudo];
+                librariesData.Remove(oldPseudo);
+                librariesData[newPseudo] = libraryFilePath;
 
-                User user;
-
-                using (FileStream stream = new FileStream(filePath, FileMode.Open))
-                {
-                    user = (User)serializer.Deserialize(stream);
-                }
-
-                if (user.Pseudo != pseudo) return false;
-
-                user.Pseudo = newPseudo;
-
-                using (FileStream stream = new FileStream(filePath, FileMode.Create))
-                {
-                    serializer.Serialize(stream, user);
-                }
+                File.WriteAllText(librairiesConfigFilePath, JsonSerializer.Serialize(librariesData, new JsonSerializerOptions { WriteIndented = true }));
             }
+            else
+            {
+                return false;
+            }
+
+            string passwordsFilePath = Config.LoadSetting(Config.userConfigKey);
+            if (!File.Exists(passwordsFilePath)) return false;
+
+            var passwordsData = JsonSerializer.Deserialize<Dictionary<string, string>>(File.ReadAllText(passwordsFilePath));
+            if (passwordsData.ContainsKey(oldPseudo))
+            {
+                string password = passwordsData[oldPseudo];
+                passwordsData.Remove(oldPseudo);
+                passwordsData[newPseudo] = password;
+
+                File.WriteAllText(passwordsFilePath, JsonSerializer.Serialize(passwordsData, new JsonSerializerOptions { WriteIndented = true }));
+            }
+            else
+            {
+                return false; 
+            }
+
+            string oldLibraryFilePath = Path.Combine(Config.LoadSetting(Config.appDataKey), $"{oldPseudo}_library.json");
+            string newLibraryFilePath = Path.Combine(Config.LoadSetting(Config.appDataKey), $"{newPseudo}_library.json");
+
+            if (File.Exists(oldLibraryFilePath))
+            {
+                File.Move(oldLibraryFilePath, newLibraryFilePath);
+            }
+            else
+            {
+                return false;
+            }
+
+            return true;
+
         }
+
     }
 }

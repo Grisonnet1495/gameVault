@@ -91,7 +91,10 @@ namespace gameVaultProject
 
             if (authenticator.AuthenticateUser(pseudo, password))
             {
-                this.DialogResult = true; // Close the window and return true
+                Pseudo = pseudo;
+                Password = password;
+
+                this.DialogResult = true;
                 this.Close();
             }
             else
@@ -99,6 +102,7 @@ namespace gameVaultProject
                 MessageBox.Show("Authentification échouée, veuillez créer un compte !", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
 
         private void btnCreate_Click(object sender, RoutedEventArgs e)
         {
