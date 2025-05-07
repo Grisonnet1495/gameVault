@@ -129,23 +129,24 @@ namespace gameVaultClassLibrary
             return null;
         }
 
+        // Note : To verify
+        // Change an user pseudo
         public static bool ChangeUserPseudo(string oldPseudo, string newPseudo)
         {
+            Config.SaveSetting(oldPseudo, newPseudo);
 
-            Config.changeSetting(oldPseudo, newPseudo);
-
-            string librairiesConfigFilePath = Config.LoadSetting(Config.librariesConfigKey);
-            if(!File.Exists(librairiesConfigFilePath))
+            string allLibrariesFilename = Config.LoadSetting(Config.librariesConfigKey);
+            if (!File.Exists(allLibrariesFilename))
                 return false;
 
-            var librariesData = JsonSerializer.Deserialize<Dictionary<string, string>>(File.ReadAllText(librairiesConfigFilePath));
-            if (librariesData.ContainsKey(oldPseudo))
+            var allLibrariesData = JsonSerializer.Deserialize<Dictionary<string, string>>(File.ReadAllText(allLibrariesFilename));
+            if (allLibrariesData != null && allLibrariesData.ContainsKey(oldPseudo))
             {
-                string libraryFilePath = librariesData[oldPseudo];
-                librariesData.Remove(oldPseudo);
-                librariesData[newPseudo] = libraryFilePath;
+                string libraryFilePath = allLibrariesData[oldPseudo];
+                allLibrariesData.Remove(oldPseudo);
+                allLibrariesData[newPseudo] = libraryFilePath;
 
-                File.WriteAllText(librairiesConfigFilePath, JsonSerializer.Serialize(librariesData, new JsonSerializerOptions { WriteIndented = true }));
+                File.WriteAllText(allLibrariesFilename, JsonSerializer.Serialize(allLibrariesData, new JsonSerializerOptions { WriteIndented = true }));
             }
             else
             {
@@ -156,7 +157,7 @@ namespace gameVaultClassLibrary
             if (!File.Exists(passwordsFilePath)) return false;
 
             var passwordsData = JsonSerializer.Deserialize<Dictionary<string, string>>(File.ReadAllText(passwordsFilePath));
-            if (passwordsData.ContainsKey(oldPseudo))
+            if (passwordsData != null && passwordsData.ContainsKey(oldPseudo))
             {
                 string password = passwordsData[oldPseudo];
                 passwordsData.Remove(oldPseudo);

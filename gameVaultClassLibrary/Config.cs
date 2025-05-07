@@ -109,15 +109,5 @@ namespace gameVaultClassLibrary
                 return key?.GetValue(keyName) != null;
             }
         }
-
-        public static void changeSetting(string keyName, string newValue)
-        {
-            RegistryKey key = Registry.CurrentUser.OpenSubKey(registryPath, writable: true);
-            if (key != null)
-            {
-                key.SetValue(keyName, newValue);
-                key.Close();
-            }
-        }
     }
 }

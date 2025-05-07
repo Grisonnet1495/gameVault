@@ -33,11 +33,12 @@ namespace gameVaultProject
             InitializeComponent();
 
             // Authenticate
-            AuthenticateUser authenticateUser = new AuthenticateUser();
-            bool? result = authenticateUser.ShowDialog();//only open one window and wait for it to close
-            if(result == true)//if the user is authenticated and the window (of the login) is closed correctly
+            AuthenticateWindow authenticateWindow = new AuthenticateWindow();
+            bool? result = authenticateWindow.ShowDialog(); // Open one window and wait for it to close
+
+            if (result == true) // If the user is authenticated
             {
-                currentUser = new User(authenticateUser.Pseudo, authenticateUser.Password, new Library());
+                currentUser = new User(authenticateWindow.Pseudo, authenticateWindow.Password, new Library());
 
                 // Retrieve user data
                 backup = new Backup(currentUser);
@@ -58,7 +59,7 @@ namespace gameVaultProject
 
                 ShowHome();
             }
-            else if(result == false || result == null)//If the user is not authenticated or the window (of the login) is closed without being authenticated
+            else
             {
                 this.Close();
             }

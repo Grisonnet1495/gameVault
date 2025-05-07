@@ -1,7 +1,11 @@
-﻿<Window x:Class="gameVaultProject.AuthenticateUser"
+﻿<Window x:Class="gameVaultProject.AuthenticateWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="AuthenticateUser"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:gameVaultProject"
+        mc:Ignorable="d"
+        Title="AuthenticateWindow"
         Height="450" Width="800"
         WindowStyle="None"
         ResizeMode="NoResize"
@@ -9,77 +13,63 @@
         Background="Transparent"
         AllowsTransparency="True"
         MouseDown="Window_MouseDown">
-
     <Grid>
-        <!-- ===== IMAGE DE FOND ANIMABLE ===== -->
+        <!-- Animable background image -->
         <Image x:Name="BackgroundImage"
-               Source="/Ressources/Images/clear_login.png"
+               Source="/Ressources/Images/clear_login_image.png"
                Stretch="Fill"
                Opacity="1"
                Panel.ZIndex="-1"/>
 
-        <!-- ===== CONTENEUR AVEC ANGLES ARRONDIS ===== -->
-        <Border CornerRadius="12">
-            <Border CornerRadius="10" BorderThickness="2">
-                <!-- ===== GRILLE PRINCIPALE ===== -->
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
+        <Grid Margin="5, 5, 5, 5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
 
-                    <!-- === BARRE SUPÉRIEURE === -->
-                    <Grid Grid.Row="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition Width="25"/>
-                            <ColumnDefinition Width="25"/>
-                            <ColumnDefinition Width="5"/>
-                        </Grid.ColumnDefinitions>
+            <!-- Top bar -->
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="35"/>
+                    <ColumnDefinition Width="35"/>
+                </Grid.ColumnDefinitions>
 
-                        <TextBlock Text="LOGIN"
+                <TextBlock Grid.Column="0"
+                                   Text="LOGIN"
                                    Foreground="White"
                                    FontSize="10"
                                    VerticalAlignment="Center"
                                    Margin="10,0,10,0"
-                                   Grid.Column="0"
                                    FontFamily="{StaticResource GameFontPhrase}"/>
 
-                        <Button x:Name="btnMinimize"
-                                Content="-"
-                                Click="btnMinimize_Click"
+                <Button x:Name="MinimizeButton"
                                 Grid.Column="1"
-                                Style="{StaticResource MinimizeButtonStyle}"
-                                Background="#FF7B4FFF"
-                                HorizontalAlignment="Center"
-                                Width="25"/>
+                                Content="-"
+                                Click="MinimizeButton_Click"
+                                Style="{StaticResource MinimizeButtonStyle}"/>
 
-                        <Button x:Name="btnClose"
-                                Content="X"
-                                Click="btnClose_Click"
+                <Button x:Name="CloseButton"
                                 Grid.Column="2"
-                                Style="{StaticResource CloseButtonStyle}"
-                                HorizontalAlignment="Center"
-                                Width="25"
-                                Background="#FF0061FF"
-                                Height="25"
-                                FontSize="10"/>
-                    </Grid>
+                                Content="X"
+                                Click="CloseButton_Click"
+                                Style="{StaticResource CloseAuthButtonStyle}"/>
+            </Grid>
 
-                    <!-- === CONTENU LOGIN === -->
-                    <StackPanel Grid.Row="1"
+            <!-- Login -->
+            <StackPanel Grid.Row="1"
                                 Width="220"
                                 Orientation="Vertical"
                                 Margin="0,35,0,0">
 
-                        <TextBlock x:Name="Title" Text="GameVault"
+                <TextBlock x:Name="TitleTextBlock" Text="GameVault"
                                    FontSize="25"
                                    FontWeight="Bold"
-                                   Foreground="#FF0061FF"
+                                   Foreground="{DynamicResource TitleBrush}"
                                    HorizontalAlignment="Center"
                                    FontFamily="{StaticResource GameFontTitle}"/>
 
-                        <TextBlock x:Name="Text" Text="Votre collection, votre univers — organisez, explorez et jouez sans limites."
+                <TextBlock Text="Your collection, your universe — organize, explore, and play without limits."
                                    FontSize="12"
                                    Foreground="White"
                                    TextAlignment="Center"
@@ -87,60 +77,58 @@
                                    Margin="0,5,0,0"
                                    FontFamily="{StaticResource GameFontPhrase}"/>
 
-                        <TextBlock Text="Username"
+                <TextBlock Text="Username"
                                    Margin="0,35,0,0"
                                    FontSize="12"
                                    Foreground="White"
                                    FontFamily="{StaticResource GameFontPhrase}"/>
 
-                        <TextBox x:Name="txtUser"
+                <TextBox x:Name="UsernameTextBox"
                                  FontSize="13"
                                  Foreground="White"
                                  BorderThickness="0,0,0,2"
                                  CaretBrush="#FFD47E"
                                  Margin="0,5,0,0"
                                  Padding="20,0,0,0"
-                                 Background="{StaticResource UserIconBackground}"/>
+                                 Background="{StaticResource AuthTextBox}"/>
 
-                        <TextBlock Text="Password"
+                <TextBlock Text="Password"
                                    Margin="0,15,0,0"
                                    FontSize="12"
                                    Foreground="White"
                                    FontFamily="{StaticResource GameFontPhrase}"/>
 
-                        <PasswordBox x:Name="txtPass"
+                <PasswordBox x:Name="PasswordPasswordBox"
                                      FontSize="13"
                                      Foreground="White"
                                      BorderThickness="0,0,0,2"
                                      CaretBrush="#FFD47E"
                                      Margin="0,5,0,0"
                                      Padding="20,0,0,0"
-                                     Background="{StaticResource KeyIconBackground}"/>
+                                     Background="{StaticResource AuthTextBox}"/>
 
-                        <Button x:Name="btnLogin"
+                <Button x:Name="LoginButton"
                                 Content="LOG IN"
-                                Click="btnLogin_Click"
-                                Style="{StaticResource LoginButtonStyle}"
+                                Click="LoginButton_Click"
+                                Style="{StaticResource AuthenticateButtonStyle}"
                                 Margin="0,25,0,0"
                                 FontFamily="{StaticResource GameFontPhrase}"/>
 
-                        <Button x:Name="btnCreate"
+                <Button x:Name="CreateButton"
                                 Content="CREATE"
-                                Click="btnCreate_Click"
-                                Style="{StaticResource LoginButtonStyle}"
+                                Click="CreateAccountButton_Click"
+                                Style="{StaticResource AuthenticateButtonStyle}"
                                 Margin="0,25,0,0"
                                 FontFamily="{StaticResource GameFontPhrase}"/>
 
-                        <ToggleButton x:Name="ThemeToggle"
-                                      Content="Mode Sombre"
+                <ToggleButton x:Name="ThemeToggleButton"
+                                      Content="Dark mode"
                                       HorizontalAlignment="Center"
                                       VerticalAlignment="Top"
                                       Margin="10"
                                       Checked="ThemeToggle_Checked"
                                       Unchecked="ThemeToggle_Unchecked"/>
-                    </StackPanel>
-                </Grid>
-            </Border>
-        </Border>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>

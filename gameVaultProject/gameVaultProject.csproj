@@ -22,8 +22,6 @@
     <None Remove="Ressources\Icons\not_favorite_game_icon.png" />
     <None Remove="Ressources\Icons\settings_icon.png" />
     <None Remove="Ressources\Icons\sort_icon.png" />
-    <None Remove="Ressources\Images\clear_login.png" />
-    <None Remove="Ressources\Images\dark_login.png" />
     <None Remove="Ressources\Images\default_game_image.png" />
     <None Remove="Ressources\Images\minecraft_game_image.jpg" />
   </ItemGroup>
@@ -73,10 +71,10 @@
     <Resource Include="Ressources\Icons\sort_icon.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Ressources\Images\clear_login.png">
+    <Resource Include="Ressources\Images\clear_login_image.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Ressources\Images\dark_login.png">
+    <Resource Include="Ressources\Images\dark_login_image.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Ressources\Images\default_game_image.png">
