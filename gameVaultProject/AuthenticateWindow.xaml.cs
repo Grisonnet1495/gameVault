@@ -13,8 +13,7 @@ namespace gameVaultProject
     {
         public string? Pseudo { get; set; }
         public string? Password { get; set; }
-
-        Authenticator authenticator = new Authenticator();
+        private Authenticator authenticator = new Authenticator();
 
         public AuthenticateWindow()
         {
@@ -78,7 +77,7 @@ namespace gameVaultProject
             BackgroundImage.BeginAnimation(UIElement.OpacityProperty, fadeOut);
         }
 
-        private bool FieldValidation(out string pseudo, out string password)
+        private bool IsFieldValidated(out string pseudo, out string password)
         {
             pseudo = UsernameTextBox.Text;
             password = PasswordPasswordBox.Password;
@@ -93,7 +92,13 @@ namespace gameVaultProject
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!FieldValidation(out string pseudo, out string password)) return;
+            if (!IsFieldValidated(out string pseudo, out string password)) return;
+
+            if (!authenticator.UserExists(pseudo))
+            {
+                MessageBox.Show("No account for the pseudo : " + pseudo, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
 
             if (authenticator.AuthenticateUser(pseudo, password))
             {
@@ -105,14 +110,14 @@ namespace gameVaultProject
             }
             else
             {
-                MessageBox.Show("No account for \"" + pseudo + "\" pseudo", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Incorrect password", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
 
         private void CreateAccountButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!FieldValidation(out string pseudo, out string password)) return;
+            if (!IsFieldValidated(out string pseudo, out string password)) return;
 
             if (authenticator.AddUser(pseudo, password))
             {

@@ -10,6 +10,7 @@ namespace gameVaultClassLibrary
     {
         #region Properties
         public string LibraryName { get; set; }
+        public int currentImageNb { get; set; }
         public List<Game> GameList { get; set; }
         #endregion
 
@@ -17,12 +18,14 @@ namespace gameVaultClassLibrary
         public Library()
         {
             LibraryName = "";
+            currentImageNb = 0;
             GameList = new List<Game>();
         }
 
         public Library(string libraryName)
         {
             LibraryName = libraryName;
+            currentImageNb = 0;
             GameList = new List<Game>();
         }
         #endregion

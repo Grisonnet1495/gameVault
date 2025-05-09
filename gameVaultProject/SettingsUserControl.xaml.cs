@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,7 +25,7 @@ namespace gameVaultProject
     public partial class SettingsUserControl : UserControl
     {
         private User currentUser;
-
+        private Authenticator authenticator;
         public event EventHandler ExitSettingsButtonClicked;
 
         public SettingsUserControl(User user)
@@ -35,29 +36,50 @@ namespace gameVaultProject
 
             PseudoTextBox.Text = currentUser.Pseudo;
 
-            AppDataFilPathTextBox.Text = Config.LoadSetting(Config.appDataKey);
+            AppDataFilePathTextBox.Text = Config.LoadSetting(Config.appDataKey);
 
             ExportGameComboBox.ItemsSource = currentUser.Library.GameList;
+
+            authenticator = new Authenticator();
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            //currentUser.Pseudo = PseudoTextBox.Text;
+            // Change the current user pseudo if needed
+            string newPseudo = PseudoTextBox.Text;
 
-            // Note : To continue
-            // If the pseudo has changed :
-                // Change library name ?
-                // Change user library filename
-                // Change user pseudo in libraries config file
-                // Change user pseudo in user file
-            // If the new app data folder has changer :
-                // Check if the new location exists
-                // Move all app data to the new location
-                // It it worked :
-                    // Inform the user
-                // Else :
-                    // Display a error message to the user
+            if (currentUser.Pseudo != newPseudo && !string.IsNullOrWhiteSpace(newPseudo) && !authenticator.UserExists(newPseudo))
+            {
+                authenticator.ChangeUserPseudo(currentUser.Pseudo, newPseudo);
+                Backup.ChangeUserPseudo(currentUser.Pseudo, newPseudo);
+                currentUser.Pseudo = newPseudo;
+            }
 
+            // Change the app data folder if needed
+            string newAppDataFolder = AppDataFilePathTextBox.Text;
+
+            if (newAppDataFolder != Config.LoadSetting(Config.appDataKey))
+            {
+                if (!Directory.Exists(newAppDataFolder))
+                {
+                    Directory.CreateDirectory(newAppDataFolder);
+                }
+
+                try
+                {
+                    string testFilePath = System.IO.Path.Combine(newAppDataFolder, "testFile.txt");
+                    using (FileStream fs = File.Create(testFilePath, 1, FileOptions.DeleteOnClose)) { } // Test if the app can write in this folder
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Invalid new app data directory : " + ex.Message);
+                    return;
+                }
+
+                Backup.ChangeAppDataFolder(newAppDataFolder);
+            }
+
+            // Exit the settings
             ExitSettingsButtonClicked?.Invoke(this, EventArgs.Empty);
         }
 
@@ -162,10 +184,12 @@ namespace gameVaultProject
         {
             if (AcceptConsequencesCheckBox.IsChecked == true)
             {
-                // Delete user library file
-                // Delete user from libraries file
-                // Delete user from password file
-                // Note : To continue
+                DeleteAllUserDataButton.IsEnabled = false;
+                AcceptConsequencesCheckBox.IsEnabled = false;
+
+                // Delete all current user data
+                authenticator.RemoveUser(currentUser.Pseudo);
+                Backup.DeleteUserData(currentUser);
 
                 MessageBox.Show("Data of the current account deleted successfully ! The app is going to restart.", "Success", MessageBoxButton.OK);
 
@@ -178,6 +202,36 @@ namespace gameVaultProject
             {
                 MessageBox.Show("You have to accept the risks first");
             }
+        }
+
+        private void PseudoTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string newPseudo = PseudoTextBox.Text;
+
+            // Inform the user about the new pseudo
+            if (currentUser.Pseudo == newPseudo)
+            {
+                PseudoConfirmationTextBlock.Text = "";
+                PseudoConfirmationTextBlock.Foreground = Brushes.White;
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(newPseudo))
+            {
+                PseudoConfirmationTextBlock.Text = "Incorrect pseudo";
+                PseudoConfirmationTextBlock.Foreground = Brushes.IndianRed;
+                return;
+            }
+
+            if (authenticator.UserExists(newPseudo))
+            {
+                PseudoConfirmationTextBlock.Text = "Not disponible";
+                PseudoConfirmationTextBlock.Foreground = Brushes.IndianRed;
+                return;
+            }
+
+            PseudoConfirmationTextBlock.Text = "Disponible";
+            PseudoConfirmationTextBlock.Foreground = Brushes.LightGreen;
         }
     }
 }

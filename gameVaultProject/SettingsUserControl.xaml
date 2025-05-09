@@ -34,10 +34,13 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Row="0" Grid.Column="0" Text="Change username :" FontSize="16" VerticalAlignment="Center" Foreground="White" TextWrapping="Wrap"/>
-                <TextBox x:Name="PseudoTextBox" Grid.Row="0" Grid.Column="1" Text="" Width="250" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#323232" Foreground="White"/>
-
+                <WrapPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBox x:Name="PseudoTextBox" Text="" Width="200" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#323232" Foreground="White" Margin="0, 0, 10, 0" TextChanged="PseudoTextBox_TextChanged"/>
+                    <TextBlock x:Name="PseudoConfirmationTextBlock" Text="Disponible" Foreground="White" VerticalAlignment="Center"/>
+                </WrapPanel>
+                
                 <TextBlock Grid.Row="1" Grid.Column="0" Text="App data folder :" FontSize="16" VerticalAlignment="Center" Foreground="White" TextWrapping="Wrap"/>
-                <TextBox x:Name="AppDataFilPathTextBox" Grid.Row="1" Grid.Column="1" Text="" Width="250" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#323232" Foreground="White"/>
+                <TextBox x:Name="AppDataFilePathTextBox" Grid.Row="1" Grid.Column="1" Text="" Width="250" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#323232" Foreground="White"/>
 
                 <TextBlock Grid.Row="2" Grid.Column="0" Text="Backup :" FontSize="16" VerticalAlignment="Center" Foreground="White" TextWrapping="Wrap"/>
                 <WrapPanel Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
@@ -55,7 +58,7 @@
 
                 <TextBlock Grid.Row="4" Grid.Column="0" Text="Delete current account data :" FontSize="16" VerticalAlignment="Center" Foreground="White" TextWrapping="Wrap"/>
                 <StackPanel Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Button Content="Delete" Width="100" Height="30" Background="#A80000" Foreground="White" HorizontalAlignment="Center" Style="{StaticResource SettingsButtonStyle}" Click="DeleteAllUserDataButton_Click" Cursor="Hand"/>
+                    <Button x:Name="DeleteAllUserDataButton" Content="Delete" Width="100" Height="30" Background="#A80000" Foreground="White" HorizontalAlignment="Center" Style="{StaticResource SettingsButtonStyle}" Click="DeleteAllUserDataButton_Click" Cursor="Hand"/>
                     <CheckBox x:Name="AcceptConsequencesCheckBox" VerticalAlignment="Center" Cursor="Hand">
                         <TextBlock Text="I accept that I cannot recover my data after this" FontSize="14" Foreground="White" Margin="0, 0, 20, 0" TextWrapping="Wrap"/>
                     </CheckBox>

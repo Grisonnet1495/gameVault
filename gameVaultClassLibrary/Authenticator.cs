@@ -9,22 +9,19 @@ namespace gameVaultClassLibrary
 {
     public class Authenticator
     {
-        private string userFilePath; // User password file path
         public Dictionary<string, string> Users { get; set; }
 
         public Authenticator()
         {
             Config.SetUpConfig();
 
-            userFilePath = Config.LoadSetting(Config.userConfigKey);
+            string userFilePath = Path.Combine(Config.LoadSetting(Config.appDataKey), Config.LoadSetting(Config.userConfigKey));
 
             // Create user file if it doesn't exist
             if (!File.Exists(userFilePath))
             {
                 File.WriteAllText(userFilePath, "{}");
             }
-
-            Users = new Dictionary<string, string>();
 
             LoadUserFile();
         }
@@ -55,6 +52,16 @@ namespace gameVaultClassLibrary
             return true;
         }
 
+        private string? GetPassword(string pseudo)
+        {
+            if (UserExists(pseudo))
+            {
+                return Users[pseudo];
+            }
+
+            return null;
+        }
+
         public bool ChangePassword(string pseudo, string newPassword)
         {
             if (!Users.ContainsKey(pseudo))
@@ -63,6 +70,26 @@ namespace gameVaultClassLibrary
             Users[pseudo] = newPassword;
 
             SaveUserFile();
+
+            return true;
+        }
+
+        public bool ChangeUserPseudo(string oldPseudo, string newPseudo)
+        {
+            if (UserExists(newPseudo))
+            {
+                return false;
+            }
+
+            string password = GetPassword(oldPseudo);
+
+            if (password == null)
+            {
+                return false;
+            }
+
+            RemoveUser(oldPseudo);
+            AddUser(newPseudo, password);
 
             return true;
         }
@@ -84,18 +111,10 @@ namespace gameVaultClassLibrary
             }
         }
 
-        public string? GetPassword(string pseudo)
-        {
-            if (Users.ContainsKey(pseudo))
-            {
-                return Users[pseudo];
-            }
-
-            return null;
-        }
-
         public void LoadUserFile()
         {
+            string userFilePath = Path.Combine(Config.LoadSetting(Config.appDataKey), Config.LoadSetting(Config.userConfigKey));
+
             if (!File.Exists(userFilePath))
                 return;
 
@@ -106,10 +125,16 @@ namespace gameVaultClassLibrary
             {
                 Users = users;
             }
+            else
+            {
+                Users = new Dictionary<string, string>();
+            }
         }
 
         public void SaveUserFile()
         {
+            string userFilePath = Path.Combine(Config.LoadSetting(Config.appDataKey), Config.LoadSetting(Config.userConfigKey));
+
             var options = new JsonSerializerOptions { WriteIndented = true };
             string json = JsonSerializer.Serialize(Users, options);
             File.WriteAllText(userFilePath, json);

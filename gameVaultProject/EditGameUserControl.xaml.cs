@@ -54,10 +54,14 @@ namespace gameVaultProject
             }
         }
 
-        private void OpenCalendarButton_Click(object sender, RoutedEventArgs e)
+        private void ChooseGameImageButton_Click(object sender, RoutedEventArgs e)
         {
-            // Note : To delete ?
-            releaseDatePicker.Visibility = Visibility.Visible;
+            // Note : To do
+        }
+
+        private void ChooseGameExecutableButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Note : To do
         }
 
         private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)

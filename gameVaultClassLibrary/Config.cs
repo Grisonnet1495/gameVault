@@ -9,12 +9,15 @@ namespace gameVaultClassLibrary
 {
     public abstract class Config
     {
+        #region Properties
         public const string registryPath = @"Software\gameVault"; // App registry path
         public const string appDataKey = "appDataPath"; // Store the path to app data
         public const string userConfigKey = "userConfigFile"; // Store the file path of the user passwords file
         public const string librariesConfigKey = "librariesConfigFile"; // Store the file path of the libraries config file
-        public const string imagesFolderKey = "imageFolder"; // Store the file path of the images folder
+        public const string imagesFolderKey = "imageFolder"; // Store the file path of the images folder 
+        #endregion
 
+        #region Constructor
         public static void SetUpConfig()
         {
             string appDataPath;
@@ -41,7 +44,7 @@ namespace gameVaultClassLibrary
             // Create userConfigKey if it doesn't exist
             if (!SettingExists(userConfigKey))
             {
-                string userConfigFilePath = Path.Combine(appDataPath, "passwords.txt");
+                string userConfigFilePath = "passwords.json";
 
                 SaveSetting(userConfigKey, userConfigFilePath);
             }
@@ -49,17 +52,30 @@ namespace gameVaultClassLibrary
             // Create librariesConfigKey if it doesn't exist
             if (!SettingExists(librariesConfigKey))
             {
-                string librariesConfigFilePath = Path.Combine(appDataPath, "libraries.txt");
+                string librariesConfigFilePath = "libraries.json";
 
                 SaveSetting(librariesConfigKey, librariesConfigFilePath);
             }
 
+            string imagesFolderFilePath;
+
             // Create the imageFolderKey if it doesn't exist
             if (!SettingExists(imagesFolderKey))
             {
-                string imageFolderFilePath = Path.Combine(appDataPath, "images");
+                string imagesFolderName = "images";
+                imagesFolderFilePath = Path.Combine(LoadSetting(appDataKey), imagesFolderName);
 
-                SaveSetting(imagesFolderKey, imageFolderFilePath);
+                SaveSetting(imagesFolderKey, imagesFolderName);
+            }
+            else
+            {
+                imagesFolderFilePath = Path.Combine(LoadSetting(appDataKey), LoadSetting(imagesFolderKey));
+            }
+
+            // Create the app data directory if it doesn't exit
+            if (!Directory.Exists(imagesFolderFilePath))
+            {
+                Directory.CreateDirectory(imagesFolderFilePath);
             }
 
             // Create the images directory if it doesn't exit
@@ -68,7 +84,9 @@ namespace gameVaultClassLibrary
                 Directory.CreateDirectory(Config.LoadSetting(imagesFolderKey));
             }
         }
+        #endregion
 
+        #region Methods
         // Create or update the setting
         public static void SaveSetting(string keyName, string value)
         {
@@ -108,6 +126,7 @@ namespace gameVaultClassLibrary
             {
                 return key?.GetValue(keyName) != null;
             }
-        }
+        } 
+        #endregion
     }
 }

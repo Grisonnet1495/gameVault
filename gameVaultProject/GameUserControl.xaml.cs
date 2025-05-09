@@ -28,7 +28,6 @@ namespace gameVaultProject
 
         public event EventHandler LaunchGameButtonClicked;
         public event EventHandler EditGameButtonClicked;
-        public event EventHandler ExportGameButtonClicked;
 
         // Calculated property
         public bool HasValidStoreUrl => !string.IsNullOrWhiteSpace(Game.StoreUrl) && Uri.IsWellFormedUriString(Game.StoreUrl, UriKind.Absolute);

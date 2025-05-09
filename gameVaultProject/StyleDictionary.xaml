@@ -192,7 +192,7 @@
                 Height="45" 
                 Background="{TemplateBinding Background}" 
                 BorderBrush="Transparent" 
-                CornerRadius="12">
+                CornerRadius="25">
                         <ContentPresenter HorizontalAlignment="Center" 
                                   VerticalAlignment="Center"/>
                     </Border>

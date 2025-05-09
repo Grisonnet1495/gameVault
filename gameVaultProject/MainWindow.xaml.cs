@@ -21,10 +21,9 @@ namespace gameVaultProject
     public partial class MainWindow : Window
     {
         #region Properties
-        public User currentUser {  get; set; }
-
         public Game SelectedGame { get; set; }
-        private Backup backup;
+        private User currentUser;
+        //private Backup backup;
         #endregion
 
         #region Constructor
@@ -41,7 +40,8 @@ namespace gameVaultProject
                 currentUser = new User(authenticateWindow.Pseudo, authenticateWindow.Password, new Library());
 
                 // Retrieve user data
-                backup = new Backup(currentUser);
+                //backup = new Backup(currentUser);
+                Backup.SetUpBackup(currentUser);
 
                 //currentUser.Library.AddGame(new Game("Minecraft", "Sandbox", true, true, false, true, "Windows, MacOS, Linux", "https://www.minecraft.net", new DateTime(2009, 5, 17), true, "A sandbox game", "Ressources/Images/minecraft_game_image.jpg", DateTime.Now, "C:/XboxGames/Minecraft Launcher/Content/Minecraft.exe", TimeSpan.Zero, 0));
                 //currentUser.Library.AddGame(new Game("Portal 2", "Puzzle", true, true, true, true, "Windows, MacOS, Linux", "https://store.steampowered.com/app/620/Portal_2/", new DateTime(2011, 4, 19), false, "A brilliant physics-based puzzle game", "Ressources/Images/default_game_image.png", DateTime.Now, "", new TimeSpan(2, 30, 0), 1));
@@ -90,7 +90,6 @@ namespace gameVaultProject
                 MainContentControl.Content = gameUserControl;
 
                 gameUserControl.EditGameButtonClicked += EditCurrentGame;
-                gameUserControl.ExportGameButtonClicked += ExportCurrentGame;
             }
             else
             {
@@ -140,7 +139,7 @@ namespace gameVaultProject
         // Close the window
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            backup.SaveDataToFile(currentUser);
+            Backup.SaveDataToFile(currentUser);
 
             this.Close();
         }
@@ -195,19 +194,12 @@ namespace gameVaultProject
         {
             ShowEditGame();
         }
-
-        private void ExportCurrentGame(object sender, EventArgs e)
-        {
-            // Note : To do
-            MessageBox.Show("Export game !");
-        }
-
-        // Note : Move the launch game method
         #endregion
 
         #region EditGameUserControl buttons clicks
         private void ExitGameEdit(object sender, EventArgs e)
         {
+            Backup.SaveDataToFile(currentUser);
             UpdateInfoPanel();
             ShowGame();
         }
@@ -216,6 +208,7 @@ namespace gameVaultProject
         {
             currentUser.Library.RemoveGame(SelectedGame);
             SelectedGame = currentUser.Library.GameList.First();
+            Backup.SaveDataToFile(currentUser);
             UpdateInfoPanel();
             ShowHome();
         }
@@ -224,6 +217,7 @@ namespace gameVaultProject
         #region SettingsUserControl button clicks
         private void ExitSettings(object sender, EventArgs e)
         {
+            Backup.SaveDataToFile(currentUser);
             UpdateInfoPanel();
             ShowHome();
         } 

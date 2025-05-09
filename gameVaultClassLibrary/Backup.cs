@@ -5,28 +5,70 @@ namespace gameVaultClassLibrary
 {
     public class Backup
     {
-        private string allLibrariesFilename; // Filename of the libraries config file
-        private string userLibraryFilename; // Library Filename of the current user
-        private Dictionary<string, string> allLibrariesData; // Contains data of the libraries config file
-        private Config config;
+        #region Properties
+        //private string allLibrariesFilename; // Filename of the libraries config file
+        //private string userLibraryFilename; // Library Filename of the current user
+        //private Dictionary<string, string> allLibrariesData; // Contains data of the libraries config file
+        //private User currentUser;
+        #endregion
 
-        public Backup(User user)
+        //#region Constructor
+        //public Backup(User user)
+        //{
+        //    Config.SetUpConfig();
+
+        //    currentUser = user;
+
+        //    SetUpBackup();
+        //}
+        //#endregion
+
+        //private void SetUpBackup()
+        //{
+        //    allLibrariesFilename = Path.Combine(Config.LoadSetting(Config.appDataKey), Config.LoadSetting(Config.librariesConfigKey));
+
+        //    // Create libraries config file if it doesn't exist
+        //    if (!File.Exists(allLibrariesFilename))
+        //    {
+        //        File.WriteAllText(allLibrariesFilename, "{}");
+        //    }
+
+        //    // Load the libraries config file
+        //    var jsonContent = File.ReadAllText(allLibrariesFilename);
+
+        //    if (!string.IsNullOrWhiteSpace(jsonContent))
+        //    {
+        //        // Retrieve libraries config data
+        //        allLibrariesData = JsonSerializer.Deserialize<Dictionary<string, string>>(jsonContent) ?? new Dictionary<string, string>();
+        //    }
+        //    else
+        //    {
+        //        allLibrariesData = new Dictionary<string, string>();
+        //    }
+
+        //    // Retrieve or create current user libray filename
+        //    if (allLibrariesData.ContainsKey(currentUser.Pseudo))
+        //    {
+        //        userLibraryFilename = allLibrariesData[currentUser.Pseudo];
+        //    }
+        //    else
+        //    {
+        //        userLibraryFilename = Path.Combine(Config.LoadSetting(Config.appDataKey), $"{currentUser.Pseudo}_library.json");
+        //    }
+
+        //    // Import user library if possible
+        //    Library library = ImportLibraryFromFile(userLibraryFilename);
+
+        //    if (library != null)
+        //    {
+        //        currentUser.Library = library;
+        //    }
+        //}
+
+        public static void SetUpBackup(User user)
         {
-            Config.SetUpConfig();
-
-            allLibrariesFilename = Config.LoadSetting(Config.librariesConfigKey);
-
-            // Create libraries config file if it doesn't exist
-            if (!File.Exists(allLibrariesFilename))
-            {
-                File.WriteAllText(allLibrariesFilename, "{}");
-            }
-
-            // Load the libraries config file
-            LoadAllLibrariesFile(user);
-
             // Import user library if possible
-            Library library = ImportLibraryFromFile(userLibraryFilename);
+            Library library = ImportLibraryFromFile(Path.Combine(Config.LoadSetting(Config.appDataKey), $"{user.Pseudo}_library.json"));
 
             if (library != null)
             {
@@ -34,49 +76,14 @@ namespace gameVaultClassLibrary
             }
         }
 
-        // Load all libraries config file data and set the current user library filename
-        private void LoadAllLibrariesFile(User user)
-        {
-            if (!File.Exists(allLibrariesFilename))
-                return;
-
-            // Load users file
-            var jsonContent = File.ReadAllText(allLibrariesFilename);
-
-            if (!string.IsNullOrWhiteSpace(jsonContent))
-            {
-                // Retrieve all users data
-                allLibrariesData = JsonSerializer.Deserialize<Dictionary<string, string>>(jsonContent) ?? new Dictionary<string, string>();
-            }
-            else
-            {
-                allLibrariesData = new Dictionary<string, string>();
-            }
-
-            // Retrieve or create current user libray filename
-            if (allLibrariesData.ContainsKey(user.Pseudo))
-            {
-                userLibraryFilename = allLibrariesData[user.Pseudo];
-            }
-            else
-            {
-                userLibraryFilename = Path.Combine(Config.LoadSetting(Config.appDataKey), $"{user.Pseudo}_library.json");
-            }
-        }
-
         // Save libraries config file and current user library
-        public void SaveDataToFile(User user)
+        public static void SaveDataToFile(User user)
         {
-            allLibrariesData[user.Pseudo] = userLibraryFilename;
-
-            var jsonOptions = new JsonSerializerOptions { WriteIndented = true };
-
-            File.WriteAllText(allLibrariesFilename, JsonSerializer.Serialize(allLibrariesData, jsonOptions));
-
-            ExportLibraryToFile(userLibraryFilename, user.Library);
+            // Save the library of the current user
+            ExportLibraryToFile(Path.Combine(Config.LoadSetting(Config.appDataKey), $"{user.Pseudo}_library.json"), user.Library);
         }
 
-        // Save current user library in JSON
+        // Export library in JSON
         public static void ExportLibraryToFile(string filePath, Library library)
         {
             var jsonOptionsLibrary = new JsonSerializerOptions { WriteIndented = true };
@@ -85,7 +92,7 @@ namespace gameVaultClassLibrary
             File.WriteAllText(filePath, jsonStringLibrary);
         }
 
-        // Import library to current user in JSON
+        // Import library in JSON
         public static Library ImportLibraryFromFile(string filePath)
         {
             if (File.Exists(filePath))
@@ -131,45 +138,51 @@ namespace gameVaultClassLibrary
 
         // Note : To verify
         // Change an user pseudo
-        public static bool ChangeUserPseudo(string oldPseudo, string newPseudo)
+        public static void ChangeUserPseudo(string oldPseudo, string newPseudo)
         {
-            Config.SaveSetting(oldPseudo, newPseudo);
+            // Change pseudo in passwords file
+            //string passwordsFilePath = Path.Combine(Config.LoadSetting(Config.appDataKey), Config.LoadSetting(Config.userConfigKey));
+            //if (!File.Exists(passwordsFilePath))
+            //{
+            //    throw new Exception("Canot find the user passwords file");
+            //}
 
-            string allLibrariesFilename = Config.LoadSetting(Config.librariesConfigKey);
-            if (!File.Exists(allLibrariesFilename))
-                return false;
+            //var passwordsData = JsonSerializer.Deserialize<Dictionary<string, string>>(File.ReadAllText(passwordsFilePath));
+            //if (passwordsData != null && passwordsData.ContainsKey(oldPseudo))
+            //{
+            //    string password = passwordsData[oldPseudo];
+            //    passwordsData.Remove(oldPseudo);
+            //    passwordsData[newPseudo] = password;
 
-            var allLibrariesData = JsonSerializer.Deserialize<Dictionary<string, string>>(File.ReadAllText(allLibrariesFilename));
-            if (allLibrariesData != null && allLibrariesData.ContainsKey(oldPseudo))
-            {
-                string libraryFilePath = allLibrariesData[oldPseudo];
-                allLibrariesData.Remove(oldPseudo);
-                allLibrariesData[newPseudo] = libraryFilePath;
+            //    File.WriteAllText(passwordsFilePath, JsonSerializer.Serialize(passwordsData, new JsonSerializerOptions { WriteIndented = true }));
+            //}
+            //else
+            //{
+            //    throw new Exception("Invalid data in the user passwords file");
+            //}
 
-                File.WriteAllText(allLibrariesFilename, JsonSerializer.Serialize(allLibrariesData, new JsonSerializerOptions { WriteIndented = true }));
-            }
-            else
-            {
-                return false;
-            }
+            // Change pseudo in libraries config file
+            //string allLibrariesFilename = Path.Combine(Config.LoadSetting(Config.appDataKey), Config.LoadSetting(Config.librariesConfigKey));
+            //if (!File.Exists(allLibrariesFilename))
+            //{
+            //    throw new Exception("Canot find the libraries config file");
+            //}
 
-            string passwordsFilePath = Config.LoadSetting(Config.userConfigKey);
-            if (!File.Exists(passwordsFilePath)) return false;
+            //var allLibrariesData = JsonSerializer.Deserialize<Dictionary<string, string>>(File.ReadAllText(allLibrariesFilename));
+            //if (allLibrariesData != null && allLibrariesData.ContainsKey(oldPseudo))
+            //{
+            //    string libraryFilePath = allLibrariesData[oldPseudo];
+            //    allLibrariesData.Remove(oldPseudo);
+            //    allLibrariesData[newPseudo] = libraryFilePath;
 
-            var passwordsData = JsonSerializer.Deserialize<Dictionary<string, string>>(File.ReadAllText(passwordsFilePath));
-            if (passwordsData != null && passwordsData.ContainsKey(oldPseudo))
-            {
-                string password = passwordsData[oldPseudo];
-                passwordsData.Remove(oldPseudo);
-                passwordsData[newPseudo] = password;
+            //    File.WriteAllText(allLibrariesFilename, JsonSerializer.Serialize(allLibrariesData, new JsonSerializerOptions { WriteIndented = true }));
+            //}
+            //else
+            //{
+            //    throw new Exception("Invalid data in the libraries config file");
+            //}
 
-                File.WriteAllText(passwordsFilePath, JsonSerializer.Serialize(passwordsData, new JsonSerializerOptions { WriteIndented = true }));
-            }
-            else
-            {
-                return false; 
-            }
-
+            // Change filename of the user library file
             string oldLibraryFilePath = Path.Combine(Config.LoadSetting(Config.appDataKey), $"{oldPseudo}_library.json");
             string newLibraryFilePath = Path.Combine(Config.LoadSetting(Config.appDataKey), $"{newPseudo}_library.json");
 
@@ -179,12 +192,61 @@ namespace gameVaultClassLibrary
             }
             else
             {
-                return false;
+                throw new Exception("Cannot change the user library file");
             }
-
-            return true;
-
         }
 
+        // Change the app data folder
+        public static void ChangeAppDataFolder(string newAppDataPath)
+        {
+            string oldAppDataPath = Config.LoadSetting(Config.appDataKey);
+
+            try
+            {
+                // Copy old directory to the new directory
+                CopyDirectory(oldAppDataPath, newAppDataPath, overwrite: true);
+                // Delete old directory
+                Directory.Delete(oldAppDataPath, recursive: true);
+            }
+            catch (IOException e)
+            {
+                throw new Exception(e.Message);
+            }
+
+            Config.SaveSetting(Config.appDataKey, newAppDataPath);
+
+            //// Reload the backup
+            //SetUpBackup();
+        }
+
+        private static void CopyDirectory(string sourceDir, string destinationDir, bool overwrite)
+        {
+            if (!Directory.Exists(destinationDir))
+            {
+                Directory.CreateDirectory(destinationDir);
+            }
+
+            foreach (string filePath in Directory.GetFiles(sourceDir))
+            {
+                string filename = Path.GetFileName(filePath);
+                string destFile = Path.Combine(destinationDir, filename);
+                File.Copy(filePath, destFile, overwrite);
+            }
+
+            foreach (string dirPath in Directory.GetDirectories(sourceDir))
+            {
+                string dirName = Path.GetFileName(dirPath);
+                string destSubDir = Path.Combine(destinationDir, dirName);
+                CopyDirectory(dirPath, destSubDir, overwrite);
+            }
+        }
+
+        public static void DeleteUserData(User user)
+        {
+            // Note : To continue
+            // Note : Delete all images from the user
+
+            File.Delete(Path.Combine(Config.LoadSetting(Config.appDataKey), $"{user.Pseudo}_library.json"));
+        }
     }
 }
