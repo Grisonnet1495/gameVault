@@ -19,16 +19,16 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Column="0" Text="{Binding Title}" FontSize="32" Foreground="White" VerticalAlignment="Center" TextWrapping="Wrap"/>
-                <Button Grid.Column="1" Width="100" Height="50" Margin="10, 0, 10, 0" Style="{StaticResource MainGameButtonStyle}" Click="LaunchGameButton_Click">
+                <Button Grid.Column="1" Width="100" Height="50" Margin="10, 0, 10, 0" Style="{StaticResource MainGameButtonStyle}" Click="LaunchGameButton_Click" Cursor="Hand">
                     <Image Source="Ressources/Icons/launch_game_icon.png" Width="100" Height="48" Margin="0, 2, 0, 0" Cursor="Hand"/>
                 </Button>
-                <Button Grid.Column="2" Width="50" Height="50" Margin="10, 0, 10, 0" Style="{StaticResource OtherGameButtonStyle}" Click="EditGameButton_Click">
+                <Button Grid.Column="2" Width="50" Height="50" Margin="10, 0, 10, 0" Style="{StaticResource OtherGameButtonStyle}" Click="EditGameButton_Click" Cursor="Hand">
                     <Image Source="Ressources/Icons/edit_game_icon.png" Height="28" Cursor="Hand"/>
                 </Button>
-                <Button Grid.Column="3" Width="50" Height="50" Margin="10, 0, 10, 0" Style="{StaticResource OtherGameButtonStyle}" Click="ExportGameButton_Click">
+                <Button Grid.Column="3" Width="50" Height="50" Margin="10, 0, 10, 0" Style="{StaticResource OtherGameButtonStyle}" Click="ExportGameButton_Click" Cursor="Hand">
                     <Image Source="Ressources/Icons/export_game_icon.png" Height="28" Cursor="Hand"/>
                 </Button>
-                <Button Grid.Column="4" Width="50" Height="50" Margin="10, 0, 10, 0" Style="{StaticResource OtherGameButtonStyle}" Click="ToggleFavoriteGameButton_Click">
+                <Button Grid.Column="4" Width="50" Height="50" Margin="10, 0, 10, 0" Style="{StaticResource OtherGameButtonStyle}" Click="ToggleFavoriteGameButton_Click" Cursor="Hand">
                     <Image x:Name="ToggleFavoriteImage" Source="Ressources/Icons/not_favorite_game_icon.png" Height="28" Cursor="Hand"/>
                 </Button>
             </Grid>
@@ -47,8 +47,8 @@
 
                 <!-- Game details -->
                 <StackPanel Grid.Column="1">
-                    <TextBlock Text="Game info :" Margin="5, 10, 5, 10" Foreground="White" FontSize="24" TextWrapping="Wrap" Cursor="Hand"/>
-                    <TextBlock Margin="5, 15, 5, 15" Foreground="White" FontSize="18" TextWrapping="Wrap" Cursor="Hand">
+                    <TextBlock Text="Game info :" Margin="5, 10, 5, 10" Foreground="White" FontSize="24" TextWrapping="Wrap"/>
+                    <TextBlock Margin="5, 15, 5, 15" Foreground="White" FontSize="18" TextWrapping="Wrap">
                         <Run Text="Genre :   "/>
                         <Run Text="{Binding Genre}"/>
                     </TextBlock>
@@ -67,22 +67,22 @@
                         </Grid.ColumnDefinitions>
 
                         <Label Grid.Row="0" Grid.Column="0" Content="Solo" FontSize="18" Foreground="White"/>
-                        <CheckBox Grid.Row="0" Grid.Column="1" Width="20" Height="20" Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding IsSolo}" IsEnabled="false"/>
+                        <CheckBox Grid.Row="0" Grid.Column="1" Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding IsSolo}" IsEnabled="false"/>
                         <Label Grid.Row="1" Grid.Column="0" Content="Multiplayer" FontSize="18" Foreground="White"/>
-                        <CheckBox Grid.Row="1" Grid.Column="1" Width="20" Height="20" Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding IsMultiplayer}" IsEnabled="false"/>
+                        <CheckBox Grid.Row="1" Grid.Column="1" Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding IsMultiplayer}" IsEnabled="false"/>
                         <Label Grid.Row="2" Grid.Column="0" Content="Coop" FontSize="18" Foreground="White"/>
-                        <CheckBox Grid.Row="2" Grid.Column="1" Width="20" Height="20" Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding IsCoop}" IsEnabled="false"/>
+                        <CheckBox Grid.Row="2" Grid.Column="1" Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding IsCoop}" IsEnabled="false"/>
                         <Label Grid.Row="3" Grid.Column="0" Content="Compatible with controllers" FontSize="18" Foreground="White"/>
-                        <CheckBox Grid.Row="3" Grid.Column="1" Width="20" Height="20" Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding IsControllerCompatible}" IsEnabled="false"/>
+                        <CheckBox Grid.Row="3" Grid.Column="1" Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding IsControllerCompatible}" IsEnabled="false"/>
                     </Grid>
-                    <TextBlock Margin="5, 15, 5, 15" Foreground="White" FontSize="18" TextWrapping="Wrap" Cursor="Hand">
+                    <TextBlock Margin="5, 15, 5, 15" Foreground="White" FontSize="18" TextWrapping="Wrap">
                         <Run Text="Compatible with :   "/>
                         <Run Text="{Binding CompatiblePlatforms}"/>
                     </TextBlock>
-                    <TextBlock Margin="5, 15, 5, 15" Foreground="White" FontSize="18" TextWrapping="Wrap" Cursor="Hand">
+                    <TextBlock Margin="5, 15, 5, 15" Foreground="White" FontSize="18" TextWrapping="Wrap">
                         <Run Text="Store :  "/>
                         <Hyperlink Foreground="White" Click="Hyperlink_Click">
-                            <Run Text="{Binding StoreUrl}" />
+                            <Run Text="{Binding StoreUrl}" Cursor="Hand"/>
                         </Hyperlink>
                     </TextBlock>
                     <TextBlock Margin="5, 15, 5, 15" Foreground="White" FontSize="18" TextWrapping="Wrap">
@@ -93,7 +93,7 @@
             </Grid>
             
             <!-- Game description -->
-            <Label Content="Description" FontSize="24" Foreground="White" Margin="0, 5, 0, 0" Cursor=""/>
+            <Label Content="Description" FontSize="24" Foreground="White" Margin="0, 5, 0, 0"/>
             <TextBlock Text="{Binding Description}" FontSize="16" Foreground="White" Margin="5, 5, 5, 5"/>
         </StackPanel>
     </ScrollViewer>

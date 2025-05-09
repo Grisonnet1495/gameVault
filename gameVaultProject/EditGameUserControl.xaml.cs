@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using gameVaultClassLibrary;
+using Microsoft.Win32;
 
 namespace gameVaultProject
 {
@@ -22,21 +24,21 @@ namespace gameVaultProject
     /// </summary>
     public partial class EditGameUserControl : UserControl
     {
-        public Game Game { get; set; }
+        public Game currentGame { get; set; }
 
         public event EventHandler ExitEditButtonClicked;
         public event EventHandler DeleteGameButtonClicked;
 
 
         // Calculated property
-        public bool HasValidStoreUrl => !string.IsNullOrWhiteSpace(Game.StoreUrl) && Uri.IsWellFormedUriString(Game.StoreUrl, UriKind.Absolute);
+        public bool HasValidStoreUrl => !string.IsNullOrWhiteSpace(currentGame.StoreUrl) && Uri.IsWellFormedUriString(currentGame.StoreUrl, UriKind.Absolute);
 
         public EditGameUserControl(Game game)
         {
             InitializeComponent();
 
-            Game = game;
-            DataContext = Game;
+            currentGame = game;
+            DataContext = currentGame;
         }
 
         private void ExitEditButton_Click(object sender, RoutedEventArgs e)
@@ -46,7 +48,7 @@ namespace gameVaultProject
 
         private void DeleteGameButton_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("Are you sure you want to delete this game ?", "Delete game", MessageBoxButton.OKCancel);
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to delete this game ?", "Delete game", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
 
             if (result == MessageBoxResult.OK)
             {
@@ -61,7 +63,30 @@ namespace gameVaultProject
 
         private void ChooseGameExecutableButton_Click(object sender, RoutedEventArgs e)
         {
-            // Note : To do
+            // Ask the user to select an executable file
+            var openFileDialog = new OpenFileDialog
+            {
+                Title = "Choose an executable file",
+                Filter = "Executable files (*.exe)|*.exe",
+                CheckFileExists = true,
+                CheckPathExists = true,
+                Multiselect = false
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                string selectedFile = openFileDialog.FileName;
+
+                // Check if the selected file is correct
+                if (!string.IsNullOrWhiteSpace(selectedFile) && File.Exists(selectedFile) && string.Equals(System.IO.Path.GetExtension(selectedFile), ".exe", StringComparison.OrdinalIgnoreCase))
+                {
+                    currentGame.GamePath = selectedFile;
+                }
+                else
+                {
+                    MessageBox.Show("Invalid file selected.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
         }
 
         private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
@@ -70,7 +95,7 @@ namespace gameVaultProject
             {
                 var selectedDate = releaseDatePicker.SelectedDate.Value;
 
-                Game.ReleaseDate = selectedDate;
+                currentGame.ReleaseDate = selectedDate;
             }
         }
     }

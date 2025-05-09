@@ -22,12 +22,13 @@ namespace gameVaultProject
     public partial class LibraryUserControl : UserControl
     {
         public List<Game> AllGames { get; set; }
-        private SortMode currentSortMode = SortMode.ByTitle;
+        private SortMode currentSortMode;
 
         public enum SortMode
         {
             ByTitle,
             ByLastPlayed,
+            ByTimePlayed,
             ByFavorites
         }
 
@@ -37,8 +38,7 @@ namespace gameVaultProject
 
             ExtractAllGames(user);
 
-            InitializeGamePanel();
-
+            currentSortMode = SortMode.ByTitle;
             SortAllGamesList();
         }
 
@@ -53,6 +53,7 @@ namespace gameVaultProject
 
             if (AllGames.Count == 0)
             {
+                // Inform the user
                 TextBlock noFavoritesGamesTextBlock = new TextBlock();
                 noFavoritesGamesTextBlock.Text = "No favorites games";
                 noFavoritesGamesTextBlock.Foreground = new SolidColorBrush(Colors.White);
@@ -63,6 +64,7 @@ namespace gameVaultProject
             }
             else
             {
+                // Display all games
                 foreach (var game in AllGames)
                 {
                     var card = new GameCardUserControl(game);
@@ -81,15 +83,17 @@ namespace gameVaultProject
 
         private void SortButton_Click(object sender, RoutedEventArgs e)
         {
-            // Passe au mode suivant
+            // Switch to next mode
             currentSortMode = currentSortMode switch
             {
                 SortMode.ByTitle => SortMode.ByLastPlayed,
-                SortMode.ByLastPlayed => SortMode.ByFavorites,
+                SortMode.ByLastPlayed => SortMode.ByTimePlayed,
+                SortMode.ByTimePlayed => SortMode.ByFavorites,
                 SortMode.ByFavorites => SortMode.ByTitle,
                 _ => SortMode.ByTitle
             };
 
+            // Sort the game list with this mode
             SortAllGamesList();
         }
 
@@ -104,6 +108,10 @@ namespace gameVaultProject
                 case SortMode.ByLastPlayed:
                     SortDescriptionLabel.Content = "By last played";
                     AllGames = AllGames.OrderByDescending(g => g.LastPlayedDate).ToList();
+                    break;
+                case SortMode.ByTimePlayed:
+                    SortDescriptionLabel.Content = "By time played";
+                    AllGames = AllGames.OrderByDescending(g => g.TimePlayed).ToList();
                     break;
                 case SortMode.ByFavorites:
                     SortDescriptionLabel.Content = "By favorites";

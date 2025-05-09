@@ -40,7 +40,6 @@ namespace gameVaultProject
                 currentUser = new User(authenticateWindow.Pseudo, authenticateWindow.Password, new Library());
 
                 // Retrieve user data
-                //backup = new Backup(currentUser);
                 Backup.SetUpBackup(currentUser);
 
                 //currentUser.Library.AddGame(new Game("Minecraft", "Sandbox", true, true, false, true, "Windows, MacOS, Linux", "https://www.minecraft.net", new DateTime(2009, 5, 17), true, "A sandbox game", "Ressources/Images/minecraft_game_image.jpg", DateTime.Now, "C:/XboxGames/Minecraft Launcher/Content/Minecraft.exe", TimeSpan.Zero, 0));
@@ -84,7 +83,7 @@ namespace gameVaultProject
 
         public void ShowGame()
         {
-            if (SelectedGame != null)
+            if (SelectedGame != null) // If there is a game selected
             {
                 var gameUserControl = new GameUserControl(SelectedGame);
                 MainContentControl.Content = gameUserControl;
@@ -93,13 +92,13 @@ namespace gameVaultProject
             }
             else
             {
-                MessageBox.Show("Please select a game", "Error", MessageBoxButton.OK);
+                MessageBox.Show("Please select a game", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         public void ShowEditGame()
         {
-            if (SelectedGame != null)
+            if (SelectedGame != null) // If there is a game selected
             {
                 var editGameUserControl = new EditGameUserControl(SelectedGame);
                 MainContentControl.Content = editGameUserControl;
@@ -109,7 +108,7 @@ namespace gameVaultProject
             }
             else
             {
-                MessageBox.Show("Please select a game", "Error", MessageBoxButton.OK);
+                MessageBox.Show("Please select a game", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -154,7 +153,7 @@ namespace gameVaultProject
         } 
         #endregion
 
-        #region Main window button clicks
+        #region Main window buttons clicks
         private void HomeButton_Click(object sender, RoutedEventArgs e)
         {
             ShowHome();
@@ -196,7 +195,7 @@ namespace gameVaultProject
         }
         #endregion
 
-        #region EditGameUserControl buttons clicks
+        #region EditGameUserControl buttons click
         private void ExitGameEdit(object sender, EventArgs e)
         {
             Backup.SaveDataToFile(currentUser);
@@ -214,7 +213,7 @@ namespace gameVaultProject
         }
         #endregion
 
-        #region SettingsUserControl button clicks
+        #region SettingsUserControl button click
         private void ExitSettings(object sender, EventArgs e)
         {
             Backup.SaveDataToFile(currentUser);
@@ -224,6 +223,7 @@ namespace gameVaultProject
         #endregion
 
         #region Other methods
+        // Calculate the total game time of the current user
         public void CalculateGameTime()
         {
             TimeSpan totalGameTime = currentUser.Library.CalculateGameTime();
@@ -233,6 +233,7 @@ namespace gameVaultProject
             minutesPlayedLabel.Content = $"{totalGameTime.Seconds} seconds";
         }
 
+        // Update the information panel
         public void UpdateInfoPanel()
         {
             TimeSpan gameTime = TimeSpan.Zero;
@@ -240,6 +241,7 @@ namespace gameVaultProject
             DateTime lastTimePlayed = new DateTime();
             Game bestGame = null;
 
+            // Find the best game
             foreach (Game game in currentUser.Library.GameList)
             {
                 if (game.TimePlayed > gameTime)
@@ -259,6 +261,7 @@ namespace gameVaultProject
                 }
             }
 
+            // If a best game has been found
             if (bestGame != null)
             {
                 string title = bestGame.Title;

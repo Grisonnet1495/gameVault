@@ -29,9 +29,6 @@ namespace gameVaultProject
         public event EventHandler LaunchGameButtonClicked;
         public event EventHandler EditGameButtonClicked;
 
-        // Calculated property
-        public bool HasValidStoreUrl => !string.IsNullOrWhiteSpace(Game.StoreUrl) && Uri.IsWellFormedUriString(Game.StoreUrl, UriKind.Absolute);
-
         public GameUserControl(Game game)
         {
             InitializeComponent();
@@ -56,13 +53,15 @@ namespace gameVaultProject
             {
                 string? url = (link.DataContext as Game)?.StoreUrl;
 
+                // Check if the string is a valid URL
                 if (!string.IsNullOrWhiteSpace(url) && Uri.IsWellFormedUriString(url, UriKind.Absolute))
                 {
+                    // Open the link
                     Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
                 }
                 else
                 {
-                    MessageBox.Show("Link not valid", "Cannot open link", MessageBoxButton.OK);
+                    MessageBox.Show("Link not valid", "Cannot open link", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -71,9 +70,10 @@ namespace gameVaultProject
         {
             string extension = System.IO.Path.GetExtension(Game.GamePath).ToLower();
 
+            // Check if the path is valid
             if (!File.Exists(Game.GamePath) || extension != ".exe")
             {
-                MessageBox.Show("Specified path isn't a valid executable");
+                MessageBox.Show("Specified path isn't a valid executable", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -81,6 +81,7 @@ namespace gameVaultProject
             {
                 DateTime startTime = DateTime.Now;
 
+                // Launch the game
                 ProcessStartInfo startInfo = new ProcessStartInfo
                 {
                     FileName = Game.GamePath,
@@ -100,20 +101,20 @@ namespace gameVaultProject
                         Game.NbTimePlayed++;
                         Game.LastPlayedDate = DateTime.Now;
 
+                        ((MainWindow)Application.Current.MainWindow).CalculateGameTime();
+                        ((MainWindow)Application.Current.MainWindow).UpdateInfoPanel();
+
                         if (gameDuration < TimeSpan.FromSeconds(10))
                         {
-                            MessageBox.Show("The game process was redirected to another executable. Time-tracking isn't going to work on this game.", "Process redirection", MessageBoxButton.OK);
+                            MessageBox.Show("The game process was redirected to another executable. Time-tracking isn't going to work on this game.", "Process redirection", MessageBoxButton.OK, MessageBoxImage.Information);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error while starting game : {ex.Message}");
+                MessageBox.Show($"Error while starting game : {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            
-
-            Console.WriteLine("Game " + Game.GamePath + " started !");
         }
 
         private void EditGameButton_Click(object sender, RoutedEventArgs e)
@@ -123,6 +124,7 @@ namespace gameVaultProject
 
         private void ExportGameButton_Click(object sender, RoutedEventArgs e)
         {
+            // Ask the user to select a location
             var saveFileDialog = new SaveFileDialog();
             saveFileDialog.Title = "Export game";
             saveFileDialog.Filter = "Game file (*.xml)|*.xml";
@@ -132,9 +134,10 @@ namespace gameVaultProject
             {
                 string filePath = saveFileDialog.FileName; // Retrieve export file path
 
+                // Export the game to this location
                 Backup.ExportGameToFile(filePath, Game);
 
-                MessageBox.Show("Game exported to : " + filePath);
+                MessageBox.Show("Game exported to : " + filePath, "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 

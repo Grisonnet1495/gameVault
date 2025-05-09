@@ -65,10 +65,11 @@ namespace gameVaultProject
                     Directory.CreateDirectory(newAppDataFolder);
                 }
 
+                // Test if the app can write in this folder
                 try
                 {
                     string testFilePath = System.IO.Path.Combine(newAppDataFolder, "testFile.txt");
-                    using (FileStream fs = File.Create(testFilePath, 1, FileOptions.DeleteOnClose)) { } // Test if the app can write in this folder
+                    using (FileStream fs = File.Create(testFilePath, 1, FileOptions.DeleteOnClose)) { }
                 }
                 catch (Exception ex)
                 {
@@ -90,6 +91,7 @@ namespace gameVaultProject
 
         private void CreateBackupButton_Click(object sender, RoutedEventArgs e)
         {
+            // Ask the user to select a location
             var saveFileDialog = new SaveFileDialog();
             saveFileDialog.Title = "Save backup";
             saveFileDialog.Filter = "Backup file (*.json)|*.json";
@@ -99,6 +101,7 @@ namespace gameVaultProject
             {
                 string filePath = saveFileDialog.FileName; // Retrieve backup file path
 
+                // Export the backup to this location
                 Backup.ExportLibraryToFile(filePath, currentUser.Library);
 
                 MessageBox.Show("Backup file created to : " + filePath);
@@ -107,6 +110,7 @@ namespace gameVaultProject
 
         private void RestoreBackupButton_Click(object sender, RoutedEventArgs e)
         {
+            // Ask the user to select a backup file
             var openFileDialog = new OpenFileDialog();
             openFileDialog.Title = "Choose a backup file";
             openFileDialog.Filter = "Backup file (*.json)|*.json";
@@ -115,6 +119,7 @@ namespace gameVaultProject
             {
                 string selectedFile = openFileDialog.FileName;
 
+                // Import the backup
                 Library library = Backup.ImportLibraryFromFile(selectedFile);
 
                 if (library != null)
@@ -132,7 +137,8 @@ namespace gameVaultProject
 
         private void ExportGameButton_Click(object sender, RoutedEventArgs e)
         {
-            Game selectedGame = ExportGameComboBox.SelectedItem as Game;
+            // Retrieve the selected game
+            Game? selectedGame = ExportGameComboBox.SelectedItem as Game;
 
             if (selectedGame == null)
             {
@@ -140,6 +146,7 @@ namespace gameVaultProject
                 return;
             }
 
+            // Ask the user to select a location
             var saveFileDialog = new SaveFileDialog();
             saveFileDialog.Title = "Export game";
             saveFileDialog.Filter = "Game file (*.xml)|*.xml";
@@ -149,6 +156,7 @@ namespace gameVaultProject
             {
                 string filePath = saveFileDialog.FileName; // Retrieve export file path
 
+                // Export the game to this location
                 Backup.ExportGameToFile(filePath, selectedGame);
 
                 MessageBox.Show("Game exported to : " + filePath);
@@ -157,6 +165,7 @@ namespace gameVaultProject
 
         private void ImportGameButton_Click(object sender, RoutedEventArgs e)
         {
+            // Ask the user to select a game file
             var openFileDialog = new OpenFileDialog();
             openFileDialog.Title = "Choose a game file";
             openFileDialog.Filter = "Game file (*.xml)|*.xml";
@@ -165,6 +174,7 @@ namespace gameVaultProject
             {
                 string selectedFile = openFileDialog.FileName;
 
+                // Import the game
                 Game game = Backup.ImportGameFromFile(selectedFile);
 
                 if (game != null)
