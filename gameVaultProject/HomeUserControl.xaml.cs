@@ -75,8 +75,15 @@ namespace gameVaultProject
             }
             else
             {
-                SelectedGameLabel.Content = "All games";
-                RecentGames = user.Library.GameList;
+                if (user.Library.GameList.Count > 0)
+                {
+                    SelectedGameLabel.Content = "All games";
+                    RecentGames = user.Library.GameList;
+                }
+                else
+                {
+                    SelectedGameLabel.Content = "No game";
+                }
             }
         }
 

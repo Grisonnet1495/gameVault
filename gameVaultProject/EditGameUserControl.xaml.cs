@@ -24,23 +24,36 @@ namespace gameVaultProject
     /// </summary>
     public partial class EditGameUserControl : UserControl
     {
+        #region Properties
         public Game currentGame { get; set; }
 
         public event EventHandler ExitEditButtonClicked;
-        public event EventHandler DeleteGameButtonClicked;
+        public event EventHandler DeleteGameButtonClicked; 
+        #endregion
 
-
-        // Calculated property
-        public bool HasValidStoreUrl => !string.IsNullOrWhiteSpace(currentGame.StoreUrl) && Uri.IsWellFormedUriString(currentGame.StoreUrl, UriKind.Absolute);
-
+        #region Constructor
         public EditGameUserControl(Game game)
         {
             InitializeComponent();
 
             currentGame = game;
             DataContext = currentGame;
-        }
 
+            if (currentGame.ImageName == null)
+            {
+                GameImageConfirmationTextBlock.Text = "No image";
+                GameImageConfirmationTextBlock.Foreground = Brushes.White;
+            }
+
+            if (currentGame.GamePath == null)
+            {
+                GameExecutableConfirmationTextBlock.Text = "No executable";
+                GameExecutableConfirmationTextBlock.Foreground = Brushes.White;
+            }
+        }
+        #endregion
+
+        #region Buttons click
         private void ExitEditButton_Click(object sender, RoutedEventArgs e)
         {
             ExitEditButtonClicked?.Invoke(this, EventArgs.Empty);
@@ -58,7 +71,67 @@ namespace gameVaultProject
 
         private void ChooseGameImageButton_Click(object sender, RoutedEventArgs e)
         {
-            // Note : To do
+            // Ask the user to select an image file
+            var openFileDialog = new OpenFileDialog
+            {
+                Title = "Choose an executable file",
+                Filter = "Image files (*.bmp;*.jpg;*.jpeg;*.png;*.gif;*.ico)|*.bmp;*.jpg;*.jpeg;*.png;*.gif;*.ico",
+                CheckFileExists = true,
+                CheckPathExists = true,
+                Multiselect = false
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                try
+                {
+                    string selectedFile = openFileDialog.FileName;
+
+                    string extension = System.IO.Path.GetExtension(selectedFile);
+                    var allowedExtensions = new[] { ".bmp", ".jpg", ".jpeg", ".png", ".gif", ".ico" };
+
+                    // Check if the selected file is valid
+                    if (!string.IsNullOrWhiteSpace(selectedFile) && File.Exists(selectedFile) && allowedExtensions.Contains(extension, StringComparer.OrdinalIgnoreCase))
+                    {
+                        // Delete the old image, if it exists
+                        if (currentGame.ImageName != null)
+                        {
+                            string oldImagePath = System.IO.Path.Combine(System.IO.Path.Combine(Config.LoadSetting(Config.appDataKey), Config.LoadSetting(Config.imagesFolderKey)), currentGame.ImageName);
+
+                            if (File.Exists(oldImagePath))
+                            {
+                                File.Delete(oldImagePath);
+                            }
+                        }
+
+                        // Generate a new file name
+                        string imageId = Guid.NewGuid().ToString();
+                        currentGame.ImageName = imageId + extension;
+
+                        // Copy the file to the new location
+                        string newImagePath = System.IO.Path.Combine(System.IO.Path.Combine(Config.LoadSetting(Config.appDataKey), Config.LoadSetting(Config.imagesFolderKey)), currentGame.ImageName);
+                        File.Copy(selectedFile, newImagePath);
+
+                        // Inform the user
+                        GameImageConfirmationTextBlock.Text = "Image accepted";
+                        GameImageConfirmationTextBlock.Foreground = Brushes.LightGreen;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Invalid file selected.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                        GameImageConfirmationTextBlock.Text = "No changes made";
+                        GameImageConfirmationTextBlock.Foreground = Brushes.White;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error while adding the new image : " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                    GameImageConfirmationTextBlock.Text = "No changes made";
+                    GameImageConfirmationTextBlock.Foreground = Brushes.White;
+                }
+            }
         }
 
         private void ChooseGameExecutableButton_Click(object sender, RoutedEventArgs e)
@@ -81,22 +154,20 @@ namespace gameVaultProject
                 if (!string.IsNullOrWhiteSpace(selectedFile) && File.Exists(selectedFile) && string.Equals(System.IO.Path.GetExtension(selectedFile), ".exe", StringComparison.OrdinalIgnoreCase))
                 {
                     currentGame.GamePath = selectedFile;
+
+                    // Inform the user
+                    GameExecutableConfirmationTextBlock.Text = "Executable added";
+                    GameExecutableConfirmationTextBlock.Foreground = Brushes.LightGreen;
                 }
                 else
                 {
                     MessageBox.Show("Invalid file selected.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                    GameExecutableConfirmationTextBlock.Text = "No changes made";
+                    GameExecutableConfirmationTextBlock.Foreground = Brushes.White;
                 }
             }
         }
-
-        private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (releaseDatePicker.SelectedDate.HasValue)
-            {
-                var selectedDate = releaseDatePicker.SelectedDate.Value;
-
-                currentGame.ReleaseDate = selectedDate;
-            }
-        }
+        #endregion
     }
 }

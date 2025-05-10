@@ -87,16 +87,16 @@
                 <Viewbox Grid.Row="0">
                     <StackPanel VerticalAlignment="Center">
                         <Viewbox Margin="10, 0, 10, 0" MaxWidth="200">
-                            <Label Content="Total hours played" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <Label x:Name="InfoPanelMainTitleLabel" Content="Total hours played" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Viewbox>
                         <Viewbox Margin="50, 0, 50, 0" MaxWidth="100">
-                                <Label x:Name="hoursPlayedLabel" Content="0 hours" Padding="0, -10, 0, -10" Foreground="#BFBFBF" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <Label x:Name="HoursPlayedLabel" Content="0 hours" Padding="0, -10, 0, -10" Foreground="#BFBFBF" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </Viewbox>
                             <Viewbox Margin="40, 0, 40, 0" MaxWidth="90">
-                                <Label x:Name="minutesPlayedLabel" Content="0 minutes" Padding="0, -10, 0, -10" Foreground="#BFBFBF" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <Label x:Name="MinutesPlayedLabel" Content="0 minutes" Padding="0, -10, 0, -10" Foreground="#BFBFBF" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </Viewbox>
                         <Viewbox Margin="40, 0, 40, 0" MaxWidth="90">
-                            <Label x:Name="secondsPlayedLabel" Content="0 seconds" Padding="0, -10, 0, -10" Foreground="#BFBFBF" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <Label x:Name="SecondsPlayedLabel" Content="0 seconds" Padding="0, -10, 0, -10" Foreground="#BFBFBF" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Viewbox>
                     </StackPanel>
                 </Viewbox>
@@ -104,9 +104,9 @@
                 <Viewbox Grid.Row="1" >
                     <StackPanel VerticalAlignment="Center">
                         <Viewbox Margin="30, 0, 30, 10" MaxWidth="120">
-                            <Label Content="Best game" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <Label x:Name="InfoPanelSecondaryTitleLabel" Content="Best game" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Viewbox>
-                        <Label x:Name="BestGameTitleLabel" Content="No best game yet" Margin="20, 10, 20, 10" FontSize="20" Foreground="White" HorizontalAlignment="Center"/>
+                        <Label x:Name="InfoPanelSecondaryContentLabel" Content="No best game yet" Margin="20, 10, 20, 10" FontSize="20" Foreground="White" HorizontalAlignment="Center"/>
                         <Viewbox Margin="70, 10, 70, 0" MaxWidth="100">
                             <Label x:Name="BestGameHoursPlayedLabel" Content="0 hours" Padding="0" Foreground="#BFBFBF" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Viewbox>

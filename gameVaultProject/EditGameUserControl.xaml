@@ -28,12 +28,14 @@
 
             <WrapPanel Margin="0, 10, 0, 5">
                 <TextBlock Text="Game image :" Margin="5, 10, 20, 10" Foreground="White" FontSize="16" TextWrapping="Wrap"/>
-                <Button Content="Choose file" Width="120" Style="{StaticResource SettingsButtonStyle}" Click="ChooseGameImageButton_Click" Cursor="Hand"/>
+                <Button Content="Choose file" Width="120" Margin="0, 0, 10, 0" Style="{StaticResource SettingsButtonStyle}" Click="ChooseGameImageButton_Click" Cursor="Hand"/>
+                <TextBlock x:Name="GameImageConfirmationTextBlock" Text="" Foreground="White" FontSize="14" VerticalAlignment="Center"/>
             </WrapPanel>
 
             <WrapPanel Margin="0, 10, 0, 5">
                 <TextBlock Text="Game executable path :" Margin="5, 10, 20, 10" Foreground="White" FontSize="16" TextWrapping="Wrap"/>
-                <Button Content="Choose executable" Width="180" Style="{StaticResource SettingsButtonStyle}" Click="ChooseGameExecutableButton_Click" Cursor="Hand"/>
+                <Button Content="Choose executable" Width="180" Margin="0, 0, 10, 0" Style="{StaticResource SettingsButtonStyle}" Click="ChooseGameExecutableButton_Click" Cursor="Hand"/>
+                <TextBlock x:Name="GameExecutableConfirmationTextBlock" Text="" Foreground="White" FontSize="14" VerticalAlignment="Center"/>
             </WrapPanel>
 
             <TextBlock Text="Genre :" Margin="5, 10, 5, 10" Foreground="White" FontSize="16" TextWrapping="Wrap"/>

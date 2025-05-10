@@ -36,6 +36,22 @@ namespace gameVaultProject
             Game = game;
             DataContext = Game;
 
+            // Set up the game image
+            BitmapImage bitmap = new BitmapImage();
+            bitmap.BeginInit();
+            if (Game.ImageName != null)
+            {
+                string imagePath = System.IO.Path.Combine(System.IO.Path.Combine(Config.LoadSetting(Config.appDataKey), Config.LoadSetting(Config.imagesFolderKey)), Game.ImageName);
+                bitmap.UriSource = new Uri(imagePath, UriKind.Absolute);
+            }
+            else
+            {
+                bitmap.UriSource = new Uri("pack://application:,,,/Ressources/Images/default_game_image.png");
+            }
+            bitmap.CacheOption = BitmapCacheOption.OnLoad; // To release the image
+            bitmap.EndInit();
+            GameImage.Source = bitmap;
+
             // Display the favorite button icon
             if (Game.IsFavorite)
             {
@@ -68,6 +84,12 @@ namespace gameVaultProject
 
         private async void LaunchGameButton_Click(object sender, RoutedEventArgs e)
         {
+            if (Game.GamePath == null)
+            {
+                MessageBox.Show("No executable linked to this game", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             string extension = System.IO.Path.GetExtension(Game.GamePath).ToLower();
 
             // Check if the path is valid
@@ -100,9 +122,6 @@ namespace gameVaultProject
                         Game.TimePlayed += gameDuration;
                         Game.NbTimePlayed++;
                         Game.LastPlayedDate = DateTime.Now;
-
-                        ((MainWindow)Application.Current.MainWindow).CalculateGameTime();
-                        ((MainWindow)Application.Current.MainWindow).UpdateInfoPanel();
 
                         if (gameDuration < TimeSpan.FromSeconds(10))
                         {

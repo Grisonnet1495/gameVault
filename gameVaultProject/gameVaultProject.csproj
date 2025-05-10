@@ -23,7 +23,6 @@
     <None Remove="Ressources\Icons\settings_icon.png" />
     <None Remove="Ressources\Icons\sort_icon.png" />
     <None Remove="Ressources\Images\default_game_image.png" />
-    <None Remove="Ressources\Images\minecraft_game_image.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -78,9 +77,6 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Ressources\Images\default_game_image.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Ressources\Images\minecraft_game_image.jpg">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

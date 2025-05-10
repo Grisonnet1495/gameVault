@@ -15,9 +15,8 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Image x:Name="GameImage" Grid.Row="0" Source="{Binding ImagePath}" VerticalAlignment="Center" Stretch="UniformToFill" Cursor="Hand"/>
+            <Image x:Name="GameImage" Grid.Row="0" VerticalAlignment="Center" Stretch="UniformToFill" Cursor="Hand"/>
             <TextBlock x:Name="TitleTextBlock" Grid.Row="1" Text="Unknown game" MaxWidth="200" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="24" Cursor="Hand"/>
-            <!-- Note : Verify if the title is too long ! -->
         </Grid>
     </Border>
 </UserControl>

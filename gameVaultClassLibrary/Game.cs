@@ -22,9 +22,9 @@ namespace gameVaultClassLibrary
         public DateTime ReleaseDate { get; set; }
         public bool IsFavorite { get; set; }
         public string Description { get; set; }
-        public string ImagePath { get; set; }
+        public string? ImageName { get; set; }
         public DateTime LastPlayedDate { get; set; }
-        public string GamePath { get; set; }
+        public string? GamePath { get; set; }
         public TimeSpan TimePlayed { get; set; }
         public double NbTimePlayed { get; set; }
         #endregion
@@ -44,14 +44,14 @@ namespace gameVaultClassLibrary
             ReleaseDate = new DateTime();
             IsFavorite = false;
             Description = "No description";
-            ImagePath = "Ressources/Images/default_game_image.png";
+            ImageName = null;
             LastPlayedDate = DateTime.Now;
-            GamePath = string.Empty;
+            GamePath = null;
             TimePlayed = TimeSpan.Zero;
             NbTimePlayed = 0;
         }
 
-        public Game(string title, string genre, bool isSolo, bool isMultiplayer, bool isCoop, bool isControllerCompatible, string compatiblePlatorms, string storeUrl, DateTime releaseDate, bool isFavorite, string description, string imagePath, DateTime lastPlayedDate, string gamePath, TimeSpan timePlayed, double nbTimePlayed)
+        public Game(string title, string genre, bool isSolo, bool isMultiplayer, bool isCoop, bool isControllerCompatible, string compatiblePlatorms, string storeUrl, DateTime releaseDate, bool isFavorite, string description, string? imageName, DateTime lastPlayedDate, string? gamePath, TimeSpan timePlayed, double nbTimePlayed)
         {
             Id = 0;
             Title = title;
@@ -65,7 +65,7 @@ namespace gameVaultClassLibrary
             ReleaseDate = releaseDate;
             IsFavorite = isFavorite;
             Description = description;
-            ImagePath = imagePath;
+            ImageName = imageName;
             LastPlayedDate = lastPlayedDate;
             GamePath = gamePath;
             TimePlayed = timePlayed;
@@ -95,7 +95,7 @@ namespace gameVaultClassLibrary
                 $"{ReleaseDate.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture)}; " +
                 $"{IsFavorite}" +
                 $"{Description}" +
-                $"{ImagePath}" +
+                $"{ImageName}" +
                 $"{LastPlayedDate.ToString()}" +
                 $"{GamePath}" +
                 $"{TimePlayed.ToString()}" +

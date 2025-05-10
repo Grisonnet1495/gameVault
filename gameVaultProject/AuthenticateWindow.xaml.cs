@@ -11,14 +11,18 @@ namespace gameVaultProject
 {
     public partial class AuthenticateWindow : Window
     {
+        #region Properties
         public string? Pseudo { get; set; }
         public string? Password { get; set; }
-        private Authenticator authenticator = new Authenticator();
+        private Authenticator authenticator = new Authenticator(); 
+        #endregion
 
+        #region Constructor
         public AuthenticateWindow()
         {
             InitializeComponent();
-        }
+        } 
+        #endregion
 
         #region Window actions methods
         // Minimize the window

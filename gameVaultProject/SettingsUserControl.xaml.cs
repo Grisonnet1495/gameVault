@@ -94,7 +94,7 @@ namespace gameVaultProject
             // Ask the user to select a location
             var saveFileDialog = new SaveFileDialog();
             saveFileDialog.Title = "Save backup";
-            saveFileDialog.Filter = "Backup file (*.json)|*.json";
+            saveFileDialog.Filter = "Backup file (*.xml)|*.xml";
             saveFileDialog.FileName = "backup";
 
             if (saveFileDialog.ShowDialog() == true)
@@ -113,20 +113,27 @@ namespace gameVaultProject
             // Ask the user to select a backup file
             var openFileDialog = new OpenFileDialog();
             openFileDialog.Title = "Choose a backup file";
-            openFileDialog.Filter = "Backup file (*.json)|*.json";
+            openFileDialog.Filter = "Backup file (*.xml)|*.xml";
 
             if (openFileDialog.ShowDialog() == true)
             {
                 string selectedFile = openFileDialog.FileName;
 
                 // Import the backup
-                Library library = Backup.ImportLibraryFromFile(selectedFile);
+                Library? library = Backup.ImportLibraryFromFile(selectedFile);
 
                 if (library != null)
                 {
+                    // Delete image name as it can't be transferred
+                    foreach (Game game in library.GameList)
+                    {
+                        game.ImageName = null;
+                    }
+
+                    Backup.DeleteUserData(currentUser);
                     currentUser.Library = library;
 
-                    MessageBox.Show("Backup imported successfully !");
+                    MessageBox.Show("Backup imported successfully !", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {
@@ -175,13 +182,16 @@ namespace gameVaultProject
                 string selectedFile = openFileDialog.FileName;
 
                 // Import the game
-                Game game = Backup.ImportGameFromFile(selectedFile);
+                Game? game = Backup.ImportGameFromFile(selectedFile);
 
                 if (game != null)
                 {
+                    // Delete image name as it can't be tranferred
+                    game.ImageName = null;
+
                     currentUser.Library.AddGame(game);
 
-                    MessageBox.Show("Game imported successfully !");
+                    MessageBox.Show("Game imported successfully !", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {

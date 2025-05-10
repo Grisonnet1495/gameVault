@@ -41,7 +41,7 @@
                 </Grid.ColumnDefinitions>
 
                 <!-- Game image -->
-                <Image Grid.Column="0" Source="{Binding ImagePath}" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 0, 30, 0">
+                <Image Grid.Column="0" x:Name="GameImage" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 0, 30, 0">
                     <!-- Note : Add rounded corners ? -->
                 </Image>
 

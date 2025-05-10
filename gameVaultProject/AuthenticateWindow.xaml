@@ -16,11 +16,7 @@
         MouseDown="Window_MouseDown">
     <Grid Background="Gray">
         <!-- Animable background image -->
-        <Image x:Name="BackgroundImage"
-               Source="/Ressources/Images/clear_login_image.png"
-               Stretch="Fill"
-               Opacity="1"
-               Panel.ZIndex="-1"/>
+        <Image x:Name="BackgroundImage" Source="/Ressources/Images/clear_login_image.png" Stretch="Fill" Opacity="1" Panel.ZIndex="-1"/>
 
         <Grid Margin="5, 5, 5, 5">
             <Grid.RowDefinitions>
@@ -36,104 +32,26 @@
                     <ColumnDefinition Width="35"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Column="0"
-                                   Text="LOGIN"
-                                   Foreground="White"
-                                   FontSize="10"
-                                   VerticalAlignment="Center"
-                                   Margin="10,0,10,0"
-                                   FontFamily="{StaticResource GameFontPhrase}"/>
-
-                <Button x:Name="MinimizeButton"
-                                Grid.Column="1"
-                                Content="-"
-                                Click="MinimizeButton_Click"
-                                Style="{StaticResource MinimizeButtonStyle}"
-                                Cursor="Hand"/>
-
-                <Button x:Name="CloseButton"
-                                Grid.Column="2"
-                                Content="X"
-                                Click="CloseButton_Click"
-                                Style="{StaticResource CloseAuthButtonStyle}"
-                                Cursor="Hand"/>
+                <ToggleButton Grid.Column="0" x:Name="ThemeToggleButton" Content="Dark mode" Width="80" Margin="5, 0, 0, 0" FontFamily="{StaticResource GameFontPhrase}" HorizontalAlignment="Left" VerticalAlignment="Center" Checked="ThemeToggle_Checked" Unchecked="ThemeToggle_Unchecked" Cursor="Hand" Style="{StaticResource ThemeToggleButtonStyle}"/>
+                <Button x:Name="MinimizeButton" Grid.Column="1" Content="-" Click="MinimizeButton_Click" Style="{StaticResource MinimizeButtonStyle}" Cursor="Hand"/>
+                <Button x:Name="CloseButton" Grid.Column="2" Content="X" Click="CloseButton_Click" Style="{StaticResource CloseAuthButtonStyle}" Cursor="Hand"/>
             </Grid>
 
-            <!-- Login -->
-            <StackPanel Grid.Row="1"
-                                Width="220"
-                                Orientation="Vertical"
-                                Margin="0,35,0,0">
+            <!-- Login menu -->
+            <StackPanel Grid.Row="1" Orientation="Vertical" Width="220" Margin="0,35,0,0">
 
-                <TextBlock x:Name="TitleTextBlock" Text="gameVault"
-                                   FontSize="25"
-                                   FontWeight="Bold"
-                                   Foreground="{DynamicResource TitleBrush}"
-                                   HorizontalAlignment="Center"
-                                   FontFamily="{StaticResource GameFontTitle}"/>
+                <TextBlock x:Name="TitleTextBlock" Text="gameVault" FontSize="25" FontWeight="Bold" Foreground="{DynamicResource TitleBrush}" FontFamily="{StaticResource GameFontTitle}" HorizontalAlignment="Center"/>
+                <TextBlock Text="Your collection, your universe — organize, explore, and play without limits." FontSize="12" Foreground="White" TextAlignment="Center"  TextWrapping="Wrap" Margin="0,5,0,0" FontFamily="{StaticResource GameFontPhrase}"/>
 
-                <TextBlock Text="Your collection, your universe — organize, explore, and play without limits."
-                                   FontSize="12"
-                                   Foreground="White"
-                                   TextAlignment="Center"
-                                   TextWrapping="Wrap"
-                                   Margin="0,5,0,0"
-                                   FontFamily="{StaticResource GameFontPhrase}"/>
+                <TextBlock Text="Username" Margin="0,35,0,0" Foreground="White" FontSize="12" FontFamily="{StaticResource GameFontPhrase}"/>
+                <TextBox x:Name="UsernameTextBox" Foreground="White" FontSize="13" BorderThickness="0,0,0,2" CaretBrush="#FFD47E" Margin="0,5,0,0" Padding="20,0,0,0" Background="{StaticResource AuthTextBox}"/>
 
-                <TextBlock Text="Username"
-                                   Margin="0,35,0,0"
-                                   FontSize="12"
-                                   Foreground="White"
-                                   FontFamily="{StaticResource GameFontPhrase}"/>
+                <TextBlock Text="Password" Foreground="White" FontSize="12" FontFamily="{StaticResource GameFontPhrase}" Margin="0,15,0,0"/>
+                <PasswordBox x:Name="PasswordPasswordBox" Foreground="White" FontSize="13" BorderThickness="0,0,0,2" CaretBrush="#FFD47E" Margin="0,5,0,0" Padding="20,0,0,0" Background="{StaticResource AuthTextBox}"/>
 
-                <TextBox x:Name="UsernameTextBox"
-                                 FontSize="13"
-                                 Foreground="White"
-                                 BorderThickness="0,0,0,2"
-                                 CaretBrush="#FFD47E"
-                                 Margin="0,5,0,0"
-                                 Padding="20,0,0,0"
-                                 Background="{StaticResource AuthTextBox}"/>
+                <Button x:Name="LoginButton" Content="LOG IN" FontFamily="{StaticResource GameFontPhrase}" Margin="0,25,0,0" Style="{StaticResource AuthenticateButtonStyle}" Click="LoginButton_Click" Cursor="Hand"/>
+                <Button x:Name="CreateButton" Content="CREATE" FontFamily="{StaticResource GameFontPhrase}" Margin="0,25,0,0" Style="{StaticResource AuthenticateButtonStyle}" Click="CreateAccountButton_Click" Cursor="Hand"/>
 
-                <TextBlock Text="Password"
-                                   Margin="0,15,0,0"
-                                   FontSize="12"
-                                   Foreground="White"
-                                   FontFamily="{StaticResource GameFontPhrase}"/>
-
-                <PasswordBox x:Name="PasswordPasswordBox"
-                                     FontSize="13"
-                                     Foreground="White"
-                                     BorderThickness="0,0,0,2"
-                                     CaretBrush="#FFD47E"
-                                     Margin="0,5,0,0"
-                                     Padding="20,0,0,0"
-                                     Background="{StaticResource AuthTextBox}"/>
-
-                <Button x:Name="LoginButton"
-                                Content="LOG IN"
-                                Click="LoginButton_Click"
-                                Style="{StaticResource AuthenticateButtonStyle}"
-                                Margin="0,25,0,0"
-                                FontFamily="{StaticResource GameFontPhrase}"
-                                Cursor="Hand"/>
-
-                <Button x:Name="CreateButton"
-                                Content="CREATE"
-                                Click="CreateAccountButton_Click"
-                                Style="{StaticResource AuthenticateButtonStyle}"
-                                Margin="0,25,0,0"
-                                FontFamily="{StaticResource GameFontPhrase}"
-                                Cursor="Hand"/>
-
-                <ToggleButton x:Name="ThemeToggleButton"
-                                      Content="Dark mode"
-                                      HorizontalAlignment="Center"
-                                      VerticalAlignment="Top"
-                                      Margin="10"
-                                      Checked="ThemeToggle_Checked"
-                                      Unchecked="ThemeToggle_Unchecked"
-                                      Cursor="Hand"/>
             </StackPanel>
         </Grid>
     </Grid>

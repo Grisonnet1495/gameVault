@@ -16,6 +16,27 @@
     <SolidColorBrush x:Key="CreateButtonBrush" Color="#7B4FFF"/>
     <SolidColorBrush x:Key="TitleBrush" Color="#FF0061FF"/>
     
+    <!-- Theme toggle button of the authenticate window -->
+    <Style x:Key="ThemeToggleButtonStyle" TargetType="ToggleButton">
+        <Setter Property="Background" Value="{DynamicResource LoginButtonBrush}"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontSize" Value="10"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Border Width="80" Height="25" CornerRadius="12" Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#4CAFE9"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
     <!-- Minimise button of the authenticate window -->
     <Style x:Key="MinimizeButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="{DynamicResource MinimizeButtonBrush}"/>
