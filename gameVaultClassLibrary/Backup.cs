@@ -5,6 +5,7 @@ namespace gameVaultClassLibrary
 {
     public static class Backup
     {
+        #region Methods
         public static void SetUpBackup(User user)
         {
             // Import user library if possible
@@ -155,7 +156,7 @@ namespace gameVaultClassLibrary
                 if (game.ImageName != null)
                 {
                     string imagePath = System.IO.Path.Combine(System.IO.Path.Combine(Config.LoadSetting(Config.appDataKey), Config.LoadSetting(Config.imagesFolderKey)), game.ImageName);
-                    
+
                     if (File.Exists(imagePath))
                     {
                         File.Delete(imagePath);
@@ -165,6 +166,7 @@ namespace gameVaultClassLibrary
 
             // Delete the library file of the user
             File.Delete(Path.Combine(Config.LoadSetting(Config.appDataKey), $"{user.Pseudo}_library.xml"));
-        }
+        } 
+        #endregion
     }
 }

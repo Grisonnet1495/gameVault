@@ -13,11 +13,10 @@ namespace gameVaultClassLibrary
         public const string registryPath = @"Software\gameVault"; // App registry path
         public const string appDataKey = "appDataPath"; // Store the path to app data
         public const string userConfigKey = "userConfigFile"; // Store the file path of the user passwords file
-        public const string librariesConfigKey = "librariesConfigFile"; // Store the file path of the libraries config file
         public const string imagesFolderKey = "imageFolder"; // Store the file path of the images folder 
         #endregion
 
-        #region Constructor
+        #region Methods
         public static void SetUpConfig()
         {
             string appDataPath;
@@ -49,14 +48,6 @@ namespace gameVaultClassLibrary
                 SaveSetting(userConfigKey, userConfigFilePath);
             }
 
-            // Create librariesConfigKey if it doesn't exist
-            if (!SettingExists(librariesConfigKey))
-            {
-                string librariesConfigFilePath = "libraries.json";
-
-                SaveSetting(librariesConfigKey, librariesConfigFilePath);
-            }
-
             string imagesFolderFilePath;
 
             // Create the imageFolderKey if it doesn't exist
@@ -84,9 +75,7 @@ namespace gameVaultClassLibrary
                 Directory.CreateDirectory(Config.LoadSetting(imagesFolderKey));
             }
         }
-        #endregion
 
-        #region Methods
         // Create or update the setting
         public static void SaveSetting(string keyName, string value)
         {

@@ -9,8 +9,11 @@ namespace gameVaultClassLibrary
 {
     public class Authenticator
     {
-        public Dictionary<string, string> Users { get; set; }
+        #region Properties
+        public Dictionary<string, string> Users { get; set; } 
+        #endregion
 
+        #region Contructor
         public Authenticator()
         {
             Config.SetUpConfig();
@@ -25,7 +28,9 @@ namespace gameVaultClassLibrary
 
             LoadUserFile();
         }
+        #endregion
 
+        #region Methods
         public bool AddUser(string pseudo, string password)
         {
             if (Users.ContainsKey(pseudo))
@@ -138,6 +143,7 @@ namespace gameVaultClassLibrary
             var options = new JsonSerializerOptions { WriteIndented = true };
             string json = JsonSerializer.Serialize(Users, options);
             File.WriteAllText(userFilePath, json);
-        }
+        } 
+        #endregion
     }
 }
