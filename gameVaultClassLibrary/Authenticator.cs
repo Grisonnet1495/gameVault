@@ -86,7 +86,7 @@ namespace gameVaultClassLibrary
                 return false;
             }
 
-            string password = GetPassword(oldPseudo);
+            string? password = GetPassword(oldPseudo);
 
             if (password == null)
             {

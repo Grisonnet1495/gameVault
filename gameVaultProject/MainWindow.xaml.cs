@@ -15,9 +15,6 @@ using gameVaultClassLibrary;
 
 namespace gameVaultProject
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         #region Properties
@@ -37,7 +34,7 @@ namespace gameVaultProject
 
             if (result == true) // If the user is authenticated
             {
-                currentUser = new User(authenticateWindow.Pseudo, authenticateWindow.Password, new Library());
+                currentUser = new User(authenticateWindow.Pseudo, authenticateWindow.Password, new Library($"{authenticateWindow.Pseudo}_Library"));
 
                 // Retrieve user data
                 Backup.SetUpBackup(currentUser);

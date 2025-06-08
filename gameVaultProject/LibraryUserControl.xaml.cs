@@ -16,11 +16,9 @@ using gameVaultClassLibrary;
 
 namespace gameVaultProject
 {
-    /// <summary>
-    /// Logique d'interaction pour LibraryUserControl.xaml
-    /// </summary>
     public partial class LibraryUserControl : UserControl
     {
+        #region Properties
         public List<Game> AllGames { get; set; }
         private SortMode currentSortMode;
 
@@ -31,7 +29,9 @@ namespace gameVaultProject
             ByTimePlayed,
             ByFavorites
         }
+        #endregion
 
+        #region Constructor
         public LibraryUserControl(User user)
         {
             InitializeComponent();
@@ -41,7 +41,9 @@ namespace gameVaultProject
             currentSortMode = SortMode.ByTitle;
             SortAllGamesList();
         }
+        #endregion
 
+        #region Methods
         public void ExtractAllGames(User user)
         {
             AllGames = new List<Game>(user.Library.GameList);
@@ -81,22 +83,6 @@ namespace gameVaultProject
             }
         }
 
-        private void SortButton_Click(object sender, RoutedEventArgs e)
-        {
-            // Switch to next mode
-            currentSortMode = currentSortMode switch
-            {
-                SortMode.ByTitle => SortMode.ByLastPlayed,
-                SortMode.ByLastPlayed => SortMode.ByTimePlayed,
-                SortMode.ByTimePlayed => SortMode.ByFavorites,
-                SortMode.ByFavorites => SortMode.ByTitle,
-                _ => SortMode.ByTitle
-            };
-
-            // Sort the game list with this mode
-            SortAllGamesList();
-        }
-
         private void SortAllGamesList()
         {
             switch (currentSortMode)
@@ -120,6 +106,25 @@ namespace gameVaultProject
             }
 
             InitializeGamePanel();
+        } 
+        #endregion
+
+        #region Button click
+        private void SortButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Switch to next mode
+            currentSortMode = currentSortMode switch
+            {
+                SortMode.ByTitle => SortMode.ByLastPlayed,
+                SortMode.ByLastPlayed => SortMode.ByTimePlayed,
+                SortMode.ByTimePlayed => SortMode.ByFavorites,
+                SortMode.ByFavorites => SortMode.ByTitle,
+                _ => SortMode.ByTitle
+            };
+
+            // Sort the game list with this mode
+            SortAllGamesList();
         }
+        #endregion
     }
 }

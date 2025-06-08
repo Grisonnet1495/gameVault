@@ -16,13 +16,13 @@ using gameVaultClassLibrary;
 
 namespace gameVaultProject
 {
-    /// <summary>
-    /// Logique d'interaction pour LibraryUserControl.xaml
-    /// </summary>
     public partial class FavoritesUserControl : UserControl
     {
+        #region Properties
         public List<Game> FavoritesGames { get; set; }
+        #endregion
 
+        #region Constructor
         public FavoritesUserControl(User user)
         {
             InitializeComponent();
@@ -31,7 +31,9 @@ namespace gameVaultProject
 
             InitializeFavoritesPanel();
         }
+        #endregion
 
+        #region Methods
         public void ExtractRecentGames(User user)
         {
             FavoritesGames = new List<Game>();
@@ -75,6 +77,7 @@ namespace gameVaultProject
                     FavoritesGamesWrapPanel.Children.Add(card);
                 }
             }
-        }
+        } 
+        #endregion
     }
 }

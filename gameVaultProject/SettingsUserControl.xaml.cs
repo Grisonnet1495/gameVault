@@ -19,15 +19,15 @@ using Microsoft.Win32;
 
 namespace gameVaultProject
 {
-    /// <summary>
-    /// Logique d'interaction pour SettingsUserControl.xaml
-    /// </summary>
     public partial class SettingsUserControl : UserControl
     {
+        #region Properties
         private User currentUser;
         private Authenticator authenticator;
         public event EventHandler ExitSettingsButtonClicked;
+        #endregion
 
+        #region Constructor
         public SettingsUserControl(User user)
         {
             InitializeComponent();
@@ -42,7 +42,9 @@ namespace gameVaultProject
 
             authenticator = new Authenticator();
         }
+        #endregion
 
+        #region Buttons click
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             // Change the current user pseudo if needed
@@ -223,7 +225,9 @@ namespace gameVaultProject
                 MessageBox.Show("You have to accept the risks first");
             }
         }
+        #endregion
 
+        #region TextBox text modification
         private void PseudoTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             string newPseudo = PseudoTextBox.Text;
@@ -252,6 +256,7 @@ namespace gameVaultProject
 
             PseudoConfirmationTextBlock.Text = "Disponible";
             PseudoConfirmationTextBlock.Foreground = Brushes.LightGreen;
-        }
+        } 
+        #endregion
     }
 }

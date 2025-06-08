@@ -13,7 +13,6 @@
         MinHeight="450"
         Background="#262626"
         WindowStyle="None">
-
     <Grid>
         <Grid x:Name="MainGrid">
             <Grid.RowDefinitions>

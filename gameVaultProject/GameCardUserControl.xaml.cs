@@ -20,10 +20,11 @@ namespace gameVaultProject
 {
     public partial class GameCardUserControl : UserControl
     {
-        private bool _isPressed = false;
-
+        #region Properties
         public event EventHandler<Game> GameClicked; // Handler for click
+        #endregion
 
+        #region Constructor
         public GameCardUserControl(Game game)
         {
             InitializeComponent();
@@ -53,7 +54,9 @@ namespace gameVaultProject
             bitmap.EndInit();
             GameImage.Source = bitmap;
         }
+        #endregion
 
+        #region Methods
         // When the click is released
         private void UserControl_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
@@ -61,6 +64,7 @@ namespace gameVaultProject
             {
                 GameClicked?.Invoke(this, game); // Invoke event with handler
             }
-        }
+        } 
+        #endregion
     }
 }

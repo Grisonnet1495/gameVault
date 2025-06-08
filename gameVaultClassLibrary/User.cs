@@ -30,7 +30,12 @@ namespace gameVaultClassLibrary
         #region Methods
         public override string ToString()
         {
-            return $"User: {Pseudo} - {Password} - {Library.LibraryName}";
+            return $"User: " +
+                "{" +
+                $"{Pseudo}" +
+                $"{Password}" +
+                $"{Library.LibraryName}" +
+                "}";
         }
         #endregion
     } 

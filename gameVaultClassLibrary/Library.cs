@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,6 @@ namespace gameVaultClassLibrary
     {
         #region Properties
         public string LibraryName { get; set; }
-        public int currentImageNb { get; set; }
         public List<Game> GameList { get; set; }
         #endregion
 
@@ -18,14 +18,12 @@ namespace gameVaultClassLibrary
         public Library()
         {
             LibraryName = "";
-            currentImageNb = 0;
             GameList = new List<Game>();
         }
 
         public Library(string libraryName)
         {
             LibraryName = libraryName;
-            currentImageNb = 0;
             GameList = new List<Game>();
         }
         #endregion
@@ -45,19 +43,19 @@ namespace gameVaultClassLibrary
 
         public bool RemoveGame(Game game)
         {
-            if(GameList.FirstOrDefault(g => g.Id == game.Id) != null)//check if the game is in the library with a case insensitive comparison
+            // If the game is in the library
+            if (GameList.FirstOrDefault(g => g.Id == game.Id) != null)
             {
                 GameList.Remove(game);
                 return true;
             }
 
-            Console.WriteLine("Game not in the library");
             return false;
         }
 
         public Game? FindGameByTitle(string gameName)
         {
-            Game game = GameList.FirstOrDefault(SearchGame => SearchGame.Title.Equals(gameName, StringComparison.OrdinalIgnoreCase));//search for the game with a case insensitive comparison
+            Game game = GameList.FirstOrDefault(SearchGame => SearchGame.Title.Equals(gameName, StringComparison.OrdinalIgnoreCase));
 
             if(game != null)
             {
@@ -65,11 +63,6 @@ namespace gameVaultClassLibrary
             }
 
             return null;
-        }
-
-        public void SortGame()
-        {
-            GameList = GameList.OrderBy(g => g.Title).ToList();//sort the games by name
         }
 
         public TimeSpan CalculateGameTime()
@@ -82,6 +75,15 @@ namespace gameVaultClassLibrary
             }
 
             return totalGameTime;
+        }
+
+        public override string ToString()
+        {
+            return $"Library: " +
+                "{" +
+                $"{LibraryName}; " +
+                $"{GameList.ToString}" + 
+                "}";
         }
         #endregion
     }

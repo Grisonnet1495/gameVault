@@ -19,9 +19,6 @@ using Microsoft.Win32;
 
 namespace gameVaultProject
 {
-    /// <summary>
-    /// Logique d'interaction pour EditGameUserControl.xaml
-    /// </summary>
     public partial class EditGameUserControl : UserControl
     {
         #region Properties

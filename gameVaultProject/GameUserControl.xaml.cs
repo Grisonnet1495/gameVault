@@ -19,16 +19,16 @@ using Microsoft.Win32;
 
 namespace gameVaultProject
 {
-    /// <summary>
-    /// Logique d'interaction pour GameUserControl.xaml
-    /// </summary>
     public partial class GameUserControl : UserControl
     {
-        public Game Game {  get; set; }
+        #region Properties
+        public Game Game { get; set; }
 
         public event EventHandler LaunchGameButtonClicked;
         public event EventHandler EditGameButtonClicked;
+        #endregion
 
+        #region Constructor
         public GameUserControl(Game game)
         {
             InitializeComponent();
@@ -62,26 +62,9 @@ namespace gameVaultProject
                 ToggleFavoriteImage.Source = new BitmapImage(new Uri("pack://application:,,,/Ressources/Icons/not_favorite_game_icon.png"));
             }
         }
+        #endregion
 
-        private void Hyperlink_Click(object sender, RoutedEventArgs e)
-        {
-            if (sender is Hyperlink link)
-            {
-                string? url = (link.DataContext as Game)?.StoreUrl;
-
-                // Check if the string is a valid URL
-                if (!string.IsNullOrWhiteSpace(url) && Uri.IsWellFormedUriString(url, UriKind.Absolute))
-                {
-                    // Open the link
-                    Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
-                }
-                else
-                {
-                    MessageBox.Show("Link not valid", "Cannot open link", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-        }
-
+        #region Buttons click
         private async void LaunchGameButton_Click(object sender, RoutedEventArgs e)
         {
             if (Game.GamePath == null)
@@ -173,5 +156,27 @@ namespace gameVaultProject
                 ToggleFavoriteImage.Source = new BitmapImage(new Uri("pack://application:,,,/Ressources/Icons/favorite_game_icon.png"));
             }
         }
+        #endregion
+
+        #region Hyperlink click
+        private void Hyperlink_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Hyperlink link)
+            {
+                string? url = (link.DataContext as Game)?.StoreUrl;
+
+                // Check if the string is a valid URL
+                if (!string.IsNullOrWhiteSpace(url) && Uri.IsWellFormedUriString(url, UriKind.Absolute))
+                {
+                    // Open the link
+                    Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+                }
+                else
+                {
+                    MessageBox.Show("Link not valid", "Cannot open link", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+        #endregion
     }
 }

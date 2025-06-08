@@ -16,14 +16,14 @@ using gameVaultClassLibrary;
 
 namespace gameVaultProject
 {
-    /// <summary>
-    /// Logique d'interaction pour HomeUserControl.xaml
-    /// </summary>
     public partial class HomeUserControl : UserControl
     {
+        #region Properties
         public List<Game> RecentGames { get; set; }
         private const double durationForRecentGame = 10;
+        #endregion
 
+        #region Constructor
         public HomeUserControl(User user)
         {
             InitializeComponent();
@@ -34,7 +34,9 @@ namespace gameVaultProject
 
             InitializeHomePanel();
         }
+        #endregion
 
+        #region Methods
         public void UpdateWelcomeTitle(User user)
         {
             DateTime currentTime = DateTime.Now;
@@ -104,6 +106,7 @@ namespace gameVaultProject
 
                 SelectedGameWrapPanel.Children.Add(card);
             }
-        }
+        } 
+        #endregion
     }
 }

@@ -116,7 +116,6 @@ namespace gameVaultProject
             }
         }
 
-
         private void CreateAccountButton_Click(object sender, RoutedEventArgs e)
         {
             if (!IsFieldValidated(out string pseudo, out string password)) return;

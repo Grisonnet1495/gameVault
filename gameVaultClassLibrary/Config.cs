@@ -85,7 +85,7 @@ namespace gameVaultClassLibrary
         }
 
         // Load the setting
-        public static string LoadSetting(string keyName)
+        public static string? LoadSetting(string keyName)
         {
             RegistryKey key = Registry.CurrentUser.OpenSubKey(registryPath);
             if (key != null)
@@ -103,7 +103,7 @@ namespace gameVaultClassLibrary
             RegistryKey key = Registry.CurrentUser.OpenSubKey(registryPath, writable: true);
             if (key != null)
             {
-                key.DeleteValue(keyName, false); // false = ne lève pas d'exception si la clé n'existe pas
+                key.DeleteValue(keyName, false);
                 key.Close();
             }
         }
