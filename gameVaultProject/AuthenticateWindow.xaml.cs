@@ -10,8 +10,8 @@ namespace gameVaultProject
     public partial class AuthenticateWindow : Window
     {
         #region Properties
-        public string? Pseudo { get; set; }
-        public string? Password { get; set; }
+        public string Pseudo { get; set; }
+        public string Password { get; set; }
         private Authenticator authenticator = new Authenticator(); 
         #endregion
 

@@ -9,7 +9,6 @@ namespace gameVaultProject
         #region Properties
         public Game? SelectedGame { get; set; }
         private User currentUser;
-        //private Backup backup;
         #endregion
 
         #region Constructor
@@ -224,7 +223,7 @@ namespace gameVaultProject
         {
             TimeSpan gameTime = TimeSpan.Zero;
             DateTime lastTimePlayed = new DateTime();
-            Game bestGame = null;
+            Game? bestGame = null;
 
             // Initialize the base UI
             InfoPanelMainTitleLabel.Content = "Total hours played";
