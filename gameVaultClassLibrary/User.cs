@@ -8,8 +8,6 @@ namespace gameVaultClassLibrary
         public string Pseudo { get; set; }
         public string Password { get; set; }
         public Library Library { get; set; }
-
-
         #endregion
 
         #region Constructor

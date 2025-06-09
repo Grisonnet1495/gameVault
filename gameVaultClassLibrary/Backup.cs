@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 
 namespace gameVaultClassLibrary
 {
-    public static class Backup
+    public abstract class Backup
     {
         #region Methods
         public static void SetUpBackup(User user)

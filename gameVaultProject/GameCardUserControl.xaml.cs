@@ -18,9 +18,9 @@ namespace gameVaultProject
 
             string title = game.Title;
             // If the game title is too long
-            if (title.Length > 18)
+            if (title.Length > 15)
             {
-                title = title.Substring(0, 15) + "...";
+                title = title.Substring(0, 12) + "...";
             }
 
             TitleTextBlock.Text = title;
