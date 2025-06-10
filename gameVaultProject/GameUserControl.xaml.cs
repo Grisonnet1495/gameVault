@@ -14,7 +14,6 @@ namespace gameVaultProject
         #region Properties
         public Game Game { get; set; }
 
-        public event EventHandler LaunchGameButtonClicked;
         public event EventHandler EditGameButtonClicked;
         #endregion
 

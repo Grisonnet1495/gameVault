@@ -193,10 +193,10 @@ namespace gameVaultProject
 
         private void DeleteAllUserDataButton_Click(object sender, RoutedEventArgs e)
         {
-            if (AcceptConsequencesCheckBox.IsChecked == true)
+            if (AcceptConsequencesUserDataCheckBox.IsChecked == true)
             {
                 DeleteAllUserDataButton.IsEnabled = false;
-                AcceptConsequencesCheckBox.IsEnabled = false;
+                AcceptConsequencesUserDataCheckBox.IsEnabled = false;
 
                 // Delete all current user data
                 authenticator.RemoveUser(currentUser.Pseudo);
@@ -207,6 +207,24 @@ namespace gameVaultProject
                 // Reload the app
                 Process.Start(Process.GetCurrentProcess().MainModule.FileName);
 
+                Application.Current.Shutdown();
+            }
+            else
+            {
+                MessageBox.Show("You have to accept the risks first");
+            }
+        }
+
+        private void UninstallAppButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (AcceptConsequencesUninstallAppCheckBox.IsChecked == true)
+            {
+                // Uninstall app
+                Backup.DeleteAllAppData();
+
+                MessageBox.Show("App uninstalled successfully !", "Success", MessageBoxButton.OK);
+
+                // Close the app
                 Application.Current.Shutdown();
             }
             else
@@ -245,7 +263,7 @@ namespace gameVaultProject
 
             PseudoConfirmationTextBlock.Text = "Disponible";
             PseudoConfirmationTextBlock.Foreground = Brushes.LightGreen;
-        } 
+        }
         #endregion
     }
 }

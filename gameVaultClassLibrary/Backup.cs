@@ -166,7 +166,22 @@ namespace gameVaultClassLibrary
 
             // Delete the library file of the user
             File.Delete(Path.Combine(Config.LoadSetting(Config.appDataKey), $"{user.Pseudo}_library.xml"));
-        } 
+        }
+
+        public static void DeleteAllAppData()
+        {
+            // Delete all app data
+            try
+            {
+                Directory.Delete(Config.LoadSetting(Config.appDataKey), recursive: true);
+            }
+            catch (Exception)
+            {
+            }
+
+            // Delete all app settings
+            Config.DeleteAllSettings();
+        }
         #endregion
     }
 }

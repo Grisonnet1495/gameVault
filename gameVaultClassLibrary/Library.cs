@@ -46,6 +46,16 @@ namespace gameVaultClassLibrary
             // If the game is in the library
             if (GameList.FirstOrDefault(g => g.Id == game.Id) != null)
             {
+                if (game.ImageName != null)
+                {
+                    string imagePath = System.IO.Path.Combine(System.IO.Path.Combine(Config.LoadSetting(Config.appDataKey), Config.LoadSetting(Config.imagesFolderKey)), game.ImageName);
+
+                    if (File.Exists(imagePath))
+                    {
+                        File.Delete(imagePath);
+                    }
+                }
+
                 GameList.Remove(game);
                 return true;
             }

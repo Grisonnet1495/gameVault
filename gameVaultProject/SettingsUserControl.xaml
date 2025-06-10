@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:gameVaultProject"
              mc:Ignorable="d" 
-             d:DesignHeight="700" d:DesignWidth="800">
+             d:DesignHeight="720" d:DesignWidth="800">
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <StackPanel Margin="40, 20, 20, 20">
             <Grid Margin="10, 10, 10, 10">
@@ -22,6 +22,7 @@
 
             <Grid>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="100"/>
                     <RowDefinition Height="100"/>
                     <RowDefinition Height="100"/>
                     <RowDefinition Height="100"/>
@@ -59,8 +60,16 @@
                 <TextBlock Grid.Row="4" Grid.Column="0" Text="Delete current account data :" FontSize="16" VerticalAlignment="Center" Foreground="White" TextWrapping="Wrap"/>
                 <StackPanel Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Button x:Name="DeleteAllUserDataButton" Content="Delete" Width="100" Height="30" Background="#A80000" Foreground="White" HorizontalAlignment="Center" Style="{StaticResource SettingsButtonStyle}" Click="DeleteAllUserDataButton_Click" Cursor="Hand"/>
-                    <CheckBox x:Name="AcceptConsequencesCheckBox" VerticalAlignment="Center" Cursor="Hand">
+                    <CheckBox x:Name="AcceptConsequencesUserDataCheckBox" VerticalAlignment="Center" Cursor="Hand">
                         <TextBlock Text="I accept that I cannot recover my data after this" FontSize="14" Foreground="White" Margin="0, 0, 20, 0" TextWrapping="Wrap"/>
+                    </CheckBox>
+                </StackPanel>
+
+                <TextBlock Grid.Row="5" Grid.Column="0" Text="Uninstall app :" FontSize="16" VerticalAlignment="Center" Foreground="White" TextWrapping="Wrap"/>
+                <StackPanel Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Button x:Name="UninstallAppButton" Content="Uninstall" Width="110" Height="30" Background="#A80000" Foreground="White" HorizontalAlignment="Center" Style="{StaticResource SettingsButtonStyle}" Click="UninstallAppButton_Click" Cursor="Hand"/>
+                    <CheckBox x:Name="AcceptConsequencesUninstallAppCheckBox" VerticalAlignment="Center" Cursor="Hand">
+                        <TextBlock Text="I accept that I cannot recover any data from the app after this" FontSize="14" Foreground="White" Margin="0, 0, 20, 0" TextWrapping="Wrap"/>
                     </CheckBox>
                 </StackPanel>
             </Grid>

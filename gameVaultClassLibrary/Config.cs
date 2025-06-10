@@ -115,7 +115,22 @@ namespace gameVaultClassLibrary
             {
                 return key?.GetValue(keyName) != null;
             }
-        } 
+        }
+
+        // Delete all settings
+        public static bool DeleteAllSettings()
+        {
+            try
+            {
+                Registry.CurrentUser.DeleteSubKeyTree(registryPath, throwOnMissingSubKey: false);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            return true;
+        }
         #endregion
     }
 }
