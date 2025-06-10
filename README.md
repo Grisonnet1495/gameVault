@@ -9,7 +9,7 @@ It was developed as part of a second-year C# course at HEPL (Belgium).
 
 Authentication window :
 
-![image](https://github.com/user-attachments/assets/02d3db95-1a46-4328-8907-19b7a80d9fad)
+![image](https://github.com/user-attachments/assets/1306ed74-99e0-404b-8227-0df8cc35f592)
 
 Home :
 
