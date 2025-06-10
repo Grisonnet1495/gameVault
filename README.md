@@ -38,6 +38,10 @@ You can also recompile it yourself with Visual Studio by cloning this project.
 Known issues:
 - Cannot open a game contained in a read-only program folder.
 
+## Uninstall the app :
+
+To uninstall the app, please go in the app settings, and click on the 'Uninstall" button.
+
 ## Copyright:
 You are free to compile and modify this project for personal use as long as you credit the original developers.
 
