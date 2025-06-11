@@ -7,7 +7,7 @@ using Microsoft.Win32;
 
 namespace gameVaultClassLibrary
 {
-    public abstract class Config
+    public static class Config
     {
         #region Properties
         public const string registryPath = @"Software\gameVault"; // App registry path
@@ -63,16 +63,10 @@ namespace gameVaultClassLibrary
                 imagesFolderFilePath = Path.Combine(LoadSetting(appDataKey), LoadSetting(imagesFolderKey));
             }
 
-            // Create the app data directory if it doesn't exit
+            // Create the image folder if it doesn't exit
             if (!Directory.Exists(imagesFolderFilePath))
             {
                 Directory.CreateDirectory(imagesFolderFilePath);
-            }
-
-            // Create the images directory if it doesn't exit
-            if (!Directory.Exists(Config.LoadSetting(imagesFolderKey)))
-            {
-                Directory.CreateDirectory(Config.LoadSetting(imagesFolderKey));
             }
         }
 
